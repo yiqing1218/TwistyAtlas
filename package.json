@@ -4,6 +4,8 @@
   "version": "1.3.0",
   "type": "module",
   "description": "Twisty Atlas — 魔方公式库、真实三维动作图谱与 csTimer 风格计时器",
+  "license": "MIT",
+  "author": "yiqing1218",
   "main": "electron/main.cjs",
   "scripts": {
     "dev": "vite",

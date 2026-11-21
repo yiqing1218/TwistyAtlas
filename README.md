@@ -198,3 +198,13 @@ node scripts/shot-mobile.mjs
 
 WebGL2 + IndexedDB + ES2022。已在 Chromium（Playwright 自带 `chromium` 通道，
 SwiftShader 软件渲染）与 Electron 45 下完成验证。
+
+---
+
+## 许可证
+
+[MIT](LICENSE) © 2026 yiqing1218
+
+使用的第三方库（Vue、Vite、cubing.js、Dexie、Electron、Capacitor 等）各自保留原许可证，
+完整清单见各依赖仓库。内置公式数据来自公开魔方站点，来源与逐套署名见
+[`docs/DATA_SOURCES.md`](docs/DATA_SOURCES.md)。
