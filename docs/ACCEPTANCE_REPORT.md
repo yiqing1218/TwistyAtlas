@@ -664,3 +664,237 @@ capacitor.config.ts + android/                            安卓工程（新）
 docs/{ARCHITECTURE,PACKAGING,DATA_SOURCES}.md              架构 / 打包 / 数据文档（新）
 e2e/{timer,sets}.spec.ts                                  计时器与公式集用例（新）
 ```
+
+---
+
+# v1.3 增补验收：公式再扩充 · 计时器可编辑导出 · 演示底面 · 手机端界面重做
+
+本阶段对应需求原文：
+
+> 「再找找公式再补全一下，我觉得你还可以做得更好……总之就是再尽可能的增添公式，正确的公式」
+> 「你的计时界面应该增加一个导出功能，而且每个成绩都是可以删除，有些可以编辑加 2 等等」
+> 「你可以搜一下 CS Timer 这个网站，然后学习学习」
+> 「你演示公式的时候可以规定什么当底，比如说你现在一直是黄色底，那有些人可能是蓝色底，有些人是白色底」
+> 「你的安卓 APP 页面做的特别不好，电脑的应用和手机的应用界面应该是不一样的，手机里所有的导航栏都放在最上面，在全面屏手机里根本点不着」
+> 「你这不同的页面，就是不能需要上下滑动……大的页面应该是固定的，小的页面可以上下滑动」
+> 「减少冗余的东西、减少重复性的东西，手机版就保留核心的东西，当然功能也要强大，但界面上不要弄得太复杂」
+
+## 1. 公式集再扩充（已完成）
+
+```
+sets     12 → 37
+cases    807 → 2433
+algs     7468 → 13667   （structural 9357 / parsed 4310）
+rejected 68 → 399      （逐条记录在 data/verified/rejected.json）
+```
+
+新增 25 套，覆盖三阶进阶体系、二阶全系、金字塔、五魔方、SQ-1：
+
+| 分类 | 新增集合 |
+|---|---|
+| 三阶进阶 | VLS 189、ZBLS 291、OLLCP 342、CLS 97、SBLS 65、SV 27、CMLL 42、ELL 25、Advanced F2L 54、Pseudo F2L 33 |
+| 二阶 | EG-1 40、EG-2 40、Ortega OLL 7、Ortega PBL 9 |
+| 金字塔 | L4E 49 |
+| 五魔方 | CO 16、CP 15、EO 3、EP 5、PLL 151 |
+| SQ-1 | CO 7、CP 8、EO 7、EP 99、Parity 5 |
+
+### 数据来源的关键突破
+
+v1.2 阶段判定「VLS 无结构化公开数据」，尝试过 J Perm（404）、SpeedCubeDB（无 `formatted-alg`）、
+speedcube.quest（React Flight payload）。
+
+本轮先用无头浏览器抓页面自己发出的 XHR，发现 **CubeRoot 的公开 JSON 接口**
+（`GET https://api.cuberoot.me/v1/alg/sets/<puzzle>/<set>`），
+新增 `scripts/data/fetch-cuberoot.mjs` 把 26 个集合落盘到 `data/raw/cuberoot/`，
+再由 `scripts/data/parse-cuberoot.mjs` 离线解析。VLS 189 例由此补上。
+
+### 判据的调整（不是放宽，是换成更严格的）
+
+CubeRoot 的集合自带 `setup`，且每个 case 有明确的意图。对这类集合采用**闭合判据**：
+
+```
+solved · setup · alg · [AUF] == solved      AUF ∈ { '', 'U', 'U2', "U'" }
+```
+
+比"前两层还原"这类子目标判据更严格——它直接要求整条链路闭合。
+通不过 AUF 搜索的记为 `parsed`，页面显示「仅语法校验」，不冒充已验证。
+Square-1 的 `1,0/3,0` 记号在解析前统一归一化成 `(1,0) / (3,0)`。
+
+### 证据
+
+```bash
+$ npm run data:build
+sets 37 / cases 2433 / algs 13667  (structural 9357, parsed 4310, rejected 399)
+
+$ npx playwright test e2e/sets.spec.ts
+公式集列表与案例可加载到真实播放器     ok
+搜索可以过滤案例                     ok
+新增的进阶与异形集合都能加载到真实播放器  ok
+```
+
+## 2. 计时器：导出 + 逐条编辑（已完成）
+
+对照 csTimer 的实际操作习惯补齐：
+
+| 能力 | 实现 |
+|---|---|
+| 导出 | 工具条三个格式：CSV（Excel 直接打开）/ JSON（完整字段）/ 纯文本（对齐表）；文件名单带项目名与日期 |
+| 单条 +2 | 行内 `+2` 按钮切换，统计、ao5、历史列表实时重算 |
+| 单条 DNF | 行内 `DNF` 按钮切换，DNF 参与均值时按 WCA 规则剔除或整体判 DNF |
+| 单条删除 | 行内删除按钮；`Delete` 键删除最后一条 |
+| 统计扩展 | 新增 ao50 / ao100 与最佳 ao50 |
+| 操作反馈 | 每次操作弹出提示条，误触可立刻看出结果 |
+
+导出逻辑放在 `src/application/timer/exportSolves.ts`，是**纯函数**（输入成绩数组，输出字符串），
+所以 CSV 转义、`+2` 换算、DNF 文案都能被单测逐字段断言（`src/tests/exportSolves.test.ts`，6 例）。
+
+```
+CSV 表头：序号,项目,时间,原始用时(ms),判罚,打乱,时间戳
+DNF 写 "DNF"；+2 写 (ms+2000)/1000；含逗号/引号的字段做 RFC4180 转义
+```
+
+## 3. 演示底面（已完成）
+
+六个选项：黄（默认）/ 白 / 蓝 / 绿 / 红 / 橙，工具栏下拉切换，设置持久化，切换后立即重载。
+
+实现不是"转镜头"，而是**共轭变换**：
+
+```
+A' = R · A · R⁻¹     R: yellow:'' white:'x2' blue:'x' green:"x'" red:'z' orange:"z'"
+初始态同样变换
+```
+
+因此终态仍然是复原态，只是整体朝向不同。这条性质被写成硬断言：
+`e2e/orientation.spec.ts` 切换白底后播放到终点，向播放器要真实 KPuzzle 状态，必须等于复原态。
+
+## 4. 手机端界面重做（已完成）
+
+需求的三点：导航不能在顶部、页面不能整页滚动、手机版要去冗余。
+
+### 4.1 导航移到底部
+
+```
+≤760px：.app-nav（顶部）display:none；.app-tabbar（底部）显示，4 个页签
+        padding-bottom: calc(4px + env(safe-area-inset-bottom))   全面屏手势区让位
+        每项 min-height 48px，图标 + 文字
+```
+
+手机端页签为 计时器 / 公式集 / 公式库 / 设置；桌面三栏「工作台」不占底部空间，
+手机访问 `#/` 会重定向到 `#/sets`。
+
+### 4.2 大页面固定、小页面内部滚动
+
+```
+html, body, #app { height:100%; overflow:hidden }   ← 手机上整页锁死
+.app-shell { height:100dvh; overflow:hidden }
+只有列表类区域内部滚动：.cases-pane / .library__list / .settings
+```
+
+`scripts/shot-mobile.mjs` 逐页量化巡检（390×844 与 360×800 各 6 页）：
+
+```
+入口 /          hash=#/sets    vScroll=0 hScroll=0 tabbar=787..844 (vh=844)
+公式集          hash=#/sets    vScroll=0 hScroll=0 tabbar=787..844
+计时器          hash=#/timer   vScroll=0 hScroll=0 tabbar=787..844
+公式库          hash=#/library vScroll=0 hScroll=0 tabbar=787..844
+公式详情        hash=#/formula vScroll=0 hScroll=0 tabbar=787..844
+设置            hash=#/settings vScroll=0 hScroll=0 tabbar=787..844
+全部页面：整页无滚动、无横向溢出、底部页签可见
+```
+
+### 4.3 去冗余
+
+| 页面 | 去掉的东西 |
+|---|---|
+| 公式集 | 重复的页名标题、统计数字（案例数/条数/生成日期）、案例详情里的来源行与长公式列表；37 个 pill 从"按类换行占 4 行"压成「一行可横滑」 |
+| 公式库 | 重复的「新建公式」（列表面板已有「新建」）、重复的条数徽标、并排的详情面板（改为点进单条详情页） |
+| 详情 / 计时器 | 重复页名；计时器统计表只保留 时间 / ao5 / ao12 / 还原 四行 |
+| 设置 | 重复页名、配色长解释段落；能力矩阵只留「魔方 / 状态 / 说明」三列 |
+
+### 4.4 顺带修掉的显示缺陷
+
+- **大计时被裁切**：`0.000` 这类 5 字符值在 360px 屏上宽度超过容器。
+  给 `SevenSegmentDisplay` 加 `fluid` 模式（`width:100%` + `max-height`），
+  位数变多时自动等比缩小，`1:23.456` 也不会出界。
+- **打乱被截断**：原来 `max-height: 2.4em; overflow: hidden` 会把打乱从中间切掉。
+  打乱是必须完整可见的信息，改为自然折行。
+
+## 5. 本轮定位并修复的两个真实 bug
+
+### 5.1 设置写不进库（`DataCloneError`）
+
+现象：「切换底面后刷新又回到黄底」，`e2e/orientation.spec.ts` 第三条用例失败。
+
+根因：`writeSettingsRow(this.settings)` 传进去的是 Pinia 的**响应式 Proxy**，
+IndexedDB 的结构化克隆无法克隆 Proxy，写库抛 `DataCloneError`；
+异常被 `try/catch` 吞进 `saveError`，界面上看不出来。
+
+修复：写库前先做一次 JSON 往返转成普通对象（`database.ts`）。
+其余仓储（formula / solve）本来就做了 `toPlain`，只有 settings 漏了。
+
+### 5.2 单条公式详情页永远停在「正在读取公式…」
+
+根因：路由 `/formula/:id` 没有开 `props: true`，页面里 `defineProps<{ id: string }>()`
+拿到的 `id` 恒为 `undefined`，`getFormula(undefined)` 抛错后 `loading` 再也没被置回 false。
+
+修复：路由加 `props: true`；`loadRecord` 补 `try/catch/finally`，失败也要退出 loading 并给出错误文案。
+新增用例 `e2e/mobile.spec.ts` E09e 覆盖「从公式库点一条进详情页」。
+
+## 6. 回归结果
+
+```
+$ npm run typecheck          # 通过
+$ npm run check:arch
+架构检查通过：58 个文件，未发现违规依赖。
+
+$ npx vitest run
+Test Files  7 passed (7)
+     Tests  108 passed (108)        # 108（v1.2 为 96，新增 exportSolves 6 + orientation 5 + ao50/ao100 1）
+
+$ npx playwright test
+42 passed (1.8m)                    # 桌面项目 36 + 移动项目 6
+
+$ node scripts/verify-dist.mjs
+DIST SMOKE: PASS                    # canvas 684×493 / 4 张卡片 / SW 已注册 43 条缓存 / 0 failure
+
+$ npm run desktop:build
+out/TwistyAtlas/TwistyAtlas.exe     # 366.9 MB，dist/index.html 与 out/.../resources/app/dist 哈希一致，版本 1.3.0
+
+$ npm run android:apk
+BUILD SUCCESSFUL in 56s
+out/TwistyAtlas-1.3.0-android-debug.apk   # 5.1 MB，assets/public/index.html 与 dist 哈希一致
+```
+
+## 7. 本阶段新增/变更文件
+
+```
+src/domain/model/orientation.ts                      演示底面的共轭旋转（新）
+src/application/timer/exportSolves.ts                成绩导出纯函数（新）
+src/presentation/composables/useViewport.ts          手机断点判断（新）
+src/presentation/App.vue                             底部页签 + 移动端固定视口
+src/presentation/router/index.ts                     手机端 #/ 重定向；/formula/:id 开 props
+src/presentation/views/{Sets,Library,FormulaDetail,Timer,Settings}View.vue  移动端布局重排
+src/presentation/components/PlaybackToolbar.vue      底面下拉
+src/presentation/components/timer/SevenSegmentDisplay.vue  fluid 自适应宽度
+src/presentation/components/PuzzlePicker.vue         手机端去掉重复状态徽标
+src/infrastructure/persistence/database.ts           修 settings 的 DataCloneError
+src/data/algsets.json                                37 套公式集（生成物，已更新）
+scripts/data/{fetch-cuberoot,parse-cuberoot}.mjs     CubeRoot 抓取与解析（新）
+scripts/data/build-dataset.mjs                       新增 SRC-CUBEROOT 与分类映射
+scripts/shot-mobile.mjs                              手机端逐页截图 + 布局量化巡检（新）
+e2e/{mobile,orientation,timer-edit}.spec.ts          移动端 / 底面 / 成绩编辑用例（新）
+src/tests/{exportSolves,orientation}.test.ts         对应单测（新）
+docs/{README,ARCHITECTURE,PACKAGING,DATA_SOURCES}.md 文档同步
+```
+
+## 8. 未完成与风险
+
+1. **安卓包仍未上真机**：本机无 AVD、无连接设备。手机端布局的验证是浏览器视口
+   （390×844 / 360×800，含安全区模拟），不等于 Android WebView 的真实渲染。
+2. **HLS 仍未收录**：CubeRoot 也没有对应集合，公开来源只有视频/PDF。
+3. **进阶集合 `parsed` 占比偏高**：ZBLS 1386 / OLLCP 912 / adv-f2l 552 条只到「仅语法校验」，
+   原因是 AUF 搜索只试了 `U / U2 / U'` 三种，部分 case 的 AUF 超出这个范围。
+   页面如实标注，没有冒充已验证。
+4. **手机端横屏未专门优化**：播放器高度按 `vh` 计算，横屏下可视区域偏小。
+5. **手机端 `#/` 重定向依赖 `matchMedia` 同步判断**：桌面浏览器窗口被拖窄到 760px 以下时，
+   当前页面不会自动跳转（重新导航才会）。这是刻意取舍：避免拖窗口时页面突然跳走。

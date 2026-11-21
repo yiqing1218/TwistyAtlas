@@ -15,6 +15,7 @@ import { resolve, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { parseJpermFile } from './parse-jperm.mjs';
 import { parseScdbCasesWithSetup, parseScdbFlatList } from './parse-scdb.mjs';
+import { parseCuberootSet } from './parse-cuberoot.mjs';
 import { kpuzzleOf, analyzePattern, uLayerIndexSets, transform, residualAlgText } from './engine.mjs';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '../..');
@@ -53,6 +54,18 @@ const SOURCES = [
     language: 'en',
     format: 'JS 数据文件',
     licenseNote: '公开 GitHub 仓库；按仓库可见内容摘录公式文本并署名作者。',
+    accessedAt: ACCESSED_AT,
+  },
+  {
+    id: 'SRC-CUBEROOT',
+    siteName: 'CubeRoot',
+    homeUrl: 'https://cuberoot.me/',
+    pageUrl: 'https://cuberoot.me/alg/3x3/vls',
+    language: 'en',
+    format: 'JSON API',
+    licenseNote:
+      '站点公开的公式库接口（api.cuberoot.me/v1/alg/sets）。仅摘录公式文本、案例名与 setup，' +
+      '并逐条用 cubing.js 重新校验；未复制其页面排版、图示与说明文字。',
     accessedAt: ACCESSED_AT,
   },
 ];
@@ -222,12 +235,81 @@ for (const cfg of [
   });
 }
 
+/* ---------- cuberoot：VLS / ZBLS / OLLCP / 二阶 EG / 异形 ---------- */
+const CUBEROOT_PUZZLE = {
+  '3x3': '3x3x3',
+  '2x2': '2x2x2',
+  pyraminx: 'pyraminx',
+  megaminx: 'megaminx',
+  sq1: 'square1',
+};
+
+const CUBEROOT_SETS = [
+  { file: '3x3__vls.json', puzzle: '3x3', id: 'vls', name: 'VLS', nameZh: 'VLS · 最后槽顺便定向', category: '3x3-advanced' },
+  { file: '3x3__zbls.json', puzzle: '3x3', id: 'zbls', name: 'ZBLS', nameZh: 'ZBLS · 最后槽 + 顶层棱块定向', category: '3x3-advanced' },
+  { file: '3x3__ollcp.json', puzzle: '3x3', id: 'ollcp', name: 'OLLCP', nameZh: 'OLLCP · 定向 + 角块排列', category: '3x3-advanced' },
+  { file: '3x3__cls.json', puzzle: '3x3', id: 'cls', name: 'CLS', nameZh: 'CLS · 最后槽角块', category: '3x3-advanced' },
+  { file: '3x3__sbls.json', puzzle: '3x3', id: 'sbls', name: 'SBLS', nameZh: 'SBLS · Roux 第二块最后槽', category: '3x3-advanced' },
+  { file: '3x3__sv.json', puzzle: '3x3', id: 'sv', name: 'SV', nameZh: 'SV · 夏季变体', category: '3x3-advanced' },
+  { file: '3x3__cmll.json', puzzle: '3x3', id: 'cmll', name: 'CMLL', nameZh: 'CMLL · Roux 顶层角块', category: '3x3-advanced' },
+  { file: '3x3__ell.json', puzzle: '3x3', id: 'ell', name: 'ELL', nameZh: 'ELL · 顶层棱块（棱块已定向）', category: '3x3-advanced' },
+  { file: '3x3__adv-f2l.json', puzzle: '3x3', id: 'adv-f2l', name: 'Advanced F2L', nameZh: 'AF2L · 进阶 F2L', category: '3x3-advanced' },
+  { file: '3x3__psf2l.json', puzzle: '3x3', id: 'psf2l', name: 'Pseudo F2L', nameZh: 'PSF2L · 伪槽 F2L', category: '3x3-advanced' },
+  { file: '2x2__eg1.json', puzzle: '2x2', id: 'eg1-2x2', name: 'EG-1', nameZh: '二阶 EG-1', category: '2x2' },
+  { file: '2x2__eg2.json', puzzle: '2x2', id: 'eg2-2x2', name: 'EG-2', nameZh: '二阶 EG-2', category: '2x2' },
+  { file: '2x2__ortega-oll.json', puzzle: '2x2', id: 'ortega-oll', name: 'Ortega OLL', nameZh: '二阶 Ortega OLL', category: '2x2' },
+  { file: '2x2__ortega-pbl.json', puzzle: '2x2', id: 'ortega-pbl', name: 'Ortega PBL', nameZh: '二阶 Ortega PBL', category: '2x2' },
+  { file: 'pyraminx__l4e.json', puzzle: 'pyraminx', id: 'pyra-l4e', name: 'L4E', nameZh: '金字塔 L4E', category: 'exotic' },
+  { file: 'megaminx__co.json', puzzle: 'megaminx', id: 'mega-co', name: 'Megaminx CO', nameZh: '五魔方 CO · 角块定向', category: 'exotic' },
+  { file: 'megaminx__cp.json', puzzle: 'megaminx', id: 'mega-cp', name: 'Megaminx CP', nameZh: '五魔方 CP · 角块排列', category: 'exotic' },
+  { file: 'megaminx__eo.json', puzzle: 'megaminx', id: 'mega-eo', name: 'Megaminx EO', nameZh: '五魔方 EO · 棱块定向', category: 'exotic' },
+  { file: 'megaminx__ep.json', puzzle: 'megaminx', id: 'mega-ep', name: 'Megaminx EP', nameZh: '五魔方 EP · 棱块排列', category: 'exotic' },
+  { file: 'megaminx__full-pll.json', puzzle: 'megaminx', id: 'mega-pll', name: 'Megaminx PLL', nameZh: '五魔方 PLL · 顶层完整排列', category: 'exotic' },
+  { file: 'sq1__co.json', puzzle: 'sq1', id: 'sq1-co', name: 'SQ-1 CO', nameZh: 'SQ-1 CO · 角块定向', category: 'exotic' },
+  { file: 'sq1__cp.json', puzzle: 'sq1', id: 'sq1-cp', name: 'SQ-1 CP', nameZh: 'SQ-1 CP · 角块排列', category: 'exotic' },
+  { file: 'sq1__eo.json', puzzle: 'sq1', id: 'sq1-eo', name: 'SQ-1 EO', nameZh: 'SQ-1 EO · 棱块定向', category: 'exotic' },
+  { file: 'sq1__ep.json', puzzle: 'sq1', id: 'sq1-ep', name: 'SQ-1 EP', nameZh: 'SQ-1 EP · 棱块排列', category: 'exotic' },
+  { file: 'sq1__parity.json', puzzle: 'sq1', id: 'sq1-parity', name: 'SQ-1 Parity', nameZh: 'SQ-1 Parity', category: 'exotic' },
+];
+
+for (const cfg of CUBEROOT_SETS) {
+  const path = raw('cuberoot', cfg.file);
+  if (!existsSync(path)) {
+    console.log(`跳过缺失文件：${cfg.file}`);
+    continue;
+  }
+  const parsed = await parseCuberootSet(path, {
+    puzzleId: CUBEROOT_PUZZLE[cfg.puzzle],
+    puzzle: cfg.puzzle,
+  });
+  for (const r of parsed.rejected) rejected.push({ setId: cfg.id, ...r });
+  if (parsed.cases.length === 0) {
+    console.log(`cuberoot ${cfg.id}：没有可校验案例，跳过`);
+    continue;
+  }
+  sets.push({
+    id: cfg.id,
+    puzzleId: CUBEROOT_PUZZLE[cfg.puzzle],
+    name: cfg.name,
+    nameZh: cfg.nameZh,
+    category: cfg.category,
+    sourceId: 'SRC-CUBEROOT',
+    // 每条公式都带自己的 setup，页面按「该公式解的那个状态」起播
+    setupMode: 'explicit',
+    preVerified: true,
+    cases: parsed.cases,
+  });
+}
+
 /* ---------- 校验 ---------- */
 const stats = { totalCases: 0, totalAlgs: 0, verified: 0, parsedOnly: 0, rejected: 0, bySet: {} };
 
 for (const set of sets) {
   const kp = await kpuzzleOf(set.puzzleId);
-  const uSets = await uLayerIndexSets(set.puzzleId);
+  // U 层下标探测依赖 `U` 这一手，Square-1 之类的魔方没有同名「面转」，
+  // 因此改成按需计算：只有真的要用三阶判据时才去探测。
+  let uSetsCache = null;
+  const uSetsOf = async () => (uSetsCache ??= await uLayerIndexSets(set.puzzleId));
   const solved = kp.defaultPattern();
   const rule = RULES[set.id] ?? {};
   const setStat = { cases: 0, algs: 0, rejected: 0, levels: { structural: 0, parsed: 0 } };
@@ -243,6 +325,15 @@ for (const set of sets) {
       seenAlgs.add(dedupeKey);
 
       try {
+        // cuberoot 系列已经在 parse-cuberoot.mjs 里用「setup + 公式 = 复原」验证过，
+        // 这里只做去重与统计，不重复判定（避免通用规则覆盖更精确的结论）。
+        if (set.preVerified) {
+          const level = item.level === 'structural' ? 'structural' : 'parsed';
+          keptAlgs.push({ alg: algText, level, setupAlg: item.setupAlg ?? '' });
+          setStat.levels[level] += 1;
+          continue;
+        }
+
         // L1：解析 + 合法性。结构判定用「净旋转归零」后的等价公式，
         // 避免整体旋转把块搬到别的槽位而污染"是否只动顶层"的判定；展示仍用原公式。
         const checkText = residualAlgText(algText) || algText;
@@ -255,7 +346,7 @@ for (const set of sets) {
 
         let edgeIdentityFlag;
         if (rule.requireF2l || rule.requireOriented || rule.requireEdgeIdentity || rule.requireEdgeOriented) {
-          const a = analyzePattern(result, uSets);
+          const a = analyzePattern(result, await uSetsOf());
           if (rule.flagEdgeIdentity) edgeIdentityFlag = a.llEdgesIdentity;
           if (rule.requireF2l && !a.f2lSolved) { ok = false; reason = '执行后前两层未还原'; }
           if (ok && rule.requireOriented && !a.llOriented) { ok = false; reason = '执行后顶层未完全定向'; }
@@ -271,7 +362,7 @@ for (const set of sets) {
               const withSetup = solved
                 .applyTransformation(kp.algToTransformation(candidate))
                 .applyTransformation(t);
-              if (analyzePattern(withSetup, uSets).f2lSolved) {
+              if (analyzePattern(withSetup, await uSetsOf()).f2lSolved) {
                 matchedSetup = candidate;
                 break;
               }
@@ -321,7 +412,7 @@ for (const set of sets) {
 }
 stats.rejected = rejected.length;
 
-/** 页面上的展示顺序：先 CFOP 主线，再派生体系，最后其他阶数 */
+/** 页面上的展示顺序：CFOP 主线 → 三阶进阶 → 二阶 → 高阶 → 异形 */
 const DISPLAY_ORDER = [
   'cfop-oll',
   'cfop-pll',
@@ -331,11 +422,53 @@ const DISPLAY_ORDER = [
   'coll',
   'wv',
   'zbll',
+  'vls',
+  'zbls',
+  'ollcp',
+  'cls',
+  'sbls',
+  'sv',
+  'cmll',
+  'ell',
+  'adv-f2l',
+  'psf2l',
   'cll-2x2',
+  'eg1-2x2',
+  'eg2-2x2',
+  'ortega-oll',
+  'ortega-pbl',
   'parity-4x4-oll',
   'parity-4x4-pll',
   'l2e-5x5',
+  'pyra-l4e',
+  'mega-co',
+  'mega-cp',
+  'mega-eo',
+  'mega-ep',
+  'mega-pll',
+  'sq1-co',
+  'sq1-cp',
+  'sq1-eo',
+  'sq1-ep',
+  'sq1-parity',
 ];
+
+/** 集合 → 界面分组（公式集页按组折叠，避免几十个 pill 挤成一团） */
+const CATEGORY_OF = {
+  'cfop-oll': '3x3-cfop',
+  'cfop-pll': '3x3-cfop',
+  'cfop-2look-oll': '3x3-cfop',
+  'cfop-2look-pll': '3x3-cfop',
+  f2l: '3x3-cfop',
+  coll: '3x3-advanced',
+  wv: '3x3-advanced',
+  zbll: '3x3-advanced',
+  'cll-2x2': '2x2',
+  'parity-4x4-oll': 'big',
+  'parity-4x4-pll': 'big',
+  'l2e-5x5': 'big',
+  'pyra-l4e': 'exotic',
+};
 
 const payload = {
   generatedAt: new Date().toISOString(),
@@ -343,6 +476,7 @@ const payload = {
   sources: SOURCES,
   sets: sets
     .filter((s) => s.cases.length > 0)
+    .map((s) => ({ ...s, category: s.category ?? CATEGORY_OF[s.id] ?? '3x3-advanced' }))
     .sort((a, b) => {
       const ia = DISPLAY_ORDER.indexOf(a.id);
       const ib = DISPLAY_ORDER.indexOf(b.id);

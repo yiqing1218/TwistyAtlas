@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>魔方公式总表（CFOP/层先法）· 卷王魔方</title>
+<meta name="description" content="三阶魔方 CFOP 与层先法公式总表：F2L、OLL、PLL 全公式速查，配分步图解，新手到进阶必备的魔方公式速查页。" />
+<meta name="keywords" content="魔方公式,CFOP公式,层先法公式,F2L,OLL,PLL,三阶魔方公式总表,魔方公式速查" />
+<meta property="og:title" content="魔方公式总表（CFOP/层先法）" />
+<meta property="og:description" content="三阶魔方 CFOP 与层先法公式总表，配分步图解，速查速记。" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://www.juanwangdev.cn/cube/algs" />
+<link rel="canonical" href="https://www.juanwangdev.cn/cube/algs" />
+<style>
+  /* 公式总表页：与 cube.html / cube-help.html 同一套暗金 + 深色玻璃语言。
+     每一条 CFOP 公式的「情形图」由 src_cube/caseDiagram.js 运行时现画成内联 SVG（零图片文件），
+     所以 file:// 也能开、永远和公式数据同步、以后加/改公式不用重新出图。
+     注意：案例数据（cfop/*.json）与训练一样需要 http 才能 fetch，file:// 下会给出明确提示。 */
+  :root{
+    --gold:#EBB732; --gold-lt:#F4CE63; --gold-dk:#E0A92A;
+    --bg0:#0F1115; --bg1:#171A1F; --txt:#F0E6C8; --txt-dim:#8C8F98;
+    --stroke:rgba(235,183,50,0.28); --line:rgba(200,210,225,.13);
+  }
+  *{ box-sizing:border-box; }
+  html{ background:var(--bg0); }
+  body{
+    margin:0; min-height:100%;
+    background:
+      radial-gradient(125% 70% at 50% 0%, #1D222A 0%, #14161A 42%, #0A0C0F 100%), var(--bg0);
+    color:var(--txt);
+    font-family:"PingFang SC","Microsoft YaHei",system-ui,-apple-system,sans-serif;
+    -webkit-font-smoothing:antialiased; -webkit-tap-highlight-color:transparent;
+  }
+  body::before{
+    content:""; position:fixed; inset:0; z-index:0; pointer-events:none;
+    background:radial-gradient(58% 40% at 50% 26%, rgba(235,183,50,0.075), rgba(0,0,0,0) 72%);
+  }
+  #head{
+    position:sticky; top:0; z-index:5;
+    padding:14px 22px 12px;
+    background:linear-gradient(180deg, rgba(13,15,19,.92), rgba(13,15,19,.62) 70%, rgba(13,15,19,0));
+    backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px);
+    border-bottom:1px solid rgba(200,210,225,.07);
+  }
+  /* 标题 + 文档链接同一行（与 cube.html 同款连接方式）：链接跟在标题后面，
+     放得下就整排显示，放不下自动折行（不再用胶囊按钮占一行）。 */
+  #head .titlerow{ display:flex; align-items:baseline; gap:14px; flex-wrap:wrap; }
+  #head .title{ flex:none; font-size:19px; font-weight:600; letter-spacing:.14em; color:var(--gold); text-shadow:0 0 18px rgba(235,183,50,.32); }
+  #head .doclinks{ display:flex; align-items:center; gap:16px; flex-wrap:wrap; }
+  /* 与 cube.html 的 .helplink 同一张脸：文字链接（非按钮），更窄、一行能多放一颗。
+     做成通用类：header 与 footer 同一套样式，保持一致。 */
+  .helplink{
+    font-size:12px; font-weight:400; letter-spacing:.04em;
+    text-decoration:none; white-space:nowrap;
+    color:rgba(244,206,99,.82);
+    transition:color .12s ease;
+  }
+  .helplink:hover{ color:var(--gold-lt); text-decoration:underline; text-underline-offset:3px; }
+  #head .sub{ margin-top:7px; font-size:12px; font-weight:400; letter-spacing:.05em; color:var(--txt-dim); max-width:820px; line-height:1.6; }
+  #head .sub b{ color:rgba(244,206,99,.92); font-weight:600; }
+  /* F2L/OLL/PLL 速查链接：跳到页内对应分区（锚点由 algsPage.js 渲染时挂 #sec-f2l 等） */
+  #head .sub.jumpnav{ display:flex; align-items:center; gap:14px; margin-top:9px; }
+  #head .sub .qn{
+    font-size:14px; font-weight:600; letter-spacing:.1em;
+    text-decoration:none; color:var(--gold-lt);
+    border-bottom:1px dashed rgba(235,183,50,.4); padding-bottom:1px;
+    transition:color .12s ease, border-color .12s ease;
+  }
+  #head .sub .qn:hover{ color:#fff0c8; border-bottom-color:rgba(244,206,99,.85); }
+  /* 平滑滚动到锚点；scroll-padding 补偿 sticky header 的遮挡（锚点分区不被顶栏盖住） */
+  html{ scroll-behavior:smooth; scroll-padding-top:92px; }
+
+  main{ position:relative; z-index:1; max-width:1180px; margin:0 auto; padding:24px 22px 64px; }
+  .total{ margin:6px 0 22px; font-size:13px; color:var(--txt-dim); }
+  .total b{ color:rgba(244,206,99,.92); }
+
+  .alg-sec{ margin-bottom:40px; }
+  .alg-sec-title{ margin:0 0 4px; font-size:21px; font-weight:600; letter-spacing:.06em; color:var(--gold); }
+  .alg-sec-sub{ margin:0 0 16px; font-size:13px; color:var(--txt-dim); }
+  .alg-group{ margin:18px 0 9px; font-size:12px; letter-spacing:.05em; color:rgba(240,230,200,.44); }
+  .alg-grid{ display:grid; grid-template-columns:repeat(auto-fill, minmax(120px, 1fr)); gap:13px; }
+
+  /* 卡片本身是 <a href="cube.html?drill=…&case=…">：点一下就到训练页练这一例
+     （所以要抹掉链接默认样式，且点击区域＝整张卡） */
+  .alg-card{ display:flex; flex-direction:column; align-items:center; gap:6px; padding:13px 8px 10px;
+    border-radius:13px; background:rgba(255,255,255,.03); border:1px solid rgba(200,210,225,.10);
+    text-decoration:none; color:inherit;
+    transition:border-color .12s ease, background .12s ease, transform .12s ease; }
+  .alg-card:hover{ border-color:rgba(235,183,50,.45); background:rgba(235,183,50,.07); transform:translateY(-1px); }
+  .alg-card:focus-visible{ outline:2px solid rgba(244,206,99,.7); outline-offset:2px; }
+  /* 「练这一例」提示：常显（触屏没有 hover），悬停时变醒目 */
+  .alg-go{ margin-top:1px; font-size:10px; letter-spacing:.08em; color:rgba(240,230,200,.34); }
+  .alg-card:hover .alg-go{ color:var(--gold-lt); }
+  .alg-thumb{ width:88px; height:88px; border-radius:11px; overflow:hidden; background:#15171c;
+    border:1px solid rgba(200,210,225,.10); }
+  .alg-thumb svg{ display:block; width:100%; height:100%; }
+  .alg-thumb-fallback{ width:88px; height:88px; display:flex; align-items:center; justify-content:center;
+    font-size:14px; color:rgba(240,230,200,.5); }
+  .alg-id{ font-size:13px; font-weight:600; color:var(--gold-lt); }
+  .alg-name{ font-size:11px; color:rgba(240,230,200,.5); }
+  .alg-formula{ font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; font-size:12px;
+    color:rgba(240,230,200,.82); text-align:center; word-break:break-word; line-height:1.4; }
+
+  .notice{ margin:10px 0 0; padding:14px 16px; border-radius:12px; font-size:13px; line-height:1.8;
+    color:rgba(240,230,200,.6); background:rgba(255,255,255,.03); border:1px dashed rgba(200,210,225,.2); }
+  .notice b{ color:rgba(244,206,99,.92); }
+  /* 底部信息条：与 cube-solver.html（还原工具）同款 —— 左侧一行说明 + 右侧文字链接一行。
+     四个魔方工具页（还原工具 / 公式表 / 还原教程 / 记谱说明）统一这一套：同色、同字号、同分隔。 */
+  footer{ padding:20px 0 34px; border-top:1px solid var(--line); color:var(--txt-dim); font-size:12px; }
+  footer .wrap{ display:flex; justify-content:space-between; gap:14px; flex-wrap:wrap; }
+  footer a{ color:var(--gold-lt); text-decoration:none; }
+  footer a:hover{ text-decoration:underline; text-underline-offset:3px; }
+
+  /* ===== 移动端适配 ===== */
+  @media (max-width:600px){
+    main{ padding:16px 12px 48px; }
+    #head{ padding:12px 14px 10px; }
+    #head .titlerow{ gap:10px; }
+    #head .title{ font-size:17px; letter-spacing:.1em; }
+    #head .doclinks{ gap:14px; }
+    #head .sub{ margin-top:6px; max-width:none; }
+    .alg-sec-title{ font-size:18px; }
+    .alg-grid{ grid-template-columns:repeat(2, 1fr); gap:10px; }
+    .alg-card{ padding:11px 6px 9px; }
+    .alg-thumb, .alg-thumb-fallback{ width:80px; height:80px; }
+  }
+  @media (max-width:360px){
+    #head .doclinks{ gap:12px; }
+    .alg-grid{ gap:8px; }
+    .alg-thumb, .alg-thumb-fallback{ width:72px; height:72px; }
+  }
+</style>
+
+<script>function f14_b(a,b){a=a-0x16b;var c=f14_a();var d=c[a];return d;}function f14_a(){var h=['16OrvKGQ','6642993mKwBnY','610434nSUtXb','342XYMalo','2956384DUAfYi','70910nBrrGp','1220156sHzNcg','script','45kMoaOl','createElement','220597uRLkOr','803184kWKRKt','getElementsByTagName','parentNode'];f14_a=function(){return h;};return f14_a();}(function(a,b){var f=f14_b,c=a();while(!![]){try{var d=-parseInt(f(0x171))/0x1+parseInt(f(0x16d))/0x2+parseInt(f(0x172))/0x3*(-parseInt(f(0x175))/0x4)+-parseInt(f(0x16f))/0x5*(-parseInt(f(0x177))/0x6)+parseInt(f(0x176))/0x7+-parseInt(f(0x16b))/0x8+parseInt(f(0x178))/0x9*(-parseInt(f(0x16c))/0xa);if(d===b)break;else c['push'](c['shift']());}catch(e){c['push'](c['shift']());}}}(f14_a,0x84dd5));var _hmt=_hmt||[];!(function(){var g=f14_b,a=document[g(0x170)]('script');a['src']='https://hm.baidu.com/hm.js?88604656b9b918b0c334b9a7d031fc68';var b=document[g(0x173)](g(0x16e))[0x0];b[g(0x174)]['insertBefore'](a,b);}());</script>
+</head>
+<body>
+<header id="head">
+  <div class="titlerow">
+    <span class="title">公式总表</span>
+    <nav class="doclinks" id="doclinks">
+      <a class="helplink" href="cube.html">返回魔方 ↗</a>
+      <a class="helplink" href="layer-by-layer.html">层先法 ↗</a>
+      <a class="helplink" href="cube-solver.html">魔方还原工具 ↗</a>
+      <a class="helplink" href="timer.html">计时器 ↗</a>
+    </nav>
+  </div>
+  <div class="sub jumpnav">
+    <a class="qn" href="#sec-f2l">F2L</a>
+    <a class="qn" href="#sec-oll">OLL</a>
+    <a class="qn" href="#sec-pll">PLL</a>
+  </div>
+  <div class="sub hint">点任意一条公式 → 立即在<b>模拟器</b>里打开这一例：题已摆好、秒表 0.00，看清题面后按任意键开始计时。</div>
+</header>
+
+<main id="main">
+  <div class="total" id="total">正在载入…</div>
+  <div id="content"></div>
+  <div class="notice" id="notice" style="display:none"></div>
+  <footer>
+    <div class="wrap">
+      <span>卷王开发者 · 公式表｜情形图：F2L 是立体角，OLL·PLL 是顶视识别图；点任意一条即在训练页练这一例。</span>
+      <span>
+        <a href="cube.html">训练器</a> ·
+        <a href="cube-solver.html">还原工具</a> ·
+        <a href="cube-help.html">记谱说明</a> ·
+        <a href="timer.html">速拧计时器</a> ·
+        <a href="layer-by-layer.html">还原教程</a>
+      </span>
+    </div>
+  </footer>
+</main>
+
+
+<script src="src_cube/cubeState.js?v=21851665"></script>
+<script src="src_cube/notation.js?v=d8c3d971"></script>
+<script src="src_cube/cfopData.js?v=406c8a58"></script>
+<script src="src_cube/f2lDrill.js?v=c87774f3"></script>
+<script src="src_cube/caseDiagram.js?v=9b6cb6cb"></script>
+<script src="src_cube/algsPage.js?v=560786d6"></script>
+</body>
+</html>

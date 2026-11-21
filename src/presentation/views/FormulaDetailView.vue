@@ -22,6 +22,7 @@ const record = ref<FormulaRecord | null>(null);
 const categories = ref<FormulaCategory[]>([]);
 const loading = ref(true);
 const notFound = ref(false);
+const loadError = ref<string | null>(null);
 const editorOpen = ref(false);
 
 const categoryName = computed(() => {
@@ -32,24 +33,36 @@ const categoryName = computed(() => {
 async function loadRecord(id: string) {
   loading.value = true;
   notFound.value = false;
-  const found = await getFormula(id);
-  record.value = found ?? null;
-  if (!found) {
+  if (!id) {
     notFound.value = true;
     loading.value = false;
     return;
   }
-  categories.value = await listCategories(found.puzzleId);
-  player.pause();
-  await player.loadFormula({
-    formulaId: found.id,
-    puzzleId: found.puzzleId,
-    title: found.title,
-    alg: found.alg,
-    setupMode: found.setupMode,
-    setupAlg: found.setupAlg,
-  });
-  loading.value = false;
+  try {
+    const found = await getFormula(id);
+    record.value = found ?? null;
+    if (!found) {
+      notFound.value = true;
+      return;
+    }
+    categories.value = await listCategories(found.puzzleId);
+    player.pause();
+    await player.loadFormula({
+      formulaId: found.id,
+      puzzleId: found.puzzleId,
+      title: found.title,
+      alg: found.alg,
+      setupMode: found.setupMode,
+      setupAlg: found.setupAlg,
+    });
+  } catch (err) {
+    // 读取失败也要退出 loading，否则界面会永远停在"正在读取公式…"
+    record.value = null;
+    notFound.value = false;
+    loadError.value = `读取公式失败：${(err as Error).message}`;
+  } finally {
+    loading.value = false;
+  }
 }
 
 onMounted(() => loadRecord(props.id));
@@ -78,7 +91,13 @@ async function removeRecord() {
   if (!window.confirm(`确定删除「${record.value.title}」吗？`)) return;
   await deleteFormula(record.value.id);
   await store.refresh();
-  void router.push('/');
+  void router.push('/library');
+}
+
+/** 返回上一页；直接深链接进来时退回公式库，避免落到桌面版工作台。 */
+function goBack() {
+  if (window.history.state?.back) router.back();
+  else void router.push('/library');
 }
 </script>
 
@@ -86,15 +105,17 @@ async function removeRecord() {
   <ErrorBoundary>
     <div class="detail-view">
       <header class="detail-view__bar">
-        <RouterLink to="/" class="btn btn--sm btn--ghost">← 返回工作台</RouterLink>
+        <button type="button" class="btn btn--sm btn--ghost" @click="goBack">← 返回</button>
         <h1 class="detail-view__title truncate">{{ record?.title ?? '公式详情' }}</h1>
       </header>
 
       <p v-if="loading" class="empty-state">正在读取公式…</p>
 
+      <p v-else-if="loadError" class="alert alert--error">{{ loadError }}</p>
+
       <div v-else-if="notFound" class="empty-state">
         <strong>找不到这条公式</strong>
-        <p>它可能已被删除。返回 <RouterLink to="/">工作台</RouterLink> 重新选择。</p>
+        <p>它可能已被删除。返回 <RouterLink to="/library">公式库</RouterLink> 重新选择。</p>
       </div>
 
       <template v-else-if="record">
@@ -181,6 +202,50 @@ async function removeRecord() {
 
   .detail-view__side {
     max-height: 60vh;
+  }
+}
+
+/* 手机：播放器固定在上半屏，说明文字在下半屏内部滚动，整页不上下滑 */
+@media (max-width: 760px) {
+  .detail-view {
+    padding: 6px 8px 0;
+    gap: 6px;
+    overflow: hidden;
+  }
+
+  .detail-view__bar {
+    padding: 0 2px;
+  }
+
+  .detail-view__grid {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    min-height: 0;
+  }
+
+  .detail-view__center {
+    flex: 0 0 auto;
+  }
+
+  .detail-view__center :deep(.viewport) {
+    height: 30vh;
+    min-height: 156px;
+    flex: 0 0 auto;
+  }
+
+  .detail-view__side {
+    flex: 1 1 auto;
+    min-height: 0;
+    max-height: none;
+    overflow-y: auto;
+    border: none;
+    background: transparent;
+    padding: 4px 2px 8px;
+  }
+
+  .tokens-panel {
+    padding: 6px 8px;
   }
 }
 </style>

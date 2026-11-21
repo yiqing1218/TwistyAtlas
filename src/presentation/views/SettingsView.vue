@@ -240,6 +240,10 @@ async function reseed() {
   gap: var(--space-3);
   padding: var(--space-4);
   max-width: 980px;
+  /* 设置是"小页面"：允许在容器内上下滑动，不撑破整屏 */
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
   width: 100%;
   margin: 0 auto;
 }
@@ -335,12 +339,40 @@ async function reseed() {
 }
 
 @media (max-width: 640px) {
+  .settings {
+    padding: 8px 10px 12px;
+    gap: 10px;
+  }
+
+  /* 顶部栏已经显示了页名，正文里不再重复一遍标题 */
+  .settings__title {
+    display: none;
+  }
+
   .grid-2 {
     grid-template-columns: 1fr;
   }
 
   .matrix {
     font-size: 12px;
+  }
+
+  /* 能力矩阵在窄屏只保留「魔方 / 状态 / 说明」，其余两列次要 */
+  .matrix th:nth-child(3),
+  .matrix td:nth-child(3),
+  .matrix th:nth-child(4),
+  .matrix td:nth-child(4) {
+    display: none;
+  }
+
+  /* 配色只有对照说明，长解释在手机上收掉 */
+  .faces + .field__hint {
+    display: none;
+  }
+
+  /* 面板标题旁的补充说明在窄屏会把标题挤到换行，收掉 */
+  .panel__header .small.muted {
+    display: none;
   }
 }
 </style>

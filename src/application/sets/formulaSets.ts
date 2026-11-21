@@ -29,8 +29,35 @@ export interface AlgSet {
   nameZh: string;
   sourceId: string;
   setupMode: SetupMode;
+  /** 界面分组：3x3-cfop / 3x3-advanced / 2x2 / big / exotic */
+  category?: string;
   note?: string;
   cases: AlgCase[];
+}
+
+export const SET_CATEGORY_LABEL: Record<string, string> = {
+  '3x3-cfop': '三阶 · CFOP 主线',
+  '3x3-advanced': '三阶 · 进阶体系',
+  '2x2': '二阶',
+  'big': '四阶 / 五阶',
+  'exotic': '异形（金字塔 · 五魔方 · SQ-1）',
+};
+
+export const SET_CATEGORY_ORDER = ['3x3-cfop', '3x3-advanced', '2x2', 'big', 'exotic'];
+
+/** 按分类分组，供界面上「分组标签 + 组内 pill」渲染 */
+export function groupSetsByCategory(sets: AlgSet[]): { category: string; label: string; sets: AlgSet[] }[] {
+  const buckets = new Map<string, AlgSet[]>();
+  for (const set of sets) {
+    const key = set.category ?? '3x3-advanced';
+    if (!buckets.has(key)) buckets.set(key, []);
+    buckets.get(key)!.push(set);
+  }
+  return SET_CATEGORY_ORDER.filter((key) => buckets.has(key)).map((key) => ({
+    category: key,
+    label: SET_CATEGORY_LABEL[key] ?? key,
+    sets: buckets.get(key)!,
+  }));
 }
 
 export interface AlgSource {

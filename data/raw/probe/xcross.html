@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <script>(function(){var theme="dark";try{theme=localStorage.getItem("xcross-ui-theme")||theme}catch(e){}if(theme==="system"){theme=matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light"}document.documentElement.classList.add(theme)})();
+</script>
+    <script>var bootError=null;var bootReported=false;function reportBootError(){var dsn="https://832543d120f1644ec7aa68d3fa868df4@o4505479009402880.ingest.us.sentry.io/4511551757615104".match(/^https:\/\/(\w+)@([^/]+)\/(\d+)$/);if(bootReported||!dsn||!window.fetch)return;bootReported=true;var id="";for(var i=0;i<32;i++)id+=Math.floor(Math.random()*16).toString(16);var event={event_id:id,timestamp:Date.now()/1e3,platform:"javascript",level:"fatal",environment:"production",tags:{boot_fallback:"shown"},exception:{values:[{type:"BootError",value:bootError||"unknown"}]},request:{url:location.href,headers:{"User-Agent":navigator.userAgent}}};var body=JSON.stringify({event_id:id,sent_at:new Date().toISOString()})+"\n"+JSON.stringify({type:"event"})+"\n"+JSON.stringify(event);fetch("https://"+dsn[2]+"/api/"+dsn[3]+"/envelope/?sentry_version=7&sentry_key="+dsn[1],{method:"POST",body,keepalive:true}).catch(function(){})}window.__showBootFallback=function(){var el=document.getElementById("boot-fallback");if(!el)return;el.style.display="flex";var detail=document.getElementById("boot-error");if(detail)detail.textContent=(bootError||"unknown")+"\n"+navigator.userAgent;setTimeout(function(){if(document.getElementById("boot-fallback"))reportBootError()},4e3)};var recovering=false;window.__bootRecover=function(force){if(recovering)return true;var controlled="serviceWorker"in navigator&&!!navigator.serviceWorker.controller;if(!force&&!(controlled&&navigator.onLine))return false;recovering=true;var reload=function(){window.location.reload()};if(!navigator.onLine){reload();return true}var tasks=[];if("serviceWorker"in navigator){tasks.push(navigator.serviceWorker.getRegistrations().then(function(rs){return Promise.all(rs.map(function(r){return r.unregister()}))}))}if("caches"in window){tasks.push(caches.keys().then(function(ks){return Promise.all(ks.map(function(k){return caches.delete(k)}))}))}Promise.all(tasks).then(reload,reload);return true};window.addEventListener("error",function(e){var t=e.target;var resourceFailed=t&&(t.tagName==="SCRIPT"||t.tagName==="LINK"&&t.rel==="modulepreload");var bundleThrew=t===window&&!!e.message;if(!bootError&&resourceFailed){bootError="Failed to load "+(t.src||t.href)}else if(!bootError&&bundleThrew){bootError=e.message+" ("+(e.filename||"?")+":"+e.lineno+":"+e.colno+")"}if(resourceFailed){if(!window.__bootRecover(false))window.__showBootFallback()}else if(bundleThrew){window.__showBootFallback()}},true);
+</script>
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    />
+    <meta
+      name="theme-color"
+      content="#fff"
+      media="(prefers-color-scheme: light)"
+    />
+    <meta
+      name="theme-color"
+      content="#09090b"
+      media="(prefers-color-scheme: dark)"
+    />
+    <meta name="robots" content="max-image-preview:large" />
+    <title data-static-seo>xcross.gg - speedcubing trainer, timer and algorithm library</title>
+    <meta
+      data-static-seo
+      name="description"
+      content="xcross.gg is a speedcubing trainer and timer. Time your solves, drill OLL, PLL, ZBLL and F2L cases, connect a smart cube and compete in ranked mode."
+    />
+    <meta data-static-seo name="application-name" content="xcross.gg" />
+    <meta data-static-seo property="og:type" content="website" />
+    <meta data-static-seo property="og:site_name" content="xcross.gg" />
+    <meta data-static-seo property="og:locale" content="en_US" />
+    <meta
+      data-static-seo
+      property="og:title"
+      content="xcross.gg - speedcubing trainer, timer and algorithm library"
+    />
+    <meta
+      data-static-seo
+      property="og:description"
+      content="xcross.gg is a speedcubing trainer and timer. Time your solves, drill OLL, PLL, ZBLL and F2L cases, connect a smart cube and compete in ranked mode."
+    />
+    <meta data-static-seo property="og:url" content="https://xcross.gg/" />
+    <meta
+      data-static-seo
+      property="og:image"
+      content="https://xcross.gg/og-image.png"
+    />
+    <meta data-static-seo property="og:image:width" content="1200" />
+    <meta data-static-seo property="og:image:height" content="630" />
+    <meta
+      data-static-seo
+      property="og:image:alt"
+      content="The xcross.gg logo and the words &quot;Get faster, have fun&quot;, next to two screens of the app: a live 1v1 and a glowing secret badge."
+    />
+    <meta
+      data-static-seo
+      name="twitter:card"
+      content="summary_large_image"
+    />
+    <meta
+      data-static-seo
+      name="twitter:title"
+      content="xcross.gg - speedcubing trainer, timer and algorithm library"
+    />
+    <meta
+      data-static-seo
+      name="twitter:description"
+      content="xcross.gg is a speedcubing trainer and timer. Time your solves, drill OLL, PLL, ZBLL and F2L cases, connect a smart cube and compete in ranked mode."
+    />
+    <meta
+      data-static-seo
+      name="twitter:image"
+      content="https://xcross.gg/og-image.png"
+    />
+    <link
+      rel="preload"
+      as="font"
+      type="font/woff2"
+      crossorigin
+      href="/assets/manrope-latin-wght-normal-DHIcAJRg.woff2"
+    />
+    <link rel="preconnect" href="https://media.xcross.gg" />
+    <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <meta name="apple-mobile-web-app-title" content="xcross.gg" />
+    <meta name="apple-itunes-app" content="app-id=6800338617" />
+    <style>
+      #boot-fallback {
+        position: fixed;
+        inset: 0;
+        z-index: 9999;
+        display: none;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 1rem;
+        padding: 1.5rem;
+        text-align: center;
+        font-family: "Manrope Variable", Manrope, system-ui, -apple-system, sans-serif;
+        background: #fafafa;
+        color: #18181b;
+      }
+      #boot-fallback .boot-title {
+        margin: 0;
+        font-size: 1.25rem;
+        font-weight: 600;
+      }
+      #boot-fallback p {
+        margin: 0;
+        max-width: 24rem;
+        font-size: 0.9rem;
+        opacity: 0.7;
+      }
+      #boot-fallback button {
+        margin-top: 0.5rem;
+        padding: 0.5rem 1.25rem;
+        border: 0;
+        border-radius: 0.5rem;
+        font: inherit;
+        font-weight: 500;
+        cursor: pointer;
+        background: #18181b;
+        color: #fff;
+      }
+      #boot-fallback pre {
+        margin: 1rem 0 0;
+        max-width: 32rem;
+        font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+        font-size: 0.7rem;
+        white-space: pre-wrap;
+        word-break: break-all;
+        opacity: 0.45;
+      }
+      @media (prefers-color-scheme: dark) {
+        #boot-fallback {
+          background: #09090b;
+          color: #fafafa;
+        }
+        #boot-fallback button {
+          background: #fafafa;
+          color: #18181b;
+        }
+      }
+    </style>
+    <script type="module" crossorigin src="/assets/index-BaA7T6Kt.js"></script>
+    <link rel="modulepreload" crossorigin href="/assets/preload-helper-BlTxHScW.js">
+    <link rel="modulepreload" crossorigin href="/assets/index-Da4xAhnK.js">
+    <link rel="stylesheet" crossorigin href="/assets/index-DlCjw037.css">
+    <script>(function(){var chunks={"de":"/assets/locale-de-DVabgUIc.js","en":"/assets/locale-en-D4BxmBou.js","fr":"/assets/locale-fr-B-NvrOiY.js","hi":"/assets/locale-hi-CemTbOHa.js","ja":"/assets/locale-ja-BTYoegt4.js","vi":"/assets/locale-vi-D1zQ5XrN.js","zh":"/assets/locale-zh-mK0ObVIF.js"};var lng=null;try{lng=localStorage.getItem("xcross-lang")}catch(e){}if(!chunks[lng]){lng="en";var preferred=navigator.languages||[navigator.language];for(var i=0;i<preferred.length;i++){var code=String(preferred[i]).slice(0,2).toLowerCase();if(chunks[code]){lng=code;break}}}var link=document.createElement("link");link.rel="modulepreload";link.href=chunks[lng];document.head.appendChild(link)})();
+</script>
+  <link rel="manifest" href="/manifest.webmanifest"></head>
+
+  <body>
+    <div id="root" class="bg-midnight-50 dark:bg-midnight"></div>
+    <div id="boot-fallback">
+      <div class="boot-title">Couldn't load the app</div>
+      <p>
+        A network or update issue stopped xcross.gg from loading. Reloading usually
+        fixes it.
+      </p>
+      <button type="button" onclick="window.__bootRecover(true)">Reload</button>
+      <pre id="boot-error"></pre>
+    </div>
+    <noscript>
+      <style>
+        #root::before {
+          content: "xcross.gg requires JavaScript to run. Please enable it and reload.";
+          display: block;
+          text-align: center;
+          padding: 1.5rem;
+        }
+      </style>
+    </noscript>
+  </body>
+</html>

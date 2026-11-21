@@ -1,0 +1,918 @@
+<!doctype html>
+<html class="no-js" lang="en">
+    <head>
+
+        <meta charset="utf-8">
+        <link rel="canonical" href="https://cubingcheatsheet.com/">
+        <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+        <title>Home - Dan's Cubing Cheat [Sheet] App</title>
+        <meta name="description" content="Collection of algorithms on how to solve the Rubik's cube presented as digital cheat sheet tutorials and speed solving resources. Best free website and app resources to solution twisty puzzles of most popular formats, shapes and sizes. (magic cube, speed cube)">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        
+        <link rel="dns-prefetch" href="https://www.google.com">
+        <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+        <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com">
+        <link rel="dns-prefetch" href="https://tpc.googlesyndication.com">
+        <link rel="dns-prefetch" href="https://ajax.googleapis.com">
+        <link rel="dns-prefetch" href="https://cdn.ampproject.org">
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" crossorigin="crossorigin" href="https://fonts.gstatic.com">
+        <link rel="preconnect" href="https://pagead2.googlesyndication.com">
+        <link rel="preload" as="font" type="font/woff2" crossorigin="anonymous" href="css/vendor/webfonts/fa-brands-400.woff2">
+        <link rel="preload" as="font" type="font/woff2" crossorigin="anonymous" href="css/vendor/webfonts/fa-solid-900.woff2">
+        <link rel="preload" as="style" href="css/vendor/fontawesome-all-min.css">
+        <link rel="preload" as="style" href="css/main-v3-min.css?v=cfbe7b437d">
+        <link rel="preload" as="script" href="js/vendor/modernizr-webp.min.js">
+        <link rel="preload" as="script" href="js/main-script-min.js?v=fa0094ab93">
+
+        <link rel="preload" as="script" href="js/home-page-script-min.js?v=55ae0e4193">
+
+        <meta name='mobile-web-app-capable' content='yes'>
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+        <link rel="icon" href="favicon.ico" type="image/x-icon">
+        <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+
+        <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+        <link rel="manifest" href="manifest.json">
+        <meta name="apple-mobile-web-app-title" content="Cubing Algs">
+        <meta name="application-name" content="Cubing Algs">
+        <meta name="theme-color" content="#000000">
+
+        <link rel="mask-icon" href="safari-pinned-tab.svg" color="#858585">
+
+        <meta property="og:type" content="website" />
+        <meta property="fb:app_id" content="2084033398491144" />
+        <meta property="og:title" content="Free Offline Web App - Perfectly fit any screen sizes!" />
+        <meta property="og:image" content="https://cubingcheatsheet.com/img/dans-cubing-cheat-app-og.jpg"/>
+        <meta property="og:image:type" content="image/jpeg">
+        <meta property="og:image:width" content="1200">
+        <meta property="og:image:height" content="675">
+        <meta property="og:url" content="https://cubingcheatsheet.com/"/>
+        <meta property="og:site_name" content="Cubing Cheat Sheet"/>
+        <meta property="og:description" content="Speedcubing Puzzle Algorithms and Resources Free App -  Install the Desktop, iOS or Android App!"/>
+
+        <!-- STARTUP IMAGES -->
+        <link rel="apple-touch-startup-image" href="Default-1242@3x~iphone6s-portrait_1242x2208.png">
+
+        <!-- iPad retina portrait startup image -->
+        <link href="Default-Portrait@2x~ipad_1536x2008.png"
+              media="(device-width: 768px) and (device-height: 1024px)
+                     and (-webkit-device-pixel-ratio: 2)
+                     and (orientation: portrait)"
+              rel="apple-touch-startup-image">
+
+
+        <!-- iPad retina landscape startup image -->
+        <link href="Default-Landscape@2x~ipad_2048x1536.png"
+              media="(device-width: 768px) and (device-height: 1024px)
+                     and (-webkit-device-pixel-ratio: 2)
+                     and (orientation: landscape)"
+              rel="apple-touch-startup-image">
+
+        <!-- iPad non-retina portrait startup image -->
+        <link href="Default-Portrait@2x~ipad_1536x2008.png"
+              media="(device-width: 768px) and (device-height: 1024px)
+                     and (-webkit-device-pixel-ratio: 1)
+                     and (orientation: portrait)"
+              rel="apple-touch-startup-image">
+
+        <!-- iPad non-retina landscape startup image -->
+        <link href="Default-Landscape@2x~ipad_2048x1536.png"
+              media="(device-width: 768px) and (device-height: 1024px)
+                     and (-webkit-device-pixel-ratio: 1)
+                     and (orientation: landscape)"
+              rel="apple-touch-startup-image">
+
+        <!-- iPhone 6 Plus portrait startup image -->
+        <link href="Default-1242@3x~iphone6s-portrait_1242x2208.png"
+              media="(device-width: 414px) and (device-height: 736px)
+                     and (-webkit-device-pixel-ratio: 3)
+                     and (orientation: portrait)"
+              rel="apple-touch-startup-image">
+
+        <!-- iPhone 6 Plus landscape startup image -->
+        <link href="Default-1242@3x~iphone6s-landscape_2208x1242.png"
+              media="(device-width: 414px) and (device-height: 736px)
+                     and (-webkit-device-pixel-ratio: 3)
+                     and (orientation: landscape)"
+              rel="apple-touch-startup-image">
+
+        <!-- iPhone 6 startup image -->
+        <link href="Default-750@2x~iphone6-portrait_750x1334.png"
+              media="(device-width: 375px) and (device-height: 667px)
+                     and (-webkit-device-pixel-ratio: 2)"
+              rel="apple-touch-startup-image">
+
+        <!-- iPhone 5 startup image -->
+        <link href="Default-568h@2x~iphone_640x1136.png"
+              media="(device-width: 320px) and (device-height: 568px)
+                     and (-webkit-device-pixel-ratio: 2)"
+              rel="apple-touch-startup-image">
+
+        <!-- iPhone < 5 retina startup image -->
+        <link href="Default@2x~iphone_640x960.png"
+              media="(device-width: 320px) and (device-height: 480px)
+                     and (-webkit-device-pixel-ratio: 2)"
+              rel="apple-touch-startup-image">
+
+        <!-- iPhone < 5 non-retina startup image -->
+        <link href="Default~iphone.png"
+              media="(device-width: 320px) and (device-height: 480px)
+                     and (-webkit-device-pixel-ratio: 1)"
+              rel="apple-touch-startup-image">
+
+
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,700|Saira+Condensed&display=optional" rel="stylesheet">
+        <link rel="stylesheet" href="css/vendor/fontawesome-all-min.css">
+        <link rel="stylesheet" href="css/main-v3-min.css?v=cfbe7b437d">
+
+        <script type="application/ld+json">
+        {
+          "@context":"http://schema.org",
+          "@type":"ItemList",
+          "itemListElement":[
+            {
+              "@type":"ListItem",
+              "position":1,
+              "url":"https://cubingcheatsheet.com/algs3x_4lll.html"
+            },
+            {
+              "@type":"ListItem",
+              "position":2,
+              "url":"https://cubingcheatsheet.com/algs3x_2loll.html"
+            },
+            {
+              "@type":"ListItem",
+              "position":3,
+              "url":"https://cubingcheatsheet.com/algs3x_2lpll.html"
+            },
+            {
+              "@type":"ListItem",
+              "position":4,
+              "url":"https://cubingcheatsheet.com/algs3x_oll.html"
+            },
+            {
+              "@type":"ListItem",
+              "position":5,
+              "url":"https://cubingcheatsheet.com/algs3x_pll.html"
+            },
+            {
+              "@type":"ListItem",
+              "position":6,
+              "url":"https://cubingcheatsheet.com/algs3x_f2l.html"
+            },
+            {
+              "@type":"ListItem",
+              "position":7,
+              "url":"https://cubingcheatsheet.com/algs3x_roux_cmll.html"
+            },
+            {
+              "@type":"ListItem",
+              "position":8,
+              "url":"https://cubingcheatsheet.com/algs3x_roux_lse.html"
+            },
+            {
+              "@type":"ListItem",
+              "position":9,
+              "url":"https://cubingcheatsheet.com/algs2x.html"
+            },
+            {
+              "@type":"ListItem",
+              "position":10,
+              "url":"https://cubingcheatsheet.com/algs4x.html"
+            },
+            {
+              "@type":"ListItem",
+              "position":11,
+              "url":"https://cubingcheatsheet.com/algs5x.html"
+            },
+            {
+              "@type":"ListItem",
+              "position":12,
+              "url":"https://cubingcheatsheet.com/algs3x_patterns.html"
+            },
+            {
+              "@type":"ListItem",
+              "position":13,
+              "url":"https://cubingcheatsheet.com/algs4x_patterns.html"
+            },
+            {
+              "@type":"ListItem",
+              "position":14,
+              "url":"https://cubingcheatsheet.com/algs5x_patterns.html"
+            },
+            {
+              "@type":"ListItem",
+              "position":15,
+              "url":"https://cubingcheatsheet.com/algs6x.html"
+            },
+            {
+              "@type":"ListItem",
+              "position":16,
+              "url":"https://cubingcheatsheet.com/algs6x_patterns.html"
+            },
+            {
+              "@type":"ListItem",
+              "position":17,
+              "url":"https://cubingcheatsheet.com/algs3x_coll.html"
+            },
+            {
+              "@type":"ListItem",
+              "position":18,
+              "url":"https://cubingcheatsheet.com/algs3x_vlswv.html"
+            }
+          ]
+        }
+        </script>
+
+        <!-- Adsense Script (and AUTO-ADS Script ) -->
+        <!-- <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+        <script>
+             (adsbygoogle = window.adsbygoogle || []).push({
+                  google_ad_client: "ca-pub-5856604567267273",
+                  enable_page_level_ads: true
+             });
+        </script> -->
+
+    </head>
+    <body>
+        <!--[if lt IE 8]>
+            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+
+        <!-- Add your site or application content here -->
+        <div id="js-container" class="container-home">
+
+            <div class="header">
+                <nav class="nav-wrapper">
+
+                    <div id="js-nav-toggle" class="nav-toggle"><i class="fas fa-bars fa-2x" aria-hidden="true"></i></div>
+                    <ul id="js-nav-main" class="nav-main js-nav-dropdown">
+                        <li>
+                            <a href="/algs2x.html">
+                                <div>
+                                    <span>2x2x2</span>
+                                    <span>Ortega</span>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <div class="js-nav-sub-toggle">
+                                <div>
+                                    <span>3x3x3</span>
+                                    <span>CFOP</span>
+                                </div>
+                            </div>
+                            <ul class="nav-sub js-nav-sub">
+                                <li><a href="/algs3x_f2l.html">F2L</a></li>
+                                <li><a href="/algs3x_4lll.html" class="nav-line-break">4 Look Last Layer<br />(4LLL)</a></li>
+                                <li><a href="/algs3x_2loll.html">2 Look OLL</a></li>
+                                <li><a href="/algs3x_2lpll.html">2 Look PLL</a></li>
+                                <li><a href="/algs3x_oll.html">OLL</a></li>
+                                <li><a href="/algs3x_pll.html">PLL</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <div class="js-nav-sub-toggle">
+                                <div>
+                                    <span>3x3x3</span>
+                                    <span>ROUX</span>
+                                </div>
+                            </div>
+                            <ul class="nav-sub js-nav-sub">
+                                <li><a href="/algs3x_roux_cmll.html">CMLL</a></li>
+                                <li><a href="/algs3x_roux_cmll_color_neutral.html">CMLL (CN)</a></li>
+                                <li><a href="/algs3x_roux_lse.html">LSE</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <div class="js-nav-sub-toggle">
+                                <div>
+                                    <span>3x3x3</span>
+                                    <span>ADVANCED</span>
+                                </div>
+                            </div>
+                            <ul class="nav-sub js-nav-sub">
+                                <li><a href="/algs3x_coll.html">COLL</a></li>
+                                <li><a href="/algs3x_coll_color_neutral.html">COLL (CN)</a></li>
+                                <li><a href="/algs3x_vlswv.html">VLS/WV</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <div class="js-nav-sub-toggle">
+                                <div>
+                                    <span>Big Cubes</span>
+                                </div>
+                            </div>
+                            <ul class="nav-sub js-nav-sub">
+                                <li><a href="/algs4x.html">4x4x4</a></li>
+                                <li><a href="/algs5x.html">5x5x5</a></li>
+                                <li><a href="/algs6x.html">6x6x6</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <div class="js-nav-sub-toggle">
+                                <div>
+                                    <span>Patterns</span>
+                                </div>
+                            </div>
+                            <ul class="nav-sub js-nav-sub">
+                                <li><a href="/algs3x_patterns.html">3x3x3</a></li>
+                                <li><a href="/algs4x_patterns.html">4x4x4</a></li>
+                                <li><a href="/algs5x_patterns.html">5x5x5</a></li>
+                                <li><a href="/algs6x_patterns.html">6x6x6</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="/">
+                                <div>
+                                    <span>Home</span>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="kofi-tile" href="https://ko-fi.com/daniel37663" target="_blank" rel="noopener noreferrer" aria-label="Support CubingCheatSheet on Ko-fi">
+                                <div>
+                                    <span><img class="kofi-cup" src="/img/kofi-cup.png" width="64" height="64" alt="">Support</span>
+                                    <span>Ko-fi</span>
+                                </div>
+                            </a>
+                        </li>
+                        <li id="js-install-prompt">
+                            <div class="js-nav-sub-toggle">
+                                <div>
+                                    <span>Install App</span>
+                                </div>
+                            </div>
+                            <ul class="nav-sub js-nav-sub">
+                                <li><a href="/how_to_install_apps.html">Desktop App</a></li>
+                                <li><a href="/how_to_install_apps.html">Mobile App</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+
+                    <div id="js-overlay" class="nav-overlay"></div>
+                    <span class="nav-title">Algs Menu</span>
+
+                </nav>
+            </div>
+
+            <div id="home" class="home-section hero-container">
+                <div class="l-homeWrapper">
+                    <!-- <h1 class="hero-container-title">Dan's Cubing <span class="hero-br"><br /></span><div class="hero-cube"><canvas id="herocanvas"></canvas></div> Cheat <span class="strikethrough">Sheet</span> App</h1> -->
+
+                    <h1 class="hero-container-title">Dan's Cubing <span class="hero-br"><br /></span><div id="js-hero-cube" class="hero-cube-img"><img    src="img/hero-logo-w39.png"
+                                srcset="img/hero-logo-w39.png 39w,
+                                        img/hero-logo-w78-@2x.png 78w,
+                                        img/hero-logo-w82-@2x.png 82w,
+                                        img/hero-logo-w94-@2x.png 94w,
+                                        img/hero-logo-w114-@2x.png 114w,
+                                        img/hero-logo-w150-@2x.png 150w"
+                                alt="Site Logo Hero Cube"
+                                sizes="(max-width: 299px) 39px,
+                                       (min-width: 300px) 41px,
+                                       (min-width: 768px) 57px,
+                                       (min-width: 1024px) 75px,
+                                       75px"
+                                loading="lazy"/></div> Cheat <span class="strikethrough">Sheet</span> App</h1>
+
+                    <div class="l-homeWrapper adsense-m50">
+                      <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+                      <!-- homepage -->
+                      <ins class="adsbygoogle"
+                           style="display:block;"
+                           data-ad-client="ca-pub-5856604567267273"
+                           data-ad-slot="2989508735"
+                           data-ad-format="auto"
+                           data-full-width-responsive="true"></ins>
+                      <script>
+                           (adsbygoogle = window.adsbygoogle || []).push({});
+                      </script>
+                    </div>
+
+
+                    <div class="hero-method-section">
+                        <a href="/algs2x.html" class="method-container">
+                            <div class="method-wrap">
+                                <div class="method-puzzle">2x2x2</div>
+                                <div class="method-name">Ortega</div>
+                            </div>
+                        </a>
+                        <a href="/algs3x_f2l.html" class="method-container">
+                            <div class="method-wrap">
+                                <div class="method-puzzle">3x3x3</div>
+                                <div class="method-name">CFOP <span>F2L</span></div>
+                            </div>
+                        </a>
+                        <a href="/algs3x_4lll.html" class="method-container">
+                            <div class="method-wrap">
+                                <div class="method-puzzle">3x3x3</div>
+                                <div class="method-name">CFOP <span>4LLL</span></div>
+                            </div>
+                        </a>
+                        <a href="/algs3x_2loll.html" class="method-container">
+                            <div class="method-wrap">
+                                <div class="method-puzzle">3x3x3</div>
+                                <div class="method-name">CFOP <span>2LOLL</span></div>
+                            </div>
+                        </a>
+                        <a href="/algs3x_2lpll.html" class="method-container">
+                            <div class="method-wrap">
+                                <div class="method-puzzle">3x3x3</div>
+                                <div class="method-name">CFOP <span>2LPLL</span></div>
+                            </div>
+                        </a>
+                        <a href="/algs3x_oll.html" class="method-container">
+                            <div class="method-wrap">
+                                <div class="method-puzzle">3x3x3</div>
+                                <div class="method-name">CFOP <span>OLL</span></div>
+                            </div>
+                        </a>
+                        <a href="/algs3x_pll.html" class="method-container">
+                            <div class="method-wrap">
+                                <div class="method-puzzle">3x3x3</div>
+                                <div class="method-name">CFOP <span>PLL</span></div>
+                            </div>
+                        </a>
+                        <a href="/algs3x_roux_cmll.html" class="method-container">
+                            <div class="method-wrap">
+                                <div class="method-puzzle">3x3x3</div>
+                                <div class="method-name">ROUX <span>CMLL</span></div>
+                            </div>
+                        </a>
+                        <a href="/algs3x_roux_cmll_color_neutral.html" class="method-container">
+                            <div class="method-wrap">
+                                <div class="method-puzzle">3x3x3</div>
+                                <div class="method-name"><span>CMLL (CN)</span></div>
+                            </div>
+                        </a>
+                        <a href="/algs3x_roux_lse.html" class="method-container">
+                            <div class="method-wrap">
+                                <div class="method-puzzle">3x3x3</div>
+                                <div class="method-name">ROUX <span>LSE</span></div>
+                            </div>
+                        </a>
+                        <a href="/algs3x_coll.html" class="method-container">
+                            <div class="method-wrap">
+                                <div class="method-puzzle">3x3x3</div>
+                                <div class="method-name"><span>COLL</span></div>
+                            </div>
+                        </a>
+                        <a href="/algs3x_coll_color_neutral.html" class="method-container">
+                            <div class="method-wrap">
+                                <div class="method-puzzle">3x3x3</div>
+                                <div class="method-name"><span>COLL (CN)</span></div>
+                            </div>
+                        </a>
+                        <a href="/algs3x_vlswv.html" class="method-container">
+                            <div class="method-wrap">
+                                <div class="method-puzzle">3x3x3</div>
+                                <div class="method-name"><span>VLS/WV</span></div>
+                            </div>
+                        </a>
+                        <a href="/algs4x.html" class="method-container">
+                            <div class="method-wrap">
+                                <div class="method-puzzle">4x4x4</div>
+                                <div class="method-name">Reduction</div>
+                            </div>
+                        </a>
+                        <a href="/algs5x.html" class="method-container">
+                            <div class="method-wrap">
+                                <div class="method-puzzle">5x5x5</div>
+                                <div class="method-name">Reduction</div>
+                            </div>
+                        </a>
+                        <a href="/algs6x.html" class="method-container">
+                            <div class="method-wrap">
+                                <div class="method-puzzle">6x6x6</div>
+                                <div class="method-name">Reduction</div>
+                            </div>
+                        </a>
+                        <a href="/algs3x_patterns.html" class="method-container">
+                            <div class="method-wrap">
+                                <div class="method-puzzle">Patterns</div>
+                                <div class="method-name">3x3x3</div>
+                            </div>
+                        </a>
+                        <a href="/algs4x_patterns.html" class="method-container">
+                            <div class="method-wrap">
+                                <div class="method-puzzle">Patterns</div>
+                                <div class="method-name">4x4x4</div>
+                            </div>
+                        </a>
+                        <a href="/algs5x_patterns.html" class="method-container">
+                            <div class="method-wrap">
+                                <div class="method-puzzle">Patterns</div>
+                                <div class="method-name">5x5x5</div>
+                            </div>
+                        </a>
+                        <a href="/algs6x_patterns.html" class="method-container">
+                            <div class="method-wrap">
+                                <div class="method-puzzle">Patterns</div>
+                                <div class="method-name">6x6x6</div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+
+            <div id="tutorial" class="home-section tutorial-container" style="padding-top: 50px; padding-bottom: 15px;">
+                <div class="home-tutorial-section l-homeWrapper">
+
+                    <div class="home-tutorial-container">
+                        <div class="tutorial-wrap">
+                            <!-- <div class="ico-tutorial"><i class="fa fa-hand-pointer-o fa-2x" aria-hidden="true"></i></div> -->
+                            <h2>Pro Tip:<br/><span>Interact with Algorithms</span></h2>
+                            <p>Sometimes, having a different perspective or visual cues can really be handy.</p>
+                            <ol>
+                                <li>Click or tap any case image to view variations of the algorithm. If I couldn’t find any variants, I linked the source where I found the algorithm.</li>
+                                <li>Click or tap any algorithm sequence to visualize the steps on a virtual cube on <a href="https://alg.cubing.net/">alg.cubing.net</a> by Lucas Garron.</li>
+                            </ol>
+                        </div>
+                    </div>
+                    <div class="home-tutorial-container visual-container">
+                      <picture> 
+                        <source media="(max-width: 300px)" srcset="img/tutorial-case-algorithm-example-small-@2x.webp 2x, img/tutorial-case-algorithm-example-small.webp 1x, " type="image/webp" >
+                        <source media="(min-width: 301px)" srcset="img/tutorial-case-algorithm-example-small-@2x.webp 2x, img/tutorial-case-algorithm-example-large.webp 1x" type="image/webp" >
+                        <source media="(min-width: 600px)" srcset="img/tutorial-case-algorithm-example-large-@2x.webp 2x, img/tutorial-case-algorithm-example-large.webp 1x" type="image/webp" >
+                        <img    src="img/tutorial-case-algorithm-example-small.png"
+                                srcset="img/tutorial-case-algorithm-example-small.png 300w,
+                                        img/tutorial-case-algorithm-example-small-@2x.png 600w,
+                                        img/tutorial-case-algorithm-example-large.png 540w,
+                                        img/tutorial-case-algorithm-example-large-@2x.png 1080w"
+                                sizes="(max-width: 300px) 300px,
+                                       (min-width: 301px) 540px,
+                                       (min-width: 600px) 540px,
+                                       540px"
+                                type="image/png"
+                                alt="tutorial case algorithm example"
+                                loading="lazy"/>
+                      </picture>
+                    </div>
+
+                </div>
+            </div>
+
+
+            <div id ="install-mobile-app" class="home-section tutorial-container" style="padding-top: 15px; padding-bottom: 15px;">
+                <div class="home-tutorial-section l-homeWrapper">
+
+                    <div class="home-tutorial-container" style="padding-bottom: 30px;">
+                        <div class="tutorial-wrap">
+                            <!-- <div class="ico-tutorial"><i class="fa fa-plus fa-2x" aria-hidden="true"></i></div> -->
+                            <h2>Mobile Pro Tip:<br/><span>Install The App!</span></h2>
+                            <p>Mobile/Tablet users can install this web app to their device home screen for a better, faster and offline experience.</p>
+                            <ol>
+                                <li>Open your browser "Action" or "Options" menu in <strong>iOS Safari</strong> and/or <strong>Android Google Chrome</strong>.</li>
+                                <li>Tap the "Add to Home Screen" action.</li>
+                                <li>Done!</li>
+                            </ol>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+
+            <div id="install-desktop-app" class="home-section tutorial-container" style="padding-top: 15px; padding-bottom: 15px;">
+                <div class="home-tutorial-section l-homeWrapper">
+
+                    <div class="home-tutorial-container" style="padding-bottom: 30px;">
+                        <div class="tutorial-wrap">
+                            <!-- <div class="ico-tutorial"><i class="fa fa-hand-pointer-o fa-2x" aria-hidden="true"></i></div> -->
+                            <h2>Desktop Pro Tip:<br/><span>Install The App!</span></h2>
+                            <p>Desktop users can install this web app as a <strong>Google Chrome</strong> application for a better, faster and offline experience.</p>
+                            <p><strong>Option 1</strong>:</p>
+                            <ol>
+                                <li>Open your browser "Options" menu in <strong>Google Chrome</strong>.</li>
+                                <li>Click the "Install Dan's Cubing Cheat Sheet App..." action.</li>
+                                <li>Done!</li>
+                            </ol>
+                            <p><strong>Option 2</strong>:</p>
+                            <ol>                              
+                                <li>Chrome will automatically show an install icon in the address bar.</li>
+                                <li>Just click on it to install.</li>
+                                <li>Done!</li>
+                            </ol>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+
+            <div class="home-section">
+                <div class="l-homeWrapper adsense-m50">
+                    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+                    <!-- homepage -->
+                    <ins class="adsbygoogle"
+                         style="display:block"
+                         data-ad-client="ca-pub-5856604567267273"
+                         data-ad-slot="2989508735"
+                         data-ad-format="auto"
+                         data-full-width-responsive="true"></ins>
+                    <script>
+                         (adsbygoogle = window.adsbygoogle || []).push({});
+                    </script>
+                </div>
+            </div>  
+
+
+            <div id ="about" class="home-section info-container">
+                <div class="l-homeWrapper">
+                    <div class="info-block">
+                        <div class="info-wrap">
+                            <h2>About this Web App</h2>
+                            <p><strong>Google Chrome</strong> and <strong>Safari</strong> offers the best browsing experience on most devices.</p>
+
+                            <p>The purpose of this web app is to collect essential and useful resources any "beginner" speed cuber needs in a single location. I initially kept track of algorithms that my kids and I learned or wish to learn. Know that there are many other good algorithms out there that can work better for you. I try to point you to those resources as best as I can across the app. I wanted the content to first, be optimized for all devices (desktop, mobile, android, apple ios iphone and ipad) and second, accessible offline so that we can get rid of messy paper cheat sheets! This app is my attempt to efficiently fit as many algorithms as possible in one screen for any devices on the go and small contribution to help the community grow. I will keep adding features and algorithms to this app over time.</p>
+
+                            <p>If you think this app is useful please share it with your friends! <a class="kofi-link" href="https://ko-fi.com/daniel37663" target="_blank" rel="noopener noreferrer">Tips help</a> support the running and development expenses of this web site/application. You can leave a tip through Ko-fi using the button below. Your support is greatly appreciated!</p>
+
+                            <p>A change log will be maintained here.</p>
+                            <div class="social-container">
+                                <ul>
+                                    <li><a href="https://www.facebook.com/sharer/sharer.php?u=https://cubingcheatsheet.com/" aria-label="Share on Facebook" target="_BLANK"><i class="fab fa-facebook-square fa-3x" aria-hidden="true"></i></a></li>
+                                    <li class="kofi-item"><a class="kofi-btn" href="https://ko-fi.com/daniel37663" target="_blank" rel="noopener noreferrer" aria-label="Support CubingCheatSheet on Ko-fi"><img class="kofi-cup" src="/img/kofi-cup.png" width="64" height="64" alt="">Support on Ko-fi</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="info-block">
+                        <div class="info-wrap">
+                            <h2>Change Log</h2>
+                            <div class="info-scroll">
+
+                                <div class="log-date">
+                                    <span>Fixes & Updates</span>
+                                    <span class="js-log-date">November 3, 2026</span>
+                                </div>
+                                <ul class="log-items">
+                                    <li>Site moved to a new server, and the problems the move caused are fixed</li>
+                                    <li>Colour neutral (CN) COLL and ROUX CMLL pages work again: cube diagrams load, with a Retry button if any fail</li>
+                                    <li>3x3x3 VLS/WV algorithm page restored (27 cases)</li>
+                                    <li>Offline app (PWA) fixes so installed apps get updates reliably</li>
+                                    <li>Smaller fixes: OLL printing, images and viewer links on mobile (AMP) pages, fewer ads</li>
+                                    <li>Tips now go through Ko-fi (replacing PayPal); Twitter link removed; Privacy and Terms pages updated</li>
+                                    <li>Pages load more smoothly, with less jumping as ads and fonts load; new intros and tips on the OLL, PLL, F2L, 2-look OLL/PLL and 5x5 sheets; old page links without .html now redirect</li>
+                                    <li>Feedback and bug reports now go through the contact link at the bottom of the page; the Facebook page is retired</li>
+                                </ul>
+
+                                <div class="log-date">
+                                    <span>New Features & Updates</span>
+                                    <span class="js-log-date">September 1, 2019</span>
+                                </div>
+                                <ul class="log-items">
+                                    <li>Progressive Web App capability added (Desktop, iOS, Android) for offline experience</li>
+                                    <li>CSS "Print" stylesheet updated for Print and Print to PDF capability</li>
+                                    <li>Fix Color Tiles on PLL Ub Perm case images</li>
+                                    <li>Code Maintenance, Updates and Performance Improvements</li>
+                                    <li>Note: <i>I often make small changes to the layout. If things looks weird or does not align properly from one session to another try deleting your browsing history/cache and launch the app/site again</i></li>
+                                </ul>
+
+                                <div class="log-date">
+                                    <span>New Content</span>
+                                    <span class="js-log-date">December 10, 2017</span>
+                                </div>
+                                <ul class="log-items">
+                                    <li>3x3x3 Customizable COLL color neutral (CN) algorithms added (42)</li>
+                                    <li>3x3x3 Customizable ROUX CMLL color neutral (CN) algorithms added (42)</li>
+                                </ul>
+
+                                <div class="log-date">
+                                    <span>New Content</span>
+                                    <span class="js-log-date">December 8, 2017</span>
+                                </div>
+                                <ul class="log-items">
+                                    <li>3x3x3 VLS/WV algorithms added (27)</li>
+                                </ul>
+
+                                <div class="log-date">
+                                    <span>New Content</span>
+                                    <span class="js-log-date">December 3, 2017</span>
+                                </div>
+                                <ul class="log-items">
+                                    <li>3x3x3 COLL algorithms added (42)</li>
+                                </ul>
+
+                                <div class="log-date">
+                                    <span>New Content</span>
+                                    <span class="js-log-date">November 24, 2017</span>
+                                </div>
+                                <ul class="log-items">
+                                    <li>4x4x4 L2C algorithms added (2)</li>
+                                    <li>5x5x5 L2C algorithms added (2)</li>
+                                    <li>6x6x6 Reduction algorithms added (8)</li>
+                                    <li>6x6x6 pretty patterns added (6)</li>
+                                </ul>
+
+                                <div class="log-date">
+                                    <span>New Content</span>
+                                    <span class="js-log-date">November 17, 2017</span>
+                                </div>
+                                <ul class="log-items">
+                                    <li>3x3x3 ROUX CMLL algorithms added (42)</li>
+                                </ul>
+
+                                <div class="log-date">
+                                    <span>New Content & Features</span>
+                                    <span class="js-log-date">November 10, 2017</span>
+                                </div>
+                                <ul class="log-items">
+                                    <li>3x3x3 pretty pattern added (1)</li>
+                                    <li>4x4x4 pretty patterns added (4)</li>
+                                    <li>5x5x5 pretty patterns added (5)</li>
+                                    <li>High level context section added to some algorithm pages</li>
+                                    <li>"Pause" added in the visualization of algorithms on <a href="https://alg.cubing.net/">alg.cubing.net</a> to help with the learning process</li>
+                                </ul>
+
+                                <div class="log-date">
+                                    <span>New Features</span>
+                                    <span class="js-log-date">November 6, 2017</span>
+                                </div>
+                                <ul class="log-items">
+                                    <li>4 Look Last Layer (4LLL) CFOP algorithms added</li>
+                                    <li>38 OLL algorithms added</li>
+                                    <li>15 PLL algorithms added</li>
+                                </ul>
+
+                                <div class="log-date">
+                                    <span>New Features</span>
+                                    <span class="js-log-date">November 2, 2017</span>
+                                </div>
+                                <ul class="log-items">
+                                    <li>CDN service setup & SSL</li>
+                                    <li>"Change Log" section added.</li>
+                                    <li>Facebook page created</li>
+                                </ul>
+
+                                <div class="log-date">
+                                    <span>New Content & Fixes</span>
+                                    <span class="js-log-date">November 1, 2017</span>
+                                </div>
+                                <ul class="log-items">
+                                    <li>3x3x3 and 4x4x4 patterns added</li>
+                                    <li>"OLL" and "PLL" algorithms added</li>
+                                    <li>Performance improvements</li>
+                                    <li>Typo errors fixed.</li>
+                                </ul>
+
+                                <div class="log-date">
+                                    <span>Website Launch</span>
+                                    <span class="js-log-date">October 31, 2017</span>
+                                </div>
+                                <ul class="log-items">
+                                    <li>Welcome to my personal cubing website!</li>
+                                    <li>Please share feedback and report bugs using the contact link at the bottom of the page</li>
+                                </ul>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="home-section">
+                <div class="l-homeWrapper adsense-m50">
+                    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+                    <!-- homepage -->
+                    <ins class="adsbygoogle"
+                         style="display:block"
+                         data-ad-client="ca-pub-5856604567267273"
+                         data-ad-slot="2989508735"
+                         data-ad-format="auto"
+                         data-full-width-responsive="true"></ins>
+                    <script>
+                         (adsbygoogle = window.adsbygoogle || []).push({});
+                    </script>
+                </div>
+            </div>  
+
+
+            <div id="resources" class="home-section feature-container">
+                <div class="home-feature-section l-homeWrapper">
+                    <div class="home-feature-container">
+                        <div class="feature-wrap">
+                            <div class="ico-feature"><i class="fas fa-database fa-2x" aria-hidden="true"></i></div>
+                            <h3>Resources & Tutorials</h3>
+                            <ul>
+                                <li><a href="https://www.speedsolving.com/wiki/index.php/Main_Page">SpeedSolving.com Wiki</a></li>
+                                <li><a href="http://algdb.net">AlgDb.Net</a></li>
+                                <li><a href="https://sarah.cubing.net">Sarah's Cubing Site</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="home-feature-container">
+                        <div class="feature-wrap">
+                            <div class="ico-feature"><i class="fas fa-language fa-2x" aria-hidden="true"></i></div>
+                            <h3>Algorithm Notation</h3>
+                            <ul>
+                                <li><a href="https://solvethecube.com/notation">SolveTheCube.com</a></li>
+                                <li><a href="https://ruwix.com/the-rubiks-cube/notation/">Ruwix.com</a></li>
+                                <li><a href="http://iamthecu.be">Rubik's Cube Explorer</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="home-feature-container">
+                        <div class="feature-wrap">
+                            <div class="ico-feature"><i class="fas fa-clock fa-2x" aria-hidden="true"></i></div>
+                            <h3>Timers & Scramblers</h3>
+                            <ul>
+                                <li>Desktop: <a href="https://cstimer.net" alt="cstimer desktop application link">csTimer</a></li>
+                                <li>iOS: <a href="https://apps.apple.com/us/app/five-timer/id471548639" alt="Five Timer ios application link">Five Timer</a></li>
+                                <li>Android: <a href="https://play.google.com/store/apps/details?id=com.aricneto.twistytimer&hl=en" alt="Twisty Timer android application link">Twisty Timer</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="home-feature-container">
+                        <div class="feature-wrap">
+                            <div class="ico-feature"><i class="fas fa-shopping-cart fa-2x" aria-hidden="true"></i></div>
+                            <h3>Get Some Cubes</h3>
+                            <ul>
+                                <li><a href="http://cubicle.us">TheCubicle.us</a></li>
+                                <li><a href="https://speedcubeshop.com">SpeedCubeShop</a></li>
+                                <li><a href="http://www.cubezz.com">Cubezz</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="home-feature-container">
+                        <div class="feature-wrap">
+                            <div class="ico-feature"><i class="fas fa-code fa-2x" aria-hidden="true"></i></div>
+                            <h3>Developer Stuff</h3>
+                            <ul>
+                                <li><a href="https://www.chrome.com/cubelab#demo">Chrome Cube Lab</a></li>
+                                <li><a href="https://codepen.io/search/pens/?q=Rubik&order=popularity&depth=everything&show_forks=false">Codepen</a></li>
+                                <li><a href="https://github.com/cubing/cube-code">Github</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="home-feature-container">
+                        <div class="feature-wrap">
+                            <div class="ico-feature"><i class="fas fa-gem fa-2x" aria-hidden="true"></i></div>
+                            <h3>Other Resources</h3>
+                            <ul>
+                                <li><a href="https://www.reddit.com/r/Cubers/">Reddit r/Cubers</a></li>
+                                <li><a href="https://www.speedsolving.com/">SpeedSolving.com</a></li>
+                                <li><a href="https://www.francocube.com/">Francocube.com</a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+
+            <div id="footer" class="footer">
+                <div class="rubik-container">
+                    <a href="/">
+                        <img    src="img/footer-logo.png"
+                                srcset="img/footer-logo.png 1x,
+                                        img/footer-logo-@2x.png 2x"
+                                alt="Site Logo link to Home Page"
+                                width="35"
+                                height="35" 
+                                loading="lazy"/>
+                    </a>
+                </div>
+                <div class="social-container">
+                    <ul>
+                        <li><a href="https://www.facebook.com/sharer/sharer.php?u=https://cubingcheatsheet.com/" aria-label="Share on Facebook" target="_BLANK"><i class="fab fa-facebook-square fa-2x" aria-hidden="true"></i></a></li>
+                        <li class="kofi-item"><a class="kofi-btn" href="https://ko-fi.com/daniel37663" target="_blank" rel="noopener noreferrer" aria-label="Support CubingCheatSheet on Ko-fi"><img class="kofi-cup" src="/img/kofi-cup.png" width="64" height="64" alt="">Support on Ko-fi</a></li>
+                    </ul>
+                </div>
+                <div class="dev">
+                    <a href="/terms.html" alt="Terms of Use" >Terms of Use</a>  -  
+                    <a href="/privacy.html" alt="Privacy Policy" >Privacy Policy</a>
+                </div>
+                <div class="dev">Hand Crafted by <a href="mailto:&#100;&#097;&#110;&#115;&#046;&#099;&#117;&#098;&#105;&#110;&#103;&#115;&#105;&#116;&#101;&#064;&#103;&#109;&#097;&#105;&#108;&#046;&#099;&#111;&#109;?subject=Cubing Cheat Sheet App Contact">Daniel Racine.</a></div>
+                <div class="copy"><span id="iniYear">2017</span><span id="currentYear" class="is-hidden">-XXXX</span> &copy; <a href="mailto:&#100;&#097;&#110;&#115;&#046;&#099;&#117;&#098;&#105;&#110;&#103;&#115;&#105;&#116;&#101;&#064;&#103;&#109;&#097;&#105;&#108;&#046;&#099;&#111;&#109;?subject=Cubing Cheat Sheet App Contact">Daniel Racine.</a> All Rights Reserved.</div>
+            </div>
+
+        </div> <!-- END .container  -->
+
+
+        <!-- <script src="https://use.fontawesome.com/367b73b9fa.js"></script> -->
+        <!-- <script src="js/vendor/fontawesome-all-min.js"></script> -->
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="js/vendor/jquery-3.4.1.min.js"><\/script>')</script>
+        <script src="js/vendor/modernizr-webp.min.js"></script>
+        <!-- <script src="js/main-v3-min.js"></script> -->
+
+        <script src="js/main-script-min.js?v=fa0094ab93"></script>
+        <script src="js/home-page-script-min.js?v=55ae0e4193"></script>
+
+        <script src="js/pwa-register.js"></script>
+
+
+
+
+
+    </body>
+</html>

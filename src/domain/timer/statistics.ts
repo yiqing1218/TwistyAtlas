@@ -57,9 +57,12 @@ export interface SessionStats {
   mo3: number | null;
   ao5: number | null;
   ao12: number | null;
-  /** 历史最优 ao5 / ao12（滚动窗口里的最小值） */
+  ao50: number | null;
+  ao100: number | null;
+  /** 历史最优 ao5 / ao12 / ao50（滚动窗口里的最小值） */
   bestAo5: number | null;
   bestAo12: number | null;
+  bestAo50: number | null;
 }
 
 /** 计算滚动窗口历史最好值 */
@@ -84,6 +87,8 @@ export function summarize(samples: SolveSample[]): SessionStats {
   const last3 = last(3);
   const last5 = last(5);
   const last12 = last(12);
+  const last50 = last(50);
+  const last100 = last(100);
   return {
     count: samples.length,
     best: values.length > 0 ? Math.min(...values) : null,
@@ -92,7 +97,10 @@ export function summarize(samples: SolveSample[]): SessionStats {
     mo3: last3.length === 3 ? meanOf(last3) : null,
     ao5: trimmedAverage(last5),
     ao12: trimmedAverage(last12),
+    ao50: trimmedAverage(last50),
+    ao100: trimmedAverage(last100),
     bestAo5: bestWindow(samples, 5),
     bestAo12: bestWindow(samples, 12),
+    bestAo50: bestWindow(samples, 50),
   };
 }

@@ -9,6 +9,7 @@ import { parseFormulaLocal, type AlgToken } from '@/infrastructure/cubing/algSer
 import { resolveSetup } from '@/infrastructure/cubing/setupResolver';
 import { getPuzzleDescriptor, isPuzzlePlayable } from '@/infrastructure/cubing/puzzleRegistry';
 import type { SetupMode } from '@/domain/model/formula';
+import { withBottom } from '@/domain/model/orientation';
 import { useSettingsStore } from '@/presentation/stores/settingsStore';
 
 export interface LoadRequest {
@@ -45,6 +46,8 @@ export const usePlayerStore = defineStore('player', {
     attached: false,
     /** 当前装载的公式（容器出现后用于补载） */
     target: null as PlayerTarget | null,
+    /** 最近一次加载请求（切换底面时按原请求重载） */
+    lastRequest: null as LoadRequest | null,
     loadError: null as string | null,
     loadWarning: null as string | null,
   }),
@@ -95,7 +98,13 @@ export const usePlayerStore = defineStore('player', {
       this.snapshot = { ...INITIAL_SNAPSHOT };
     },
     async loadFormula(request: LoadRequest) {
-      const resolved = resolveSetup(request.alg, request.setupMode, request.setupAlg);
+      this.lastRequest = request;
+      const settings = useSettingsStore();
+      // "以什么当底"：对公式与初始态做同一个共轭，保证终态仍是复原（只是整体转向）
+      const bottom = settings.settings.bottomColor;
+      const orientedAlg = withBottom(request.alg, bottom);
+      const orientedSetup = withBottom(request.setupAlg, bottom);
+      const resolved = resolveSetup(orientedAlg, request.setupMode, orientedSetup);
       const target: PlayerTarget = {
         formulaId: request.formulaId,
         puzzleId: request.puzzleId,
@@ -137,6 +146,11 @@ export const usePlayerStore = defineStore('player', {
         speed: settings.settings.playbackSpeed,
         showHintFacelets: settings.settings.showHintFacelets,
       });
+    },
+    /** 换底面后按原请求重载（公式与初始态会重新做共轭） */
+    async reload() {
+      if (!this.lastRequest) return;
+      await this.loadFormula(this.lastRequest);
     },
     play() {
       controllerInstance?.play();

@@ -6,7 +6,7 @@
  * 每条公式都经过 cubing.js 状态模型校验）。界面分三块：公式集、案例、播放器。
  */
 import { computed, onMounted, ref } from 'vue';
-import { loadDataset, type AlgCase, type AlgSet, type AlgSource } from '@/application/sets/formulaSets';
+import { groupSetsByCategory, loadDataset, type AlgCase, type AlgSet, type AlgSource } from '@/application/sets/formulaSets';
 import { usePlayerStore } from '@/presentation/stores/playerStore';
 import PuzzleViewport from '@/presentation/components/PuzzleViewport.vue';
 import PlaybackToolbar from '@/presentation/components/PlaybackToolbar.vue';
@@ -20,6 +20,7 @@ const search = ref('');
 const player = usePlayerStore();
 
 const sets = computed(() => dataset.value?.sets ?? []);
+const setGroups = computed(() => groupSetsByCategory(sets.value));
 const activeSet = computed<AlgSet | undefined>(() => sets.value.find((s) => s.id === activeSetId.value));
 const source = computed<AlgSource | undefined>(() => {
   const id = activeSet.value?.sourceId;
@@ -109,18 +110,23 @@ onMounted(async () => {
     </header>
 
     <nav class="set-pills" aria-label="公式集">
-      <button
-        v-for="set in sets"
-        :key="set.id"
-        type="button"
-        class="set-pill"
-        :class="{ 'set-pill--active': set.id === activeSetId }"
-        :data-testid="`set-pill-${set.id}`"
-        @click="selectSet(set.id)"
-      >
-        <span class="set-pill__name">{{ set.name }}</span>
-        <span class="set-pill__count">{{ set.cases.length }}</span>
-      </button>
+      <div v-for="group in setGroups" :key="group.category" class="set-group">
+        <span class="set-group__label">{{ group.label }}</span>
+        <div class="set-group__pills">
+          <button
+            v-for="set in group.sets"
+            :key="set.id"
+            type="button"
+            class="set-pill"
+            :class="{ 'set-pill--active': set.id === activeSetId }"
+            :data-testid="`set-pill-${set.id}`"
+            @click="selectSet(set.id)"
+          >
+            <span class="set-pill__name">{{ set.name }}</span>
+            <span class="set-pill__count">{{ set.cases.length }}</span>
+          </button>
+        </div>
+      </div>
     </nav>
 
     <div class="sets-body">
@@ -221,9 +227,36 @@ onMounted(async () => {
 
 .set-pills {
   display: flex;
+  flex-direction: column;
   gap: 6px;
-  overflow-x: auto;
+  max-height: 132px;
+  overflow-y: auto;
   padding-bottom: 4px;
+}
+
+/* 每个分类一行：窄标签 + 可横向滚动的 pill 列表 */
+.set-group {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.set-group__label {
+  flex: 0 0 auto;
+  width: 132px;
+  font-size: 11px;
+  line-height: 26px;
+  color: var(--text-muted, #6b7280);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.set-group__pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  min-width: 0;
 }
 
 .set-pill {
@@ -435,6 +468,124 @@ onMounted(async () => {
 
   .cases-pane {
     max-height: 40vh;
+  }
+}
+
+/* 手机：播放器固定在上方，案例列表在下方自滚动；顶部只留一行页签 */
+@media (max-width: 760px) {
+  .sets-page {
+    padding: 6px 10px 0;
+    gap: 6px;
+    overflow: hidden;
+  }
+
+  /* 顶部栏已有页名，标题与统计数字都是冗余，收掉换成一整行搜索框 */
+  .sets-header__title {
+    display: none;
+  }
+
+  .sets-header__search {
+    max-width: none;
+    min-height: 34px;
+  }
+
+  /* 手机上整个公式集列表压成「一行可横滑」：分类名当分隔符，不再按类换行 */
+  .set-pills {
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+    max-height: none;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scrollbar-width: none;
+    padding-bottom: 2px;
+  }
+
+  .set-pills::-webkit-scrollbar {
+    display: none;
+  }
+
+  .set-group {
+    display: contents;
+    gap: 6px;
+  }
+
+  .set-group__label {
+    flex: 0 0 auto;
+    width: auto;
+    padding-right: 8px;
+    border-right: 1px solid var(--border);
+    font-size: 10px;
+    line-height: 30px;
+  }
+
+  .set-group__pills {
+    flex: 0 0 auto;
+    flex-wrap: nowrap;
+    overflow: visible;
+    padding-bottom: 0;
+  }
+
+  .set-pill {
+    padding: 4px 9px;
+    font-size: 12px;
+    min-height: 30px;
+  }
+
+  .sets-body {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    min-height: 0;
+  }
+
+  /* 播放器固定高度，不抢走整屏 */
+  .cases-player {
+    order: 1;
+    flex: 0 0 auto;
+  }
+
+  .cases-player__viewport {
+    height: 25vh;
+    min-height: 152px;
+  }
+
+  .cases-pane {
+    order: 2;
+    flex: 1 1 auto;
+    min-height: 0;
+    max-height: none;
+  }
+
+  .cases-note {
+    display: none;
+  }
+
+  .case-item__alg {
+    display: none;
+  }
+
+  /* 案例详情压成一行：名称 + 校验徽标（来源署名在桌面端与文档里保留） */
+  .case-detail {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 4px 8px;
+    overflow: hidden;
+  }
+
+  .case-detail__head {
+    margin-bottom: 0;
+    min-width: 0;
+  }
+
+  .case-detail__head h3 {
+    font-size: 12px;
+  }
+
+  .case-detail__algs,
+  .case-detail__source {
+    display: none;
   }
 }
 </style>

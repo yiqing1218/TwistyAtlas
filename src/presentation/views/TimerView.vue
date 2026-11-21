@@ -10,6 +10,13 @@ import { useTimerStore } from '@/presentation/stores/timerStore';
 import { formatMs, formatInspection } from '@/domain/timer/format';
 import { listPuzzles } from '@/infrastructure/cubing/puzzleRegistry';
 import { formatSolve } from '@/domain/timer/format';
+import {
+  EXPORT_LABEL,
+  EXPORT_MIME,
+  buildExport,
+  exportFileName,
+  type ExportFormat,
+} from '@/application/timer/exportSolves';
 import SevenSegmentDisplay from '@/presentation/components/timer/SevenSegmentDisplay.vue';
 import MiniCubePreview from '@/presentation/components/timer/MiniCubePreview.vue';
 import type { SolveRecord } from '@/domain/model/solve';
@@ -74,6 +81,11 @@ function onKeyDown(event: KeyboardEvent) {
     return;
   }
   if (event.key === 'Escape') timer.cancel();
+  if (event.key === 'Delete') {
+    event.preventDefault();
+    void deleteLast();
+    return;
+  }
   if (event.key === 'n' || event.key === 'N') void timer.newScramble();
 }
 
@@ -100,6 +112,61 @@ function penaltyLabel(record: SolveRecord): string {
   return record.penalty === '+2' ? '+2' : record.penalty === 'DNF' ? 'DNF' : '';
 }
 
+/* ---------- 成绩导出与编辑（对齐 csTimer 的操作习惯） ---------- */
+
+const flash = ref('');
+const exportFormats: ExportFormat[] = ['csv', 'json', 'text'];
+let flashTimer = 0;
+function notify(message: string) {
+  flash.value = message;
+  window.clearTimeout(flashTimer);
+  flashTimer = window.setTimeout(() => {
+    flash.value = '';
+  }, 2600);
+}
+
+const puzzleName = computed(
+  () => puzzleOptions.value.find((p) => p.id === timer.puzzleId)?.displayNameZh ?? timer.puzzleId,
+);
+
+function download(format: ExportFormat) {
+  if (timer.samples.length === 0) {
+    notify('还没有成绩可以导出');
+    return;
+  }
+  const input = { puzzleName: puzzleName.value, sessionId: timer.sessionId, records: timer.samples };
+  const blob = new Blob([buildExport(format, input)], { type: EXPORT_MIME[format] });
+  const url = URL.createObjectURL(blob);
+  const anchor = document.createElement('a');
+  anchor.href = url;
+  anchor.download = exportFileName(format, puzzleName.value);
+  document.body.append(anchor);
+  anchor.click();
+  anchor.remove();
+  window.setTimeout(() => URL.revokeObjectURL(url), 4000);
+  notify(`已导出 ${timer.samples.length} 条成绩（${EXPORT_LABEL[format]}）`);
+}
+
+async function togglePlusTwo(record: SolveRecord) {
+  await timer.setPenalty(record, record.penalty === '+2' ? 'none' : '+2');
+}
+
+async function toggleDnf(record: SolveRecord) {
+  await timer.setPenalty(record, record.penalty === 'DNF' ? 'none' : 'DNF');
+}
+
+async function deleteSolve(record: SolveRecord) {
+  await timer.removeSolve(record);
+  notify('已删除一条成绩');
+}
+
+/** 删除最后一条（Delete 键） */
+async function deleteLast() {
+  const last = timer.samples[timer.samples.length - 1];
+  if (!last) return;
+  await deleteSolve(last);
+}
+
 function onPuzzleChange(event: Event) {
   const value = (event.target as HTMLSelectElement).value;
   void timer.setPuzzle(value);
@@ -120,6 +187,7 @@ onBeforeUnmount(() => {
 
 <template>
   <div class="timer-page" data-testid="timer-page" :data-ready="ready ? 'true' : 'false'">
+    <p v-if="flash" class="timer-flash" data-testid="timer-flash">{{ flash }}</p>
     <!-- 顶部打乱条 -->
     <header class="scramble-bar">
       <div class="scramble-bar__event">
@@ -185,6 +253,16 @@ onBeforeUnmount(() => {
               <td>{{ formatMs(timer.stats.bestAo12) }}</td>
             </tr>
             <tr>
+              <th scope="row">ao50</th>
+              <td>{{ formatMs(timer.stats.ao50) }}</td>
+              <td>{{ formatMs(timer.stats.bestAo50) }}</td>
+            </tr>
+            <tr>
+              <th scope="row">ao100</th>
+              <td>{{ formatMs(timer.stats.ao100) }}</td>
+              <td>—</td>
+            </tr>
+            <tr>
               <th scope="row">还原</th>
               <td colspan="2" class="stats-table__count">{{ timer.stats.count }} / {{ timer.stats.count }}</td>
             </tr>
@@ -196,11 +274,28 @@ onBeforeUnmount(() => {
         </table>
 
         <div class="history" data-testid="history">
+          <div class="history__toolbar">
+            <span class="history__title">成绩（{{ timer.samples.length }}）</span>
+            <div class="history__export">
+              <span class="history__export-label">导出</span>
+              <button
+                v-for="format in exportFormats"
+                :key="format"
+                type="button"
+                class="bar-btn bar-btn--small"
+                :data-testid="`export-${format}`"
+                :title="`导出为 ${EXPORT_LABEL[format]}`"
+                @click="download(format)"
+              >
+                {{ EXPORT_LABEL[format] }}
+              </button>
+            </div>
+          </div>
           <div class="history__head">
-            <span>#</span><span>时间</span><span>ao5</span><span>ao12</span>
+            <span>#</span><span>时间</span><span>ao5</span><span>ao12</span><span class="history__ops-head">改判/删除</span>
           </div>
           <ol class="history__list">
-            <li v-for="(record, index) in history" :key="record.id" class="history__row">
+            <li v-for="(record, index) in history" :key="record.id" class="history__row" :data-testid="`solve-row-${index}`">
               <span class="history__index">{{ timer.samples.length - index }}</span>
               <span class="history__time" :class="{ 'history__time--best': record.elapsedMs === timer.stats.best }">
                 {{ formatSolve(record.elapsedMs, record.penalty) }}
@@ -208,6 +303,37 @@ onBeforeUnmount(() => {
               </span>
               <span class="history__avg">{{ aoForIndex(index, 5) }}</span>
               <span class="history__avg">{{ aoForIndex(index, 12) }}</span>
+              <span class="history__ops">
+                <button
+                  type="button"
+                  class="op-btn"
+                  :class="{ 'op-btn--on': record.penalty === '+2' }"
+                  title="加 2 秒 / 取消加时"
+                  :data-testid="`plus2-${index}`"
+                  @click="togglePlusTwo(record)"
+                >
+                  +2
+                </button>
+                <button
+                  type="button"
+                  class="op-btn"
+                  :class="{ 'op-btn--on': record.penalty === 'DNF' }"
+                  title="判为 DNF / 取消"
+                  :data-testid="`dnf-${index}`"
+                  @click="toggleDnf(record)"
+                >
+                  DNF
+                </button>
+                <button
+                  type="button"
+                  class="op-btn op-btn--danger"
+                  title="删除这条成绩"
+                  :data-testid="`delete-${index}`"
+                  @click="deleteSolve(record)"
+                >
+                  ×
+                </button>
+              </span>
             </li>
           </ol>
           <p v-if="history.length === 0" class="history__empty">还没有成绩，按住空格开始计时。</p>
@@ -223,7 +349,7 @@ onBeforeUnmount(() => {
         @pointerup="onPointerUp"
         @pointercancel="onPointerUp"
       >
-        <SevenSegmentDisplay :value="bigValue" :height="168" data-testid="timer-display" />
+        <SevenSegmentDisplay :value="bigValue" :height="168" fluid data-testid="timer-display" />
         <div class="timer-stage__sub">
           <span>ao5: <b>{{ formatMs(average5) }}</b></span>
           <span>ao12: <b>{{ formatMs(average12) }}</b></span>
@@ -248,6 +374,7 @@ onBeforeUnmount(() => {
 
 <style scoped>
 .timer-page {
+  position: relative;
   display: flex;
   flex-direction: column;
   flex: 1;
@@ -389,10 +516,108 @@ onBeforeUnmount(() => {
   padding-top: 6px;
 }
 
+/* 导出工具条 */
+.history__toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+  padding-bottom: 6px;
+}
+
+.history__title {
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+.history__export {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.history__export-label {
+  font-size: 11px;
+  color: var(--text-secondary);
+}
+
+.bar-btn--small {
+  font-size: 11px;
+  padding: 3px 6px;
+}
+
+.history__ops-head {
+  text-align: right;
+  font-size: 10px;
+}
+
+/* 每行操作按钮：+2 / DNF / 删除 */
+.history__ops {
+  display: flex;
+  gap: 2px;
+  justify-content: flex-end;
+  opacity: 0;
+  transition: opacity 0.12s;
+}
+
+.history__row:hover .history__ops,
+.history__row:focus-within .history__ops {
+  opacity: 1;
+}
+
+@media (hover: none) {
+  .history__ops {
+    opacity: 1;
+  }
+}
+
+.op-btn {
+  border: 1px solid color-mix(in srgb, var(--timer-text, #222) 18%, transparent);
+  background: transparent;
+  color: inherit;
+  font-size: 10px;
+  line-height: 1;
+  padding: 2px 4px;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.op-btn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.op-btn--on {
+  border-color: var(--danger, #d64545);
+  color: var(--danger, #d64545);
+  font-weight: 600;
+}
+
+.op-btn--danger:hover {
+  border-color: var(--danger, #d64545);
+  color: var(--danger, #d64545);
+}
+
+/* 顶部闪现提示 */
+.timer-flash {
+  position: absolute;
+  top: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 20;
+  margin: 0;
+  padding: 5px 12px;
+  border-radius: 999px;
+  background: var(--accent, #2563eb);
+  color: #fff;
+  font-size: 12px;
+  box-shadow: 0 4px 14px rgb(0 0 0 / 18%);
+}
+
 .history__head,
 .history__row {
   display: grid;
-  grid-template-columns: 34px 1fr 62px 62px;
+  grid-template-columns: 28px 1fr 54px 54px 74px;
   gap: 4px;
   font-variant-numeric: tabular-nums;
 }
@@ -511,21 +736,79 @@ onBeforeUnmount(() => {
 }
 
 @media (max-width: 720px) {
+  /* 手机：大计时固定在中间，统计与历史在下方，历史自身滚动 —— 整页不上下滑 */
   .timer-body {
-    grid-template-columns: 1fr;
-    grid-template-rows: auto 1fr;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+  }
+
+  .timer-stage {
+    order: 1;
+    flex: 0 0 auto;
+    height: 30vh;
+    min-height: 176px;
+    gap: 6px;
+    padding: 4px 8px 2px;
+  }
+
+  .cube-pane {
+    display: none;
   }
 
   .stats-pane {
+    order: 2;
+    flex: 1 1 auto;
+    min-height: 0;
+    max-height: none;
+    overflow: hidden;
     border-right: none;
-    border-bottom: 1px solid var(--border);
-    max-height: 42vh;
+    border-top: 1px solid var(--border);
+    border-bottom: none;
+    padding: 4px 10px 0;
+  }
+
+  .stats-pane__group {
+    padding-bottom: 4px;
+  }
+
+  /* 统计表只保留 时间 / ao5 / ao12 / 还原 四行，避免占据整屏 */
+  .stats-table {
+    margin: 4px 0;
+    font-size: 12px;
+  }
+
+  .stats-table thead tr th:nth-child(3),
+  .stats-table tbody tr td:nth-child(3) {
+    display: none;
+  }
+
+  .stats-table tbody tr:nth-child(2),
+  .stats-table tbody tr:nth-child(5),
+  .stats-table tbody tr:nth-child(6),
+  .stats-table tbody tr:nth-child(8) {
+    display: none;
+  }
+
+  .history {
+    min-height: 0;
+  }
+
+  .history__head,
+  .history__row {
+    grid-template-columns: 26px 1fr 46px 46px 68px;
+    font-size: 12px;
+  }
+
+  .history__ops {
+    opacity: 1;
   }
 
   .scramble-bar {
     grid-template-columns: 1fr auto;
     grid-template-areas: 'event actions' 'text text';
     row-gap: 6px;
+    padding: 6px 10px;
   }
 
   .scramble-bar__event {
@@ -534,7 +817,11 @@ onBeforeUnmount(() => {
 
   .scramble-bar__text {
     grid-area: text;
-    font-size: 13px;
+    font-size: 11.5px;
+    line-height: 1.35;
+    /* 打乱是必须完整可见的信息，手机上不截断，让它自然折行 */
+    word-break: normal;
+    overflow-wrap: anywhere;
   }
 
   .scramble-bar__actions {

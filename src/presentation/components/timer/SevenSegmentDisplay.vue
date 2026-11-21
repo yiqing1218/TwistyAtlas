@@ -13,8 +13,13 @@ const props = withDefaults(
     value: string;
     height?: number;
     color?: string;
+    /**
+     * 自适应宽度：按容器宽度等比缩小，位数变多（如 1:23.456）时自动变小，
+     * 手机窄屏下不会被裁掉。桌面端由 maxHeight 兜住高度。
+     */
+    fluid?: boolean;
   }>(),
-  { height: 148, color: 'var(--timer-digit, #12161c)' },
+  { height: 148, color: 'var(--timer-digit, #12161c)', fluid: false },
 );
 
 type Seg = 'a' | 'b' | 'c' | 'd' | 'e' | 'f' | 'g';
@@ -110,13 +115,19 @@ const glyphs = computed<Glyph[]>(() => {
 
 const totalWidth = computed(() => glyphs.value.reduce((sum, g) => sum + g.width, 0) + Math.max(0, glyphs.value.length - 1) * 8);
 const scale = computed(() => props.height / 180);
+
+const svgStyle = computed(() =>
+  props.fluid
+    ? { height: 'auto', width: '100%', maxHeight: `${props.height}px` }
+    : { height: `${props.height}px`, width: 'auto' },
+);
 </script>
 
 <template>
   <svg
     class="seg"
     :viewBox="`0 0 ${Math.max(1, totalWidth)} 180`"
-    :style="{ height: `${height}px`, width: 'auto' }"
+    :style="svgStyle"
     role="img"
     :aria-label="value"
     preserveAspectRatio="xMidYMid meet"

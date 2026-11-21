@@ -6,7 +6,7 @@
 | 目标 | 命令 | 产物 |
 |---|---|---|
 | 电脑（Windows x64，免安装） | `npm run desktop:build` | `out/TwistyAtlas/TwistyAtlas.exe` |
-| 安卓（debug APK） | `npm run android:apk` | `out/TwistyAtlas-1.2.0-android-debug.apk`（原件在 `android/app/build/outputs/apk/debug/`） |
+| 安卓（debug APK） | `npm run android:apk` | `out/TwistyAtlas-1.3.0-android-debug.apk`（原件在 `android/app/build/outputs/apk/debug/`） |
 
 ---
 
@@ -57,12 +57,12 @@ npm run desktop:installer   # electron-builder --win（nsis + portable）
 ```
 工作台：{"title":"工作台 · Twisty Atlas","hasPlayer":true,"bridge":{"platform":"win32","isDesktop":true}}
 计时器：{"ready":"true","scramble":"B F2 R2 F L' U' B' ...","hasCubePreview":true,"statsPane":true}
-公式集：{"pills":12,"cases":57,"hasPlayer":true}
+公式集：{"pills":37,"cases":57,"hasPlayer":true}
 ```
 
 - 标题正确、`twisty-player` 真实存在（WebGL 在 Electron 里可用）；
 - `window.desktop` 桥接生效（`contextIsolation: true` + `sandbox: true`）；
-- 12 套公式集加载正常。
+- 37 套公式集加载正常（2433 案例 / 13667 条公式）。
 
 ### 1.5 已知限制
 
@@ -113,8 +113,8 @@ npm run android:open          # 用 Android Studio 打开
 ### 2.4 产物实测
 
 ```
-app-debug.apk  5.2 MB
-package: name='com.twistyatlas.app' versionCode='120' versionName='1.2.0'
+app-debug.apk  5.1 MB
+package: name='com.twistyatlas.app' versionCode='130' versionName='1.3.0'
 minSdkVersion:'24'  targetSdkVersion:'36'
 application-label:'Twisty Atlas'
 assets/public/ 47 个条目（index.html + assets + algsets chunk）
@@ -127,8 +127,11 @@ assets/public/ 47 个条目（index.html + assets + algsets chunk）
 - **没有在真机/模拟器上跑过**：本机未安装 AVD 系统镜像，也没有连接设备。
   已完成的是「编译通过 + 包结构校验」，不等于"安装到手机上跑通了"。
 - release 版未配置签名（`assembleRelease` 产出未签名 APK，无法直接安装分发）。
-- 移动端布局已用 Playwright 的 Pixel 7 / 360×800 视口验证（`e2e/mobile.spec.ts`），
+- 手机端布局已用 Playwright 的 Pixel 7 / 390×844 / 360×800 视口验证
+  （`e2e/mobile.spec.ts` + `scripts/shot-mobile.mjs`：逐页断言「整页不滚动 / 无横向溢出 / 底部页签在视口内」），
   但那是浏览器视口，不是 Android WebView 的真实渲染。
+- 手机端是**独立的一套界面**（底部页签 + 固定视口 + 单列布局），不是桌面布局的缩放版；
+  详见 `docs/ARCHITECTURE.md` 第 2.5 节。
 
 ---
 

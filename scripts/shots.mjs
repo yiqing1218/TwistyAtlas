@@ -110,43 +110,10 @@ async function shot(page, name, options = {}) {
   await page.close();
 }
 
-// ---------- 手机 390×844 ----------
-{
-  const page = await browser.newPage({ viewport: { width: 390, height: 844 }, deviceScaleFactor: 2, isMobile: true, hasTouch: true });
-  await page.goto(BASE);
-  await page.getByTestId('puzzle-canvas').waitFor();
-  await page.locator('.formula-card').first().waitFor();
-  await page.waitForTimeout(800);
-  await waitCanvas(page);
-  await shot(page, 'mobile-home-390x844-library');
-
-  await page.locator('.formula-card').first().click();
-  await page.waitForTimeout(700);
-  await shot(page, 'mobile-detail-390x844');
-
-  // 回到播放器：切换到详情 tab 后再切回库，验证无横向溢出
-  const overflow = await page.evaluate(() => document.documentElement.scrollWidth - window.innerWidth);
-  console.log(`mobile390 overflow=${overflow}`);
-  await page.goto(`${BASE}/#/library`);
-  await page.locator('.formula-card').first().waitFor();
-  await page.waitForTimeout(500);
-  await shot(page, 'mobile-library-390x844');
-  await page.close();
-}
-
-// ---------- 手机 360×800 ----------
-{
-  const page = await browser.newPage({ viewport: { width: 360, height: 800 }, deviceScaleFactor: 2, isMobile: true, hasTouch: true });
-  await page.goto(BASE);
-  await page.getByTestId('puzzle-canvas').waitFor();
-  await page.locator('.formula-card').first().waitFor();
-  await page.waitForTimeout(800);
-  await waitCanvas(page);
-  await shot(page, 'mobile-home-360x800-library');
-  const overflow = await page.evaluate(() => document.documentElement.scrollWidth - window.innerWidth);
-  console.log(`mobile360 overflow=${overflow}`);
-  await page.close();
-}
+// ---------- 手机端截图 ----------
+// 手机端是独立的四页签结构（计时器 / 公式集 / 公式库 / 设置），
+// 由 scripts/shot-mobile.mjs 负责逐页截图与「整页不滚动」量化检查。
+console.log('手机端截图与布局检查请运行：node scripts/shot-mobile.mjs');
 
 await browser.close();
 console.log('\n--- 存档 ---');

@@ -185,6 +185,20 @@ describe('成绩统计', () => {
     ]);
     expect(summarize(samples).mean).toBeNull();
   });
+
+  it('ao50 / ao100：样本不足时为空，够了就按去头尾平均', () => {
+    const few = make(Array.from({ length: 49 }, (_, i) => [10000 + i * 10, 'none'] as [number, 'none']));
+    expect(summarize(few).ao50).toBeNull();
+    expect(summarize(few).ao100).toBeNull();
+
+    const many = make(Array.from({ length: 100 }, (_, i) => [10000 + i * 10, 'none'] as [number, 'none']));
+    const stats = summarize(many);
+    expect(stats.ao50).not.toBeNull();
+    expect(stats.ao100).not.toBeNull();
+    expect(stats.bestAo50).not.toBeNull();
+    // 100 个等差样本，去头尾后均值 = 中间两点平均
+    expect(stats.ao100).toBeCloseTo(10495, 0);
+  });
 });
 
 describe('时间格式化', () => {

@@ -3,9 +3,22 @@ import { computed } from 'vue';
 import { usePlayerStore } from '@/presentation/stores/playerStore';
 import { useSettingsStore } from '@/presentation/stores/settingsStore';
 import { SPEED_OPTIONS } from '@/domain/model/settings';
+import {
+  BOTTOM_COLOR_LABEL,
+  BOTTOM_COLOR_ORDER,
+  type BottomColor,
+} from '@/domain/model/orientation';
 
 const player = usePlayerStore();
 const settings = useSettingsStore();
+
+const bottomColor = computed(() => settings.settings.bottomColor);
+
+async function onBottomChange(event: Event) {
+  const value = (event.target as HTMLSelectElement).value as BottomColor;
+  await settings.update({ bottomColor: value });
+  await player.reload();
+}
 
 const ready = computed(() => player.snapshot.status === 'ready' && player.snapshot.totalSteps > 0);
 const atStart = computed(() => player.snapshot.currentStep === 0 && !player.snapshot.activeMoveIndex);
@@ -131,6 +144,20 @@ const activeLabel = computed(() => {
           <span class="small muted">速度</span>
           <select v-model.number="speed" class="select select--compact" aria-label="播放速度" data-testid="speed-select">
             <option v-for="option in SPEED_OPTIONS" :key="option" :value="option">{{ option }}×</option>
+          </select>
+        </label>
+        <label class="toolbar__speed">
+          <span class="small muted">底面</span>
+          <select
+            :value="bottomColor"
+            class="select select--compact"
+            aria-label="演示底面"
+            data-testid="bottom-select"
+            @change="onBottomChange"
+          >
+            <option v-for="color in BOTTOM_COLOR_ORDER" :key="color" :value="color">
+              {{ BOTTOM_COLOR_LABEL[color] }}
+            </option>
           </select>
         </label>
       </div>

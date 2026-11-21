@@ -32,9 +32,9 @@ const current = computed(
 function onChange(event: Event) {
   const value = (event.target as HTMLSelectElement).value;
   emit('update:modelValue', value);
-  // 魔方类型是全局上下文，切换后回到工作台更符合预期
+  // 魔方类型是全局上下文，切换后回到公式库更符合预期
   if (router.currentRoute.value.name === 'formula') {
-    void router.push({ name: 'home' });
+    void router.push({ name: 'library' });
   }
 }
 </script>
@@ -101,6 +101,11 @@ function onChange(event: Event) {
   .picker__select {
     min-width: 0;
     max-width: 150px;
+  }
+
+  /* 下拉选项里已经带了状态文案，手机上不再重复一枚徽标 */
+  .picker .badge {
+    display: none;
   }
 }
 </style>

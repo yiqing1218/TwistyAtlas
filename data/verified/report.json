@@ -1,9 +1,9 @@
 {
-  "totalCases": 807,
-  "totalAlgs": 7468,
-  "verified": 7348,
-  "parsedOnly": 120,
-  "rejected": 68,
+  "totalCases": 2433,
+  "totalAlgs": 13667,
+  "verified": 9357,
+  "parsedOnly": 4310,
+  "rejected": 399,
   "bySet": {
     "cfop-oll": {
       "cases": 57,
@@ -110,6 +110,231 @@
       "rejected": 0,
       "levels": {
         "structural": 6481,
+        "parsed": 0
+      }
+    },
+    "vls": {
+      "cases": 189,
+      "algs": 587,
+      "rejected": 0,
+      "levels": {
+        "structural": 254,
+        "parsed": 333
+      }
+    },
+    "zbls": {
+      "cases": 291,
+      "algs": 1684,
+      "rejected": 0,
+      "levels": {
+        "structural": 298,
+        "parsed": 1386
+      }
+    },
+    "ollcp": {
+      "cases": 342,
+      "algs": 1111,
+      "rejected": 0,
+      "levels": {
+        "structural": 199,
+        "parsed": 912
+      }
+    },
+    "cls": {
+      "cases": 97,
+      "algs": 184,
+      "rejected": 0,
+      "levels": {
+        "structural": 64,
+        "parsed": 120
+      }
+    },
+    "sbls": {
+      "cases": 65,
+      "algs": 223,
+      "rejected": 0,
+      "levels": {
+        "structural": 65,
+        "parsed": 158
+      }
+    },
+    "sv": {
+      "cases": 27,
+      "algs": 58,
+      "rejected": 0,
+      "levels": {
+        "structural": 33,
+        "parsed": 25
+      }
+    },
+    "cmll": {
+      "cases": 42,
+      "algs": 178,
+      "rejected": 0,
+      "levels": {
+        "structural": 63,
+        "parsed": 115
+      }
+    },
+    "ell": {
+      "cases": 25,
+      "algs": 115,
+      "rejected": 0,
+      "levels": {
+        "structural": 115,
+        "parsed": 0
+      }
+    },
+    "adv-f2l": {
+      "cases": 54,
+      "algs": 598,
+      "rejected": 0,
+      "levels": {
+        "structural": 46,
+        "parsed": 552
+      }
+    },
+    "psf2l": {
+      "cases": 33,
+      "algs": 33,
+      "rejected": 0,
+      "levels": {
+        "structural": 33,
+        "parsed": 0
+      }
+    },
+    "eg1-2x2": {
+      "cases": 40,
+      "algs": 308,
+      "rejected": 0,
+      "levels": {
+        "structural": 196,
+        "parsed": 112
+      }
+    },
+    "eg2-2x2": {
+      "cases": 40,
+      "algs": 263,
+      "rejected": 0,
+      "levels": {
+        "structural": 133,
+        "parsed": 130
+      }
+    },
+    "ortega-oll": {
+      "cases": 7,
+      "algs": 27,
+      "rejected": 0,
+      "levels": {
+        "structural": 11,
+        "parsed": 16
+      }
+    },
+    "ortega-pbl": {
+      "cases": 9,
+      "algs": 82,
+      "rejected": 0,
+      "levels": {
+        "structural": 49,
+        "parsed": 33
+      }
+    },
+    "pyra-l4e": {
+      "cases": 49,
+      "algs": 200,
+      "rejected": 0,
+      "levels": {
+        "structural": 116,
+        "parsed": 84
+      }
+    },
+    "mega-co": {
+      "cases": 16,
+      "algs": 32,
+      "rejected": 0,
+      "levels": {
+        "structural": 16,
+        "parsed": 16
+      }
+    },
+    "mega-cp": {
+      "cases": 15,
+      "algs": 15,
+      "rejected": 0,
+      "levels": {
+        "structural": 15,
+        "parsed": 0
+      }
+    },
+    "mega-eo": {
+      "cases": 3,
+      "algs": 3,
+      "rejected": 0,
+      "levels": {
+        "structural": 3,
+        "parsed": 0
+      }
+    },
+    "mega-ep": {
+      "cases": 5,
+      "algs": 5,
+      "rejected": 0,
+      "levels": {
+        "structural": 5,
+        "parsed": 0
+      }
+    },
+    "mega-pll": {
+      "cases": 151,
+      "algs": 273,
+      "rejected": 0,
+      "levels": {
+        "structural": 154,
+        "parsed": 119
+      }
+    },
+    "sq1-co": {
+      "cases": 7,
+      "algs": 13,
+      "rejected": 0,
+      "levels": {
+        "structural": 7,
+        "parsed": 6
+      }
+    },
+    "sq1-cp": {
+      "cases": 8,
+      "algs": 19,
+      "rejected": 0,
+      "levels": {
+        "structural": 10,
+        "parsed": 9
+      }
+    },
+    "sq1-eo": {
+      "cases": 7,
+      "algs": 15,
+      "rejected": 0,
+      "levels": {
+        "structural": 8,
+        "parsed": 7
+      }
+    },
+    "sq1-ep": {
+      "cases": 99,
+      "algs": 168,
+      "rejected": 0,
+      "levels": {
+        "structural": 111,
+        "parsed": 57
+      }
+    },
+    "sq1-parity": {
+      "cases": 5,
+      "algs": 5,
+      "rejected": 0,
+      "levels": {
+        "structural": 5,
         "parsed": 0
       }
     }

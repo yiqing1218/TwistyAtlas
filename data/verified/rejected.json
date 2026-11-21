@@ -1,5 +1,1991 @@
 [
  {
+  "setId": "zbls",
+  "caseId": "3x3-3",
+  "alg": "=y U F R U' R' F'",
+  "reason": "记号不被引擎支持：Unexpected character: ="
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-3",
+  "alg": "=y2 U L F U' F' L'",
+  "reason": "记号不被引擎支持：Unexpected character: ="
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-3",
+  "alg": "=y U L F U' F' L'",
+  "reason": "记号不被引擎支持：Unexpected character: ="
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-3",
+  "alg": "=y2 U B L U' L' B'",
+  "reason": "记号不被引擎支持：Unexpected character: ="
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-3",
+  "alg": "=y U B L U' L' B'",
+  "reason": "记号不被引擎支持：Unexpected character: ="
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-3",
+  "alg": "=y2 U R B U' B' R'",
+  "reason": "记号不被引擎支持：Unexpected character: ="
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-3",
+  "alg": "=y U R B U' B' R'",
+  "reason": "记号不被引擎支持：Unexpected character: ="
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-3",
+  "alg": "=y2 U F R U' R' F'",
+  "reason": "记号不被引擎支持：Unexpected character: ="
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-4",
+  "alg": "=y F' r U r'",
+  "reason": "记号不被引擎支持：Unexpected character: ="
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-4",
+  "alg": "=y L' f U f'",
+  "reason": "记号不被引擎支持：Unexpected character: ="
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-4",
+  "alg": "=y B' l U l'",
+  "reason": "记号不被引擎支持：Unexpected character: ="
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-4",
+  "alg": "=y R' b U b'",
+  "reason": "记号不被引擎支持：Unexpected character: ="
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-5",
+  "alg": "=U2 R U' B U' B' R'",
+  "reason": "记号不被引擎支持：Unexpected character: ="
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-5",
+  "alg": "=U2 F U' R U' R' F'",
+  "reason": "记号不被引擎支持：Unexpected character: ="
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-5",
+  "alg": "=U2 L U' F U' F' L'",
+  "reason": "记号不被引擎支持：Unexpected character: ="
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-5",
+  "alg": "=U2 B U' L U' L' B'",
+  "reason": "记号不被引擎支持：Unexpected character: ="
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-6",
+  "alg": "=y F' L F2' U F' U' L'",
+  "reason": "记号不被引擎支持：Unexpected character: ="
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-6",
+  "alg": "=y L' B L2' U L' U' B'",
+  "reason": "记号不被引擎支持：Unexpected character: ="
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-6",
+  "alg": "=y B' R B2' U B' U' R'",
+  "reason": "记号不被引擎支持：Unexpected character: ="
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-6",
+  "alg": "=y R' F R2' U R' U' F'",
+  "reason": "记号不被引擎支持：Unexpected character: ="
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-7",
+  "alg": "=y2 U' B D (b' U b D') B'",
+  "reason": "记号不被引擎支持：Unexpected character: ="
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-7",
+  "alg": "=y2 U' R D (r' U r D') R'",
+  "reason": "记号不被引擎支持：Unexpected character: ="
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-7",
+  "alg": "=y2 U' F D (f' U f D') F'",
+  "reason": "记号不被引擎支持：Unexpected character: ="
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-7",
+  "alg": "=y2 U' L D (l' U l D') L'",
+  "reason": "记号不被引擎支持：Unexpected character: ="
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-8",
+  "alg": "=y2 (b' U' b U2') S U' S'",
+  "reason": "记号不被引擎支持：Unexpected character: ="
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-8",
+  "alg": "=y2 (r' U' r U2') M U' M'",
+  "reason": "记号不被引擎支持：Unexpected character: ="
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-8",
+  "alg": "=y2 (f' U' f U2') S' U' S",
+  "reason": "记号不被引擎支持：Unexpected character: ="
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-8",
+  "alg": "=y2 (l' U' l U2') M' U' M",
+  "reason": "记号不被引擎支持：Unexpected character: ="
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-10",
+  "alg": "=y2 U' r U B U' r'",
+  "reason": "记号不被引擎支持：Unexpected character: ="
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-10",
+  "alg": "=y2 U' f U R U' f'",
+  "reason": "记号不被引擎支持：Unexpected character: ="
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-10",
+  "alg": "=y2 U' l U F U' l'",
+  "reason": "记号不被引擎支持：Unexpected character: ="
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-10",
+  "alg": "=y2 U' b U L U' b'",
+  "reason": "记号不被引擎支持：Unexpected character: ="
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-11",
+  "alg": "=y' U' R' F' U F R",
+  "reason": "记号不被引擎支持：Unexpected character: ="
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-11",
+  "alg": "=y2 U' B' R' U R B",
+  "reason": "记号不被引擎支持：Unexpected character: ="
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-11",
+  "alg": "=y' U' F' L' U L F",
+  "reason": "记号不被引擎支持：Unexpected character: ="
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-11",
+  "alg": "=y2 U' R' F' U F R",
+  "reason": "记号不被引擎支持：Unexpected character: ="
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-11",
+  "alg": "=y' U' L' B' U B L",
+  "reason": "记号不被引擎支持：Unexpected character: ="
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-11",
+  "alg": "=y2 U' F' L' U L F",
+  "reason": "记号不被引擎支持：Unexpected character: ="
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-11",
+  "alg": "=y' U' B' R' U R B",
+  "reason": "记号不被引擎支持：Unexpected character: ="
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-11",
+  "alg": "=y2 U' L' B' U B L",
+  "reason": "记号不被引擎支持：Unexpected character: ="
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-12",
+  "alg": "=b U' b' R",
+  "reason": "记号不被引擎支持：Unexpected character: ="
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-12",
+  "alg": "=r U' r' F",
+  "reason": "记号不被引擎支持：Unexpected character: ="
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-12",
+  "alg": "=f U' f' L",
+  "reason": "记号不被引擎支持：Unexpected character: ="
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-12",
+  "alg": "=l U' l' B",
+  "reason": "记号不被引擎支持：Unexpected character: ="
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-14",
+  "alg": "=y' R B' R2 U' R U B",
+  "reason": "记号不被引擎支持：Unexpected character: ="
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-14",
+  "alg": "=y' F R' F2 U' F U R",
+  "reason": "记号不被引擎支持：Unexpected character: ="
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-14",
+  "alg": "=y' L F' L2 U' L U F",
+  "reason": "记号不被引擎支持：Unexpected character: ="
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-14",
+  "alg": "=y' B L' B2 U' B U L",
+  "reason": "记号不被引擎支持：Unexpected character: ="
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-15",
+  "alg": "=y2 U L' D' (l U' l' D) L",
+  "reason": "记号不被引擎支持：Unexpected character: ="
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-15",
+  "alg": "=y2 U B' D' (b U' b' D) B",
+  "reason": "记号不被引擎支持：Unexpected character: ="
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-15",
+  "alg": "=y2 U R' D' (r U' r' D) R",
+  "reason": "记号不被引擎支持：Unexpected character: ="
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-15",
+  "alg": "=y2 U F' D' (f U' f' D) F",
+  "reason": "记号不被引擎支持：Unexpected character: ="
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-19",
+  "alg": "=U' S(F' U F U') S'",
+  "reason": "记号不被引擎支持：Unexpected character: ="
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-19",
+  "alg": "=U M (U' R U R')M'",
+  "reason": "记号不被引擎支持：Unexpected character: ="
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-19",
+  "alg": "=U' M(L' U L U') M'",
+  "reason": "记号不被引擎支持：Unexpected character: ="
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-19",
+  "alg": "=U S' (U' F U F')S",
+  "reason": "记号不被引擎支持：Unexpected character: ="
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-19",
+  "alg": "=U' S'(B' U B U') S",
+  "reason": "记号不被引擎支持：Unexpected character: ="
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-19",
+  "alg": "=U M' (U' L U L')M",
+  "reason": "记号不被引擎支持：Unexpected character: ="
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-19",
+  "alg": "=U' M'(R' U R U') M",
+  "reason": "记号不被引擎支持：Unexpected character: ="
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-19",
+  "alg": "=U S (U' B U B')S'",
+  "reason": "记号不被引擎支持：Unexpected character: ="
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-20",
+  "alg": "=y U' (L' U2 L U) F U' F'",
+  "reason": "记号不被引擎支持：Unexpected character: ="
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-20",
+  "alg": "=y2 U' (f' L2' f) (U L U' L')",
+  "reason": "记号不被引擎支持：Unexpected character: ="
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-20",
+  "alg": "=y U' (B' U2 B U) L U' L'",
+  "reason": "记号不被引擎支持：Unexpected character: ="
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-20",
+  "alg": "=y2 U' (l' B2' l) (U B U' B')",
+  "reason": "记号不被引擎支持：Unexpected character: ="
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-20",
+  "alg": "=y U' (R' U2 R U) B U' B'",
+  "reason": "记号不被引擎支持：Unexpected character: ="
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-20",
+  "alg": "=y2 U' (b' R2' b) (U R U' R')",
+  "reason": "记号不被引擎支持：Unexpected character: ="
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-20",
+  "alg": "=y U' (F' U2 F U) R U' R'",
+  "reason": "记号不被引擎支持：Unexpected character: ="
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-20",
+  "alg": "=y2 U' (r' F2' r) (U F U' F')",
+  "reason": "记号不被引擎支持：Unexpected character: ="
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-21",
+  "alg": "=y F U2 R U' R' F'",
+  "reason": "记号不被引擎支持：Unexpected character: ="
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-21",
+  "alg": "=y2 L U2 F U' F' L'",
+  "reason": "记号不被引擎支持：Unexpected character: ="
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-21",
+  "alg": "=y'↓f R2 U R' U' f'",
+  "reason": "记号不被引擎支持：Unexpected character: ="
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-21",
+  "alg": "=y L U2 F U' F' L'",
+  "reason": "记号不被引擎支持：Unexpected character: ="
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-21",
+  "alg": "=y2 B U2 L U' L' B'",
+  "reason": "记号不被引擎支持：Unexpected character: ="
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-21",
+  "alg": "=y'↓l F2 U F' U' l'",
+  "reason": "记号不被引擎支持：Unexpected character: ="
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-21",
+  "alg": "=y B U2 L U' L' B'",
+  "reason": "记号不被引擎支持：Unexpected character: ="
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-21",
+  "alg": "=y2 R U2 B U' B' R'",
+  "reason": "记号不被引擎支持：Unexpected character: ="
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-21",
+  "alg": "=y'↓b L2 U L' U' b'",
+  "reason": "记号不被引擎支持：Unexpected character: ="
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-21",
+  "alg": "=y R U2 B U' B' R'",
+  "reason": "记号不被引擎支持：Unexpected character: ="
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-21",
+  "alg": "=y2 F U2 R U' R' F'",
+  "reason": "记号不被引擎支持：Unexpected character: ="
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-21",
+  "alg": "=y'↓r B2 U B' U' r'",
+  "reason": "记号不被引擎支持：Unexpected character: ="
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-22",
+  "alg": "=U2 R U (B U' B' U') R'",
+  "reason": "记号不被引擎支持：Unexpected character: ="
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-22",
+  "alg": "=U2 F U (R U' R' U') F'",
+  "reason": "记号不被引擎支持：Unexpected character: ="
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-22",
+  "alg": "=U2 L U (F U' F' U') L'",
+  "reason": "记号不被引擎支持：Unexpected character: ="
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-22",
+  "alg": "=U2 B U (L U' L' U') B'",
+  "reason": "记号不被引擎支持：Unexpected character: ="
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-23",
+  "alg": "=y2 S L U L' S'",
+  "reason": "记号不被引擎支持：Unexpected character: ="
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-23",
+  "alg": "=y F U (R U R' U') F'",
+  "reason": "记号不被引擎支持：Unexpected character: ="
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-23",
+  "alg": "=y2 M B U B' M'",
+  "reason": "记号不被引擎支持：Unexpected character: ="
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-23",
+  "alg": "=y L U (F U F' U') L'",
+  "reason": "记号不被引擎支持：Unexpected character: ="
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-23",
+  "alg": "=y2 S' R U R' S",
+  "reason": "记号不被引擎支持：Unexpected character: ="
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-23",
+  "alg": "=y B U (L U L' U') B'",
+  "reason": "记号不被引擎支持：Unexpected character: ="
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-23",
+  "alg": "=y2 M' F U F' M",
+  "reason": "记号不被引擎支持：Unexpected character: ="
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-23",
+  "alg": "=y R U (B U B' U') R'",
+  "reason": "记号不被引擎支持：Unexpected character: ="
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-24",
+  "alg": "=y F' D' (f U f' D) F2 U F'",
+  "reason": "记号不被引擎支持：Unexpected character: ="
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-24",
+  "alg": "=y L' D' (l U l' D) L2 U L'",
+  "reason": "记号不被引擎支持：Unexpected character: ="
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-24",
+  "alg": "=y B' D' (b U b' D) B2 U B'",
+  "reason": "记号不被引擎支持：Unexpected character: ="
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-24",
+  "alg": "=y R' D' (r U r' D) R2 U R'",
+  "reason": "记号不被引擎支持：Unexpected character: ="
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-27",
+  "alg": "=U M(R U' R' U) M'",
+  "reason": "记号不被引擎支持：Unexpected character: ="
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-27",
+  "alg": "=y2 U' S' (U B' U' B)S",
+  "reason": "记号不被引擎支持：Unexpected character: ="
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-27",
+  "alg": "=U S'(F U' F' U) S",
+  "reason": "记号不被引擎支持：Unexpected character: ="
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-27",
+  "alg": "=y2 U' M' (U R' U' R)M",
+  "reason": "记号不被引擎支持：Unexpected character: ="
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-27",
+  "alg": "=U M'(L U' L' U) M",
+  "reason": "记号不被引擎支持：Unexpected character: ="
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-27",
+  "alg": "=y2 U' S (U F' U' F)S'",
+  "reason": "记号不被引擎支持：Unexpected character: ="
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-27",
+  "alg": "=U S(B U' B' U) S'",
+  "reason": "记号不被引擎支持：Unexpected character: ="
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-27",
+  "alg": "=y2 U' M (U L' U' L)M'",
+  "reason": "记号不被引擎支持：Unexpected character: ="
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-28",
+  "alg": "=U (R U2' R' U') F' U F",
+  "reason": "记号不被引擎支持：Unexpected character: ="
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-28",
+  "alg": "=U (l F2 l') (U' F' U F)",
+  "reason": "记号不被引擎支持：Unexpected character: ="
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-28",
+  "alg": "=U (F U2' F' U') L' U L",
+  "reason": "记号不被引擎支持：Unexpected character: ="
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-28",
+  "alg": "=U (b L2 b') (U' L' U L)",
+  "reason": "记号不被引擎支持：Unexpected character: ="
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-28",
+  "alg": "=U (L U2' L' U') B' U B",
+  "reason": "记号不被引擎支持：Unexpected character: ="
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-28",
+  "alg": "=U (r B2 r') (U' B' U B)",
+  "reason": "记号不被引擎支持：Unexpected character: ="
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-28",
+  "alg": "=U (B U2' B' U') R' U R",
+  "reason": "记号不被引擎支持：Unexpected character: ="
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-28",
+  "alg": "=U (f R2 f') (U' R' U R)",
+  "reason": "记号不被引擎支持：Unexpected character: ="
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-29",
+  "alg": "=y' R' U2 F' U F R",
+  "reason": "记号不被引擎支持：Unexpected character: ="
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-29",
+  "alg": "=y2 B' U2' R' U R B",
+  "reason": "记号不被引擎支持：Unexpected character: ="
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-29",
+  "alg": "y r'↓F2' U' F U r",
+  "reason": "记号不被引擎支持：Unexpected character: ↓"
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-29",
+  "alg": "=y' F' U2 L' U L F",
+  "reason": "记号不被引擎支持：Unexpected character: ="
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-29",
+  "alg": "=y2 R' U2' F' U F R",
+  "reason": "记号不被引擎支持：Unexpected character: ="
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-29",
+  "alg": "y f'↓L2' U' L U f",
+  "reason": "记号不被引擎支持：Unexpected character: ↓"
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-29",
+  "alg": "=y' L' U2 B' U B L",
+  "reason": "记号不被引擎支持：Unexpected character: ="
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-29",
+  "alg": "=y2 F' U2' L' U L F",
+  "reason": "记号不被引擎支持：Unexpected character: ="
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-29",
+  "alg": "y l'↓B2' U' B U l",
+  "reason": "记号不被引擎支持：Unexpected character: ↓"
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-29",
+  "alg": "=y' B' U2 R' U R B",
+  "reason": "记号不被引擎支持：Unexpected character: ="
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-29",
+  "alg": "=y2 L' U2' B' U B L",
+  "reason": "记号不被引擎支持：Unexpected character: ="
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-29",
+  "alg": "y b'↓R2' U' R U b",
+  "reason": "记号不被引擎支持：Unexpected character: ↓"
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-30",
+  "alg": "=y' U2 R' U' (F' U F U) R",
+  "reason": "记号不被引擎支持：Unexpected character: ="
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-30",
+  "alg": "=U2 F' U' (L' U L U) F",
+  "reason": "记号不被引擎支持：Unexpected character: ="
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-30",
+  "alg": "=y' U2 F' U' (L' U L U) F",
+  "reason": "记号不被引擎支持：Unexpected character: ="
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-30",
+  "alg": "=U2 L' U' (B' U B U) L",
+  "reason": "记号不被引擎支持：Unexpected character: ="
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-30",
+  "alg": "=y' U2 L' U' (B' U B U) L",
+  "reason": "记号不被引擎支持：Unexpected character: ="
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-30",
+  "alg": "=U2 B' U' (R' U R U) B",
+  "reason": "记号不被引擎支持：Unexpected character: ="
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-30",
+  "alg": "=y' U2 B' U' (R' U R U) B",
+  "reason": "记号不被引擎支持：Unexpected character: ="
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-30",
+  "alg": "=U2 R' U' (F' U F U) R",
+  "reason": "记号不被引擎支持：Unexpected character: ="
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-31",
+  "alg": "=y y2 S' R' U' R S",
+  "reason": "记号不被引擎支持：Unexpected character: ="
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-31",
+  "alg": "=y y2 M' F' U' F M",
+  "reason": "记号不被引擎支持：Unexpected character: ="
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-31",
+  "alg": "=y y2 S L' U' L S'",
+  "reason": "记号不被引擎支持：Unexpected character: ="
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-31",
+  "alg": "=y y2 M B' U' B M'",
+  "reason": "记号不被引擎支持：Unexpected character: ="
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-32",
+  "alg": "=y' R D (r' U r D') R2' U' R",
+  "reason": "记号不被引擎支持：Unexpected character: ="
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-32",
+  "alg": "=y' F D (f' U f D') F2' U' F",
+  "reason": "记号不被引擎支持：Unexpected character: ="
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-32",
+  "alg": "=y' L D (l' U l D') L2' U' L",
+  "reason": "记号不被引擎支持：Unexpected character: ="
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-32",
+  "alg": "=y' B D (b' U b D') B2' U' B",
+  "reason": "记号不被引擎支持：Unexpected character: ="
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-33",
+  "alg": "U (↓R U' R U) (B U' B' R2')",
+  "reason": "记号不被引擎支持：Unexpected character: ↓"
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-33",
+  "alg": "U (↓F U' F U) (R U' R' F2')",
+  "reason": "记号不被引擎支持：Unexpected character: ↓"
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-33",
+  "alg": "U (↓L U' L U) (F U' F' L2')",
+  "reason": "记号不被引擎支持：Unexpected character: ↓"
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-33",
+  "alg": "U (↓B U' B U) (L U' L' B2')",
+  "reason": "记号不被引擎支持：Unexpected character: ↓"
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-35",
+  "alg": "U' (↓F' U F' U') (L' U L F2)",
+  "reason": "记号不被引擎支持：Unexpected character: ↓"
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-35",
+  "alg": "U' (↓L' U L' U') (B' U B L2)",
+  "reason": "记号不被引擎支持：Unexpected character: ↓"
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-35",
+  "alg": "U' (↓B' U B' U') (R' U R B2)",
+  "reason": "记号不被引擎支持：Unexpected character: ↓"
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-35",
+  "alg": "U' (↓R' U R' U') (F' U F R2)",
+  "reason": "记号不被引擎支持：Unexpected character: ↓"
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-37",
+  "alg": "↓R2 U2' (R' U' R U') R' U2 R'",
+  "reason": "记号不被引擎支持：Unexpected character: ↓"
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-37",
+  "alg": "↓F2 U2' (F' U' F U') F' U2 F'",
+  "reason": "记号不被引擎支持：Unexpected character: ↓"
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-37",
+  "alg": "↓L2 U2' (L' U' L U') L' U2 L'",
+  "reason": "记号不被引擎支持：Unexpected character: ↓"
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-37",
+  "alg": "↓B2 U2' (B' U' B U') B' U2 B'",
+  "reason": "记号不被引擎支持：Unexpected character: ↓"
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-41",
+  "alg": "↓F2' U2 (F U F' U) F U2' F",
+  "reason": "记号不被引擎支持：Unexpected character: ↓"
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-41",
+  "alg": "↓L2' U2 (L U L' U) L U2' L",
+  "reason": "记号不被引擎支持：Unexpected character: ↓"
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-41",
+  "alg": "↓B2' U2 (B U B' U) B U2' B",
+  "reason": "记号不被引擎支持：Unexpected character: ↓"
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-41",
+  "alg": "↓R2' U2 (R U R' U) R U2' R",
+  "reason": "记号不被引擎支持：Unexpected character: ↓"
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-49",
+  "alg": "U [U] f' U2' (L' U L U2') f",
+  "reason": "记号不被引擎支持：Unexpected character: ]"
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-49",
+  "alg": "y2 U↓F' (L2' U' L U L2') F",
+  "reason": "记号不被引擎支持：Unexpected character: ↓"
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-49",
+  "alg": "U [U] l' U2' (B' U B U2') l",
+  "reason": "记号不被引擎支持：Unexpected character: ]"
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-49",
+  "alg": "y2 U↓L' (B2' U' B U B2') L",
+  "reason": "记号不被引擎支持：Unexpected character: ↓"
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-49",
+  "alg": "U [U] b' U2' (R' U R U2') b",
+  "reason": "记号不被引擎支持：Unexpected character: ]"
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-49",
+  "alg": "y2 U↓B' (R2' U' R U R2') B",
+  "reason": "记号不被引擎支持：Unexpected character: ↓"
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-49",
+  "alg": "U [U] r' U2' (F' U F U2') r",
+  "reason": "记号不被引擎支持：Unexpected character: ]"
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-49",
+  "alg": "y2 U↓R' (F2' U' F U F2') R",
+  "reason": "记号不被引擎支持：Unexpected character: ↓"
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-51",
+  "alg": "U2 R U2' B U2' B' U2 R' [U2]",
+  "reason": "记号不被引擎支持：Unexpected character: ]"
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-51",
+  "alg": "U2 [U2] R U2 (B U2' B' U2) R'",
+  "reason": "记号不被引擎支持：Unexpected character: ]"
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-51",
+  "alg": "U2 F U2' R U2' R' U2 F' [U2]",
+  "reason": "记号不被引擎支持：Unexpected character: ]"
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-51",
+  "alg": "U2 [U2] F U2 (R U2' R' U2) F'",
+  "reason": "记号不被引擎支持：Unexpected character: ]"
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-51",
+  "alg": "U2 L U2' F U2' F' U2 L' [U2]",
+  "reason": "记号不被引擎支持：Unexpected character: ]"
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-51",
+  "alg": "U2 [U2] L U2 (F U2' F' U2) L'",
+  "reason": "记号不被引擎支持：Unexpected character: ]"
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-51",
+  "alg": "U2 B U2' L U2' L' U2 B' [U2]",
+  "reason": "记号不被引擎支持：Unexpected character: ]"
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-51",
+  "alg": "U2 [U2] B U2 (L U2' L' U2) B'",
+  "reason": "记号不被引擎支持：Unexpected character: ]"
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-52",
+  "alg": "U [U] (R M B U B' M') U' R'",
+  "reason": "记号不被引擎支持：Unexpected character: ]"
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-52",
+  "alg": "y' U↓B2 D (b' U b D') B' U' B'",
+  "reason": "记号不被引擎支持：Unexpected character: ↓"
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-52",
+  "alg": "U [U] (F S' R U R' S) U' F'",
+  "reason": "记号不被引擎支持：Unexpected character: ]"
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-52",
+  "alg": "y' U↓R2 D (r' U r D') R' U' R'",
+  "reason": "记号不被引擎支持：Unexpected character: ↓"
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-52",
+  "alg": "U [U] (L M' F U F' M) U' L'",
+  "reason": "记号不被引擎支持：Unexpected character: ]"
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-52",
+  "alg": "y' U↓F2 D (f' U f D') F' U' F'",
+  "reason": "记号不被引擎支持：Unexpected character: ↓"
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-52",
+  "alg": "U [U] (B S L U L' S') U' B'",
+  "reason": "记号不被引擎支持：Unexpected character: ]"
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-52",
+  "alg": "y' U↓L2 D (l' U l D') L' U' L'",
+  "reason": "记号不被引擎支持：Unexpected character: ↓"
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-57",
+  "alg": "U' [U'] r U2 (B U' B' U2) r'",
+  "reason": "记号不被引擎支持：Unexpected character: ]"
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-57",
+  "alg": "y2 U'↓R (B2 U B' U' B2) R'",
+  "reason": "记号不被引擎支持：Unexpected character: ↓"
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-57",
+  "alg": "U' [U'] f U2 (R U' R' U2) f'",
+  "reason": "记号不被引擎支持：Unexpected character: ]"
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-57",
+  "alg": "y2 U'↓F (R2 U R' U' R2) F'",
+  "reason": "记号不被引擎支持：Unexpected character: ↓"
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-57",
+  "alg": "U' [U'] l U2 (F U' F' U2) l'",
+  "reason": "记号不被引擎支持：Unexpected character: ]"
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-57",
+  "alg": "y2 U'↓L (F2 U F' U' F2) L'",
+  "reason": "记号不被引擎支持：Unexpected character: ↓"
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-57",
+  "alg": "U' [U'] b U2 (L U' L' U2) b'",
+  "reason": "记号不被引擎支持：Unexpected character: ]"
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-57",
+  "alg": "y2 U'↓B (L2 U L' U' L2) B'",
+  "reason": "记号不被引擎支持：Unexpected character: ↓"
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-59",
+  "alg": "U2 F' U2 L' U2 L U2' F [U2]",
+  "reason": "记号不被引擎支持：Unexpected character: ]"
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-59",
+  "alg": "U2 L' U2 B' U2 B U2' L [U2]",
+  "reason": "记号不被引擎支持：Unexpected character: ]"
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-59",
+  "alg": "U2 B' U2 R' U2 R U2' B [U2]",
+  "reason": "记号不被引擎支持：Unexpected character: ]"
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-59",
+  "alg": "U2 R' U2 F' U2 F U2' R [U2]",
+  "reason": "记号不被引擎支持：Unexpected character: ]"
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-60",
+  "alg": "U' [U'] (F' S L' U' L S') U F",
+  "reason": "记号不被引擎支持：Unexpected character: ]"
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-60",
+  "alg": "U (↓R U R D) (r' U' r D') R2",
+  "reason": "记号不被引擎支持：Unexpected character: ↓"
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-60",
+  "alg": "U' [U'] (L' M B' U' B M') U L",
+  "reason": "记号不被引擎支持：Unexpected character: ]"
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-60",
+  "alg": "U (↓F U F D) (f' U' f D') F2",
+  "reason": "记号不被引擎支持：Unexpected character: ↓"
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-60",
+  "alg": "U' [U'] (B' S' R' U' R S) U B",
+  "reason": "记号不被引擎支持：Unexpected character: ]"
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-60",
+  "alg": "U (↓L U L D) (l' U' l D') L2",
+  "reason": "记号不被引擎支持：Unexpected character: ↓"
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-60",
+  "alg": "U' [U'] (R' M' F' U' F M) U R",
+  "reason": "记号不被引擎支持：Unexpected character: ]"
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-60",
+  "alg": "U (↓B U B D) (b' U' b D') B2",
+  "reason": "记号不被引擎支持：Unexpected character: ↓"
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-61",
+  "alg": "U (↑R2' U2' F R2 F') (U2' R' U R')",
+  "reason": "记号不被引擎支持：Unexpected character: ↑"
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-61",
+  "alg": "U (↑F2' U2' L F2 L') (U2' F' U F')",
+  "reason": "记号不被引擎支持：Unexpected character: ↑"
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-61",
+  "alg": "U (↑L2' U2' B L2 B') (U2' L' U L')",
+  "reason": "记号不被引擎支持：Unexpected character: ↑"
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-61",
+  "alg": "U (↑B2' U2' R B2 R') (U2' B' U B')",
+  "reason": "记号不被引擎支持：Unexpected character: ↑"
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-68",
+  "alg": "y2↑L U (L F' L' F) U2' L'",
+  "reason": "记号不被引擎支持：Unexpected character: ↑"
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-68",
+  "alg": "y2↑B U (B L' B' L) U2' B'",
+  "reason": "记号不被引擎支持：Unexpected character: ↑"
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-68",
+  "alg": "y2↑R U (R B' R' B) U2' R'",
+  "reason": "记号不被引擎支持：Unexpected character: ↑"
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-68",
+  "alg": "y2↑F U (F R' F' R) U2' F'",
+  "reason": "记号不被引擎支持：Unexpected character: ↑"
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-70",
+  "alg": "U2 (M' F' U' F M)R U R'",
+  "reason": "记号不被引擎支持：Unexpected character at index 17. Are you missing a space?"
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-70",
+  "alg": "U2 (S L' U' L S')F U F'",
+  "reason": "记号不被引擎支持：Unexpected character at index 17. Are you missing a space?"
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-70",
+  "alg": "U2 (M B' U' B M')L U L'",
+  "reason": "记号不被引擎支持：Unexpected character at index 17. Are you missing a space?"
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-70",
+  "alg": "U2 (S' R' U' R S)B U B'",
+  "reason": "记号不被引擎支持：Unexpected character at index 17. Are you missing a space?"
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-76",
+  "alg": "y y2↑R' U' (R' F R F') U2 R",
+  "reason": "记号不被引擎支持：Unexpected character: ↑"
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-76",
+  "alg": "y y2↑F' U' (F' L F L') U2 F",
+  "reason": "记号不被引擎支持：Unexpected character: ↑"
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-76",
+  "alg": "y y2↑L' U' (L' B L B') U2 L",
+  "reason": "记号不被引擎支持：Unexpected character: ↑"
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-76",
+  "alg": "y y2↑B' U' (B' R B R') U2 B",
+  "reason": "记号不被引擎支持：Unexpected character: ↑"
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-78",
+  "alg": "U2 (S' R U R' S)F' U' F",
+  "reason": "记号不被引擎支持：Unexpected character at index 16. Are you missing a space?"
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-78",
+  "alg": "U2 (M' F U F' M)L' U' L",
+  "reason": "记号不被引擎支持：Unexpected character at index 16. Are you missing a space?"
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-78",
+  "alg": "U2 (S L U L' S')B' U' B",
+  "reason": "记号不被引擎支持：Unexpected character at index 16. Are you missing a space?"
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-78",
+  "alg": "U2 (M B U B' M')R' U' R",
+  "reason": "记号不被引擎支持：Unexpected character at index 16. Are you missing a space?"
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-114",
+  "alg": "y'↑R' U2' (R' F R F') R",
+  "reason": "记号不被引擎支持：Unexpected character: ↑"
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-114",
+  "alg": "y'↑F' U2' (F' L F L') F",
+  "reason": "记号不被引擎支持：Unexpected character: ↑"
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-114",
+  "alg": "y'↑L' U2' (L' B L B') L",
+  "reason": "记号不被引擎支持：Unexpected character: ↑"
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-114",
+  "alg": "y'↑B' U2' (B' R B R') B",
+  "reason": "记号不被引擎支持：Unexpected character: ↑"
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-122",
+  "alg": "y y↑L U2 (L F' L' F) L'",
+  "reason": "记号不被引擎支持：Unexpected character: ↑"
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-122",
+  "alg": "y y↑B U2 (B L' B' L) B'",
+  "reason": "记号不被引擎支持：Unexpected character: ↑"
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-122",
+  "alg": "y y↑R U2 (R B' R' B) R'",
+  "reason": "记号不被引擎支持：Unexpected character: ↑"
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-122",
+  "alg": "y y↑F U2 (F R' F' R) F'",
+  "reason": "记号不被引擎支持：Unexpected character: ↑"
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-133",
+  "alg": "U' R' U' F' U↓F R2 U R'",
+  "reason": "记号不被引擎支持：Unexpected character: ↓"
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-133",
+  "alg": "U' F' U' L' U↓L F2 U F'",
+  "reason": "记号不被引擎支持：Unexpected character: ↓"
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-133",
+  "alg": "U' L' U' B' U↓B L2 U L'",
+  "reason": "记号不被引擎支持：Unexpected character: ↓"
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-133",
+  "alg": "U' B' U' R' U↓R B2 U B'",
+  "reason": "记号不被引擎支持：Unexpected character: ↓"
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-141",
+  "alg": "U F U R U'↓R' F2' U' F",
+  "reason": "记号不被引擎支持：Unexpected character: ↓"
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-141",
+  "alg": "U L U F U'↓F' L2' U' L",
+  "reason": "记号不被引擎支持：Unexpected character: ↓"
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-141",
+  "alg": "U B U L U'↓L' B2' U' B",
+  "reason": "记号不被引擎支持：Unexpected character: ↓"
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-141",
+  "alg": "U R U B U'↓B' R2' U' R",
+  "reason": "记号不被引擎支持：Unexpected character: ↓"
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-150",
+  "alg": "U' (M' F' U F M)R U R'",
+  "reason": "记号不被引擎支持：Unexpected character at index 16. Are you missing a space?"
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-150",
+  "alg": "U' (S L' U L S')F U F'",
+  "reason": "记号不被引擎支持：Unexpected character at index 16. Are you missing a space?"
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-150",
+  "alg": "U' (M B' U B M')L U L'",
+  "reason": "记号不被引擎支持：Unexpected character at index 16. Are you missing a space?"
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-150",
+  "alg": "U' (S' R' U R S)B U B'",
+  "reason": "记号不被引擎支持：Unexpected character at index 16. Are you missing a space?"
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-158",
+  "alg": "U (S' R U' R' S)F' U' F",
+  "reason": "记号不被引擎支持：Unexpected character at index 16. Are you missing a space?"
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-158",
+  "alg": "U (M' F U' F' M)L' U' L",
+  "reason": "记号不被引擎支持：Unexpected character at index 16. Are you missing a space?"
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-158",
+  "alg": "U (S L U' L' S')B' U' B",
+  "reason": "记号不被引擎支持：Unexpected character at index 16. Are you missing a space?"
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-158",
+  "alg": "U (M B U' B' M')R' U' R",
+  "reason": "记号不被引擎支持：Unexpected character at index 16. Are you missing a space?"
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-197",
+  "alg": "U (S2 R U2' R' S)F' U' f",
+  "reason": "记号不被引擎支持：Unexpected character at index 17. Are you missing a space?"
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-197",
+  "alg": "U (M2 F U2' F' M)L' U' l",
+  "reason": "记号不被引擎支持：Unexpected character at index 17. Are you missing a space?"
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-197",
+  "alg": "U (S2' L U2' L' S')B' U' b",
+  "reason": "记号不被引擎支持：Unexpected character at index 19. Are you missing a space?"
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-197",
+  "alg": "U (M2' B U2' B' M')R' U' r",
+  "reason": "记号不被引擎支持：Unexpected character at index 19. Are you missing a space?"
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-205",
+  "alg": "U' (M2 F' U2 F M)R U r'",
+  "reason": "记号不被引擎支持：Unexpected character at index 17. Are you missing a space?"
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-205",
+  "alg": "U' (S2' L' U2 L S')F U f'",
+  "reason": "记号不被引擎支持：Unexpected character at index 19. Are you missing a space?"
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-205",
+  "alg": "U' (M2' B' U2 B M')L U l'",
+  "reason": "记号不被引擎支持：Unexpected character at index 19. Are you missing a space?"
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-205",
+  "alg": "U' (S2 R' U2 R S)B U b'",
+  "reason": "记号不被引擎支持：Unexpected character at index 17. Are you missing a space?"
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-226",
+  "alg": "↓R2 U R2' U R2 U2' R2'",
+  "reason": "记号不被引擎支持：Unexpected character: ↓"
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-226",
+  "alg": "↓F2 U F2' U F2 U2' F2'",
+  "reason": "记号不被引擎支持：Unexpected character: ↓"
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-226",
+  "alg": "↓L2 U L2' U L2 U2' L2'",
+  "reason": "记号不被引擎支持：Unexpected character: ↓"
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-226",
+  "alg": "↓B2 U B2' U B2 U2' B2'",
+  "reason": "记号不被引擎支持：Unexpected character: ↓"
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-245",
+  "alg": "U' ↓R' D' (F' U' F UD) R",
+  "reason": "记号不被引擎支持：Unexpected character: ↓"
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-245",
+  "alg": "U2 ↓F' M (F'*r U R') F",
+  "reason": "记号不被引擎支持：Unexpected character: ↓"
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-245",
+  "alg": "U' ↓F' D' (L' U' L UD) F",
+  "reason": "记号不被引擎支持：Unexpected character: ↓"
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-245",
+  "alg": "U2 ↓L' S' (L'*f U F') L",
+  "reason": "记号不被引擎支持：Unexpected character: ↓"
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-245",
+  "alg": "U' ↓L' D' (B' U' B UD) L",
+  "reason": "记号不被引擎支持：Unexpected character: ↓"
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-245",
+  "alg": "U2 ↓B' M' (B'*l U L') B",
+  "reason": "记号不被引擎支持：Unexpected character: ↓"
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-245",
+  "alg": "U' ↓B' D' (R' U' R UD) B",
+  "reason": "记号不被引擎支持：Unexpected character: ↓"
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-245",
+  "alg": "U2 ↓R' S (R'*b U B') R",
+  "reason": "记号不被引擎支持：Unexpected character: ↓"
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-249",
+  "alg": "U R S (U'↑R' U R) S' R'",
+  "reason": "记号不被引擎支持：Unexpected character: ↑"
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-249",
+  "alg": "U F M (U'↑F' U F) M' F'",
+  "reason": "记号不被引擎支持：Unexpected character: ↑"
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-249",
+  "alg": "U L S' (U'↑L' U L) S L'",
+  "reason": "记号不被引擎支持：Unexpected character: ↑"
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-249",
+  "alg": "U B M' (U'↑B' U B) M B'",
+  "reason": "记号不被引擎支持：Unexpected character: ↑"
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-253",
+  "alg": "U ↓F D (R U R' U'D') F'",
+  "reason": "记号不被引擎支持：Unexpected character: ↓"
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-253",
+  "alg": "U2 ↓R S (R*f' U' F) R'",
+  "reason": "记号不被引擎支持：Unexpected character: ↓"
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-253",
+  "alg": "U ↓L D (F U F' U'D') L'",
+  "reason": "记号不被引擎支持：Unexpected character: ↓"
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-253",
+  "alg": "U2 ↓F M (F*l' U' L) F'",
+  "reason": "记号不被引擎支持：Unexpected character: ↓"
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-253",
+  "alg": "U ↓B D (L U L' U'D') B'",
+  "reason": "记号不被引擎支持：Unexpected character: ↓"
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-253",
+  "alg": "U2 ↓L S' (L*b' U' B) L'",
+  "reason": "记号不被引擎支持：Unexpected character: ↓"
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-253",
+  "alg": "U ↓R D (B U B' U'D') R'",
+  "reason": "记号不被引擎支持：Unexpected character: ↓"
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-253",
+  "alg": "U2 ↓B M' (B*r' U' R) B'",
+  "reason": "记号不被引擎支持：Unexpected character: ↓"
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-257",
+  "alg": "U' F' M (U↑F U' F') M' F",
+  "reason": "记号不被引擎支持：Unexpected character: ↑"
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-257",
+  "alg": "U' L' S' (U↑L U' L') S L",
+  "reason": "记号不被引擎支持：Unexpected character: ↑"
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-257",
+  "alg": "U' B' M' (U↑B U' B') M B",
+  "reason": "记号不被引擎支持：Unexpected character: ↑"
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-257",
+  "alg": "U' R' S (U↑R U' R') S' R",
+  "reason": "记号不被引擎支持：Unexpected character: ↑"
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-261",
+  "alg": "U2 (R U R' U') F' U↓F",
+  "reason": "记号不被引擎支持：Unexpected character: ↓"
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-261",
+  "alg": "U2 (F U F' U') L' U↓L",
+  "reason": "记号不被引擎支持：Unexpected character: ↓"
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-261",
+  "alg": "U2 (L U L' U') B' U↓B",
+  "reason": "记号不被引擎支持：Unexpected character: ↓"
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-261",
+  "alg": "U2 (B U B' U') R' U↓R",
+  "reason": "记号不被引擎支持：Unexpected character: ↓"
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-263",
+  "alg": "U2 R U' (M B U' B' M')R'",
+  "reason": "记号不被引擎支持：Unexpected character at index 22. Are you missing a space?"
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-263",
+  "alg": "y2↑B2' D' (b U' b' D) B U' B",
+  "reason": "记号不被引擎支持：Unexpected character: ↑"
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-263",
+  "alg": "U2 F U' (S' R U' R' S)F'",
+  "reason": "记号不被引擎支持：Unexpected character at index 22. Are you missing a space?"
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-263",
+  "alg": "y2↑R2' D' (r U' r' D) R U' R",
+  "reason": "记号不被引擎支持：Unexpected character: ↑"
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-263",
+  "alg": "U2 L U' (M' F U' F' M)L'",
+  "reason": "记号不被引擎支持：Unexpected character at index 22. Are you missing a space?"
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-263",
+  "alg": "y2↑F2' D' (f U' f' D) F U' F",
+  "reason": "记号不被引擎支持：Unexpected character: ↑"
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-263",
+  "alg": "U2 B U' (S L U' L' S')B'",
+  "reason": "记号不被引擎支持：Unexpected character at index 22. Are you missing a space?"
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-263",
+  "alg": "y2↑L2' D' (l U' l' D) L U' L",
+  "reason": "记号不被引擎支持：Unexpected character: ↑"
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-269",
+  "alg": "U2 (F' U' F U) R U'↓R'",
+  "reason": "记号不被引擎支持：Unexpected character: ↓"
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-269",
+  "alg": "=y' U2 (R' U' R U) B U' B'",
+  "reason": "记号不被引擎支持：Unexpected character: ="
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-269",
+  "alg": "U2 (L' U' L U) F U'↓F'",
+  "reason": "记号不被引擎支持：Unexpected character: ↓"
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-269",
+  "alg": "=y' U2 (F' U' F U) R U' R'",
+  "reason": "记号不被引擎支持：Unexpected character: ="
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-269",
+  "alg": "U2 (B' U' B U) L U'↓L'",
+  "reason": "记号不被引擎支持：Unexpected character: ↓"
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-269",
+  "alg": "=y' U2 (L' U' L U) F U' F'",
+  "reason": "记号不被引擎支持：Unexpected character: ="
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-269",
+  "alg": "U2 (R' U' R U) B U'↓B'",
+  "reason": "记号不被引擎支持：Unexpected character: ↓"
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-269",
+  "alg": "=y' U2 (B' U' B U) L U' L'",
+  "reason": "记号不被引擎支持：Unexpected character: ="
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-271",
+  "alg": "U2 F' U (S L' U L S')F",
+  "reason": "记号不被引擎支持：Unexpected character at index 21. Are you missing a space?"
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-271",
+  "alg": "↓R2 D (r' U r D') R' U R'",
+  "reason": "记号不被引擎支持：Unexpected character: ↓"
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-271",
+  "alg": "U2 L' U (M B' U B M')L",
+  "reason": "记号不被引擎支持：Unexpected character at index 21. Are you missing a space?"
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-271",
+  "alg": "↓F2 D (f' U f D') F' U F'",
+  "reason": "记号不被引擎支持：Unexpected character: ↓"
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-271",
+  "alg": "U2 B' U (S' R' U R S)B",
+  "reason": "记号不被引擎支持：Unexpected character at index 21. Are you missing a space?"
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-271",
+  "alg": "↓L2 D (l' U l D') L' U L'",
+  "reason": "记号不被引擎支持：Unexpected character: ↓"
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-271",
+  "alg": "U2 R' U (M' F' U F M)R",
+  "reason": "记号不被引擎支持：Unexpected character at index 21. Are you missing a space?"
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-271",
+  "alg": "↓B2 D (b' U b D') B' U B'",
+  "reason": "记号不被引擎支持：Unexpected character: ↓"
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-275",
+  "alg": "U2 (↓F R U R' U' F2) U F",
+  "reason": "记号不被引擎支持：Unexpected character: ↓"
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-275",
+  "alg": "U2 (↓L F U F' U' L2) U L",
+  "reason": "记号不被引擎支持：Unexpected character: ↓"
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-275",
+  "alg": "U2 (↓B L U L' U' B2) U B",
+  "reason": "记号不被引擎支持：Unexpected character: ↓"
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-275",
+  "alg": "U2 (↓R B U B' U' R2) U R",
+  "reason": "记号不被引擎支持：Unexpected character: ↓"
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-283",
+  "alg": "U2 (↓R' F' U' F U R2') U' R'",
+  "reason": "记号不被引擎支持：Unexpected character: ↓"
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-283",
+  "alg": "U2 (↓F' L' U' L U F2') U' F'",
+  "reason": "记号不被引擎支持：Unexpected character: ↓"
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-283",
+  "alg": "U2 (↓L' B' U' B U L2') U' L'",
+  "reason": "记号不被引擎支持：Unexpected character: ↓"
+ },
+ {
+  "setId": "zbls",
+  "caseId": "3x3-283",
+  "alg": "U2 (↓B' R' U' R U B2') U' B'",
+  "reason": "记号不被引擎支持：Unexpected character: ↓"
+ },
+ {
+  "setId": "ell",
+  "caseId": "3x3-5",
+  "alg": "(↑R2' S2 R F) U' (R' S2 R U) F' R",
+  "reason": "记号不被引擎支持：Unexpected character: ↑"
+ },
+ {
+  "setId": "mega-pll",
+  "caseId": "megaminx-1",
+  "alg": "L- R' U2 R' D' R U2' R' D R3",
+  "reason": "记号不被引擎支持：Clock dial moves must have an amount written as a natural nu"
+ },
+ {
+  "setId": "mega-pll",
+  "caseId": "megaminx-2",
+  "alg": "L- R2' D' R U2 R' D R U2' R2",
+  "reason": "记号不被引擎支持：Clock dial moves must have an amount written as a natural nu"
+ },
+ {
+  "setId": "mega-pll",
+  "caseId": "megaminx-6",
+  "alg": "R2 U R' U' y (R U R' U')x2 R U R' y' R U' R2'",
+  "reason": "记号不被引擎支持：Unexpected character at index 24. Are you missing a space?"
+ },
+ {
+  "setId": "mega-pll",
+  "caseId": "megaminx-6",
+  "alg": "x' R U' R' DR R U R' DR' R U R' DR R U' R' DR'",
+  "reason": "记号不被引擎支持：Could not split X into face names."
+ },
+ {
+  "setId": "mega-pll",
+  "caseId": "megaminx-12",
+  "alg": "(R' DR' R U R' DR R U)x3",
+  "reason": "记号不被引擎支持：Unexpected character at index 22. Are you missing a space?"
+ },
+ {
+  "setId": "mega-pll",
+  "caseId": "megaminx-13",
+  "alg": "(U R U R' U R' U' R2 U' R' U R' U R)x2",
+  "reason": "记号不被引擎支持：Unexpected character at index 36. Are you missing a space?"
+ },
+ {
+  "setId": "mega-pll",
+  "caseId": "megaminx-13",
+  "alg": "(R' DR' R U' R' DR R U')x3",
+  "reason": "记号不被引擎支持：Unexpected character at index 24. Are you missing a space?"
+ },
+ {
+  "setId": "mega-pll",
+  "caseId": "megaminx-76",
+  "alg": "BR' R' U2' R U R' U R2 x' U L' U' R' U L",
+  "reason": "记号不被引擎支持：Could not split X into face names."
+ },
+ {
+  "setId": "mega-pll",
+  "caseId": "megaminx-130",
+  "alg": "x' R2 U2' R2' F' R2 U2 R2' F2 R2 U2' R2' F' R2 U2 R2'",
+  "reason": "记号不被引擎支持：Could not split X into face names."
+ },
+ {
+  "setId": "sq1-ep",
+  "caseId": "sq1-1",
+  "alg": "",
+  "reason": "来源无公式（skip 情况）"
+ },
+ {
+  "setId": "sq1-ep",
+  "caseId": "sq1-14",
+  "alg": "(1,0) / (3,0) / (-1,0) / (3,3) / (5,0) / (-2,0) / (-4,0) / (-4,0) / (0,-4) / (0,-2) / (0,1) / (3,3) / (-2,0) / (-3,0) / -1",
+  "reason": "记号不被引擎支持：Unexpected character: -"
+ },
+ {
+  "setId": "sq1-ep",
+  "caseId": "sq1-23",
+  "alg": "(1,0) / (0,3) / (-1,-1) / (1,-2) / -1",
+  "reason": "记号不被引擎支持：Unexpected character: -"
+ },
+ {
+  "setId": "sq1-ep",
+  "caseId": "sq1-23",
+  "alg": "(1,0) / (3,0) / (-1,-1) / (-2,1) / -1",
+  "reason": "记号不被引擎支持：Unexpected character: -"
+ },
+ {
+  "setId": "sq1-ep",
+  "caseId": "sq1-50",
+  "alg": "(1,0) / (0,3) / (-1,-1) / (1,-2) / (3,0) / (3,0) / (-1,-1) / (-2,1) / -1",
+  "reason": "记号不被引擎支持：Unexpected character: -"
+ },
+ {
   "setId": "wv",
   "caseId": "wv-22",
   "alg": "R U' R' (R' U2 R U R' U R",

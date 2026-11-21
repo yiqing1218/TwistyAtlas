@@ -9,11 +9,13 @@ import PuzzlePicker from '@/presentation/components/PuzzlePicker.vue';
 import ErrorBoundary from '@/presentation/components/ErrorBoundary.vue';
 import { useFormulaStore } from '@/presentation/stores/formulaStore';
 import { useSettingsStore } from '@/presentation/stores/settingsStore';
+import { useIsMobile } from '@/presentation/composables/useViewport';
 import type { FormulaRecord } from '@/domain/model/formula';
 
 const router = useRouter();
 const store = useFormulaStore();
 const settings = useSettingsStore();
+const isMobile = useIsMobile();
 
 const puzzleId = ref(settings.settings.defaultPuzzleId);
 const editorOpen = ref(false);
@@ -83,6 +85,11 @@ function openInStudio(id: string) {
 }
 
 function selectFormula(id: string) {
+  // 手机上不并排放「列表 + 详情」，点一条就直接进单条详情页（带播放器）
+  if (isMobile.value) {
+    void router.push({ name: 'formula', params: { id } });
+    return;
+  }
   void store.select(id);
 }
 </script>
@@ -110,7 +117,7 @@ function selectFormula(id: string) {
         <div class="library-view__list panel">
           <FormulaList @select="selectFormula" @create="openCreate" />
         </div>
-        <div class="library-view__detail panel">
+        <div v-if="!isMobile" class="library-view__detail panel">
           <FormulaDetailPanel
             :record="selected"
             :category-name="selected ? store.categoryName(selected.categoryId) : ''"
@@ -174,6 +181,54 @@ function selectFormula(id: string) {
 
   .library-view__list {
     min-height: 50vh;
+  }
+}
+
+/* 手机：只有一列列表，列表内部滚动，整页不上下滑 */
+@media (max-width: 760px) {
+  .library-view {
+    padding: 8px 10px 0;
+    gap: 8px;
+    overflow: hidden;
+  }
+
+  /* 顶部栏已有页名，这里去掉重复标题 */
+  .library-view__title {
+    display: none;
+  }
+
+  /* 标题 + 统计徽标整行去掉：条数在下方的列表工具栏里已经有一份 */
+  .library-view__bar > .row:first-child {
+    display: none;
+  }
+
+  .library-view__bar {
+    flex-wrap: nowrap;
+    gap: 6px;
+  }
+
+  .library-view__bar > .row:last-child {
+    flex: 1;
+    flex-wrap: nowrap;
+    gap: 6px;
+    min-width: 0;
+  }
+
+  /* 「新建」在下方列表面板里已有一个，这里不重复放 */
+  .library-view__bar > .row:last-child > .btn--primary {
+    display: none;
+  }
+
+  .library-view__grid {
+    flex: 1;
+    min-height: 0;
+  }
+
+  .library-view__list {
+    min-height: 0;
+    overflow: hidden;
+    border: none;
+    background: transparent;
   }
 }
 </style>

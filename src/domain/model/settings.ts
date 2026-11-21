@@ -27,6 +27,8 @@ export interface AppSettings {
   showHintFacelets: boolean;
   /** 是否在播放时锁定镜头视角（禁止拖动旋转） */
   lockCamera: boolean;
+  /** 演示时以哪种颜色当底面（只改观察方向，不改公式语义） */
+  bottomColor: import('./orientation').BottomColor;
   preferredCamera?: Partial<CameraSettings>;
 }
 
@@ -47,6 +49,7 @@ export const DEFAULT_SETTINGS: AppSettings = {
   defaultPuzzleId: '3x3x3',
   showHintFacelets: false,
   lockCamera: false,
+  bottomColor: 'yellow',
 };
 
 export const SPEED_OPTIONS = [0.25, 0.5, 0.75, 1, 1.5, 2] as const;

@@ -68,6 +68,14 @@ export async function readSettingsRow(): Promise<Partial<AppSettings> | null> {
   return row.value as Partial<AppSettings>;
 }
 
+/**
+ * 把设置写回 IndexedDB。
+ *
+ * 注意：Pinia 里拿到的 `settings` 是响应式 Proxy，而 IndexedDB 的结构化克隆
+ * 无法克隆 Proxy（会抛 DataCloneError），所以必须先转成普通对象再落库。
+ * 这里做一次 JSON 往返，顺带剥掉 undefined 与 Vue 的响应式包装。
+ */
 export async function writeSettingsRow(settings: AppSettings): Promise<void> {
-  await db.settings.put({ id: SETTINGS_ID, value: settings });
+  const plain = JSON.parse(JSON.stringify(settings)) as AppSettings;
+  await db.settings.put({ id: SETTINGS_ID, value: plain });
 }

@@ -1,0 +1,752 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Algorithms · Cubemuch</title>
+    <meta name="description" content="The Cubemuch algorithm sets for the 3×3, 2×2, 4×4, 5×5, Megaminx, FTO and Skewb: verified cases and algorithms to explore, play and print." />
+    <link rel="canonical" href="https://cubemuch.com/en/algs/" />
+    <link rel="alternate" hreflang="fr" href="https://cubemuch.com/algs/" />
+    <link rel="alternate" hreflang="en" href="https://cubemuch.com/en/algs/" />
+    <link rel="alternate" hreflang="x-default" href="https://cubemuch.com/algs/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Cubemuch" />
+    <meta property="og:title" content="Algorithms · Cubemuch" />
+    <meta property="og:description" content="The Cubemuch algorithm sets for the 3×3, 2×2, 4×4, 5×5, Megaminx, FTO and Skewb: verified cases and algorithms to explore, play and print." />
+    <meta property="og:url" content="https://cubemuch.com/en/algs/" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:locale:alternate" content="fr_FR" />
+    <meta name="color-scheme" content="dark" />
+    <meta name="theme-color" content="#100e0c" />
+    <link rel="preload" href="/fonts/archivo.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="stylesheet" href="/algs/algs.css" />
+    <link rel="icon" href="/icon.svg" type="image/svg+xml" />
+    <script type="module" src="/algs/app.js"></script>
+  </head>
+  <body class="page-home" data-page="home">
+    <a class="skip" href="#content">Skip to content</a>
+    <header class="app-header">
+      <a class="brand" href="/en/" aria-label="Cubemuch, home page">Cubemuch</a>
+      <a class="lang" href="/algs/" hreflang="fr" lang="fr" title="Lire cette page en français">Français</a>
+    </header>
+    <nav class="navigation" aria-label="Algorithms by puzzle">
+      <ul>
+        <li><a href="/en/algs/" aria-current="page">All sets</a></li>
+        <li><a href="/en/algs/3x3/">3×3</a></li>
+        <li><a href="/en/algs/2x2/">2×2</a></li>
+        <li><a href="/en/algs/4x4/">4×4</a></li>
+        <li><a href="/en/algs/5x5/">5×5</a></li>
+        <li><a href="/en/algs/megaminx/">Megaminx</a></li>
+        <li><a href="/en/algs/fto/">FTO</a></li>
+        <li><a href="/en/algs/skewb/">Skewb</a></li>
+        <li><a href="/en/algs/selection/">My selection<span class="count" data-selection-count hidden></span></a></li>
+        <li><a href="/en/algs/about/">About</a></li>
+      </ul>
+    </nav>
+    <main id="content" tabindex="-1">
+      <div class="page-heading">
+        
+        <h1>Algorithms</h1>
+        <p class="lede">Pick a puzzle and a set, open a case and play its algorithms on the puzzle. Every algorithm was replayed by the application before being published; when the optimum is proven, the page says so.</p>
+      </div>
+      <p class="home-count">131 sets, 25,561 cases and 250,107 algorithms. Some sets overlap.</p>
+      <p class="home-selection">Build your own list: "Add to my selection" on any algorithm, then print it. It stays in your browser, no account needed.</p>
+      <section class="puzzle-block" aria-labelledby="p-cube-3">
+        <h2 id="p-cube-3"><a href="/en/algs/3x3/">3×3</a></h2>
+        <ul class="set-grid">
+  <li class="set-card">
+    <h3><a href="/en/algs/3x3/f2l/">F2L</a></h3>
+    <p>The last corner and edge pair of the first two layers.</p>
+    <p class="set-card-facts">41 cases · 575 algorithms</p>
+  </li>
+  <li class="set-card">
+    <h3><a href="/en/algs/3x3/oll-2look/">Two-look OLL</a></h3>
+    <p>Orient the last layer in two steps: edges, then corners.</p>
+    <p class="set-card-facts">10 cases · 8,873 algorithms</p>
+  </li>
+  <li class="set-card">
+    <h3><a href="/en/algs/3x3/oll/">OLL</a></h3>
+    <p>Orient the whole last layer in one algorithm.</p>
+    <p class="set-card-facts">57 cases · 10,535 algorithms</p>
+  </li>
+  <li class="set-card">
+    <h3><a href="/en/algs/3x3/pll-2look/">Two-look PLL</a></h3>
+    <p>Permute the last layer in two steps: corners, then edges.</p>
+    <p class="set-card-facts">6 cases · 404 algorithms</p>
+  </li>
+  <li class="set-card">
+    <h3><a href="/en/algs/3x3/pll/">PLL</a></h3>
+    <p>Permute the last layer once it is oriented.</p>
+    <p class="set-card-facts">21 cases · 1,101 algorithms</p>
+  </li>
+  <li class="set-card">
+    <h3><a href="/en/algs/3x3/ocll/">OCLL</a></h3>
+    <p>Orient the corners when the edges are already oriented.</p>
+    <p class="set-card-facts">7 cases · 8,835 algorithms</p>
+  </li>
+  <li class="set-card">
+    <h3><a href="/en/algs/3x3/epll/">EPLL</a></h3>
+    <p>Permute the edges when the corners are in place.</p>
+    <p class="set-card-facts">4 cases · 203 algorithms</p>
+  </li>
+  <li class="set-card">
+    <h3><a href="/en/algs/3x3/cpll/">CPLL</a></h3>
+    <p>The PLLs that only move corners.</p>
+    <p class="set-card-facts">3 cases · 164 algorithms</p>
+  </li>
+  <li class="set-card">
+    <h3><a href="/en/algs/3x3/coll/">COLL</a></h3>
+    <p>Orient and place the corners when the edges are oriented.</p>
+    <p class="set-card-facts">42 cases · 9,720 algorithms</p>
+  </li>
+  <li class="set-card">
+    <h3><a href="/en/algs/3x3/zbll/">ZBLL</a></h3>
+    <p>The whole last layer when its edges are oriented.</p>
+    <p class="set-card-facts">472 cases · 7,274 algorithms</p>
+  </li>
+  <li class="set-card">
+    <h3><a href="/en/algs/3x3/ollcp/">OLLCP</a></h3>
+    <p>Orient the last layer and place its corners at once.</p>
+    <p class="set-card-facts">331 cases · 13,844 algorithms</p>
+  </li>
+  <li class="set-card">
+    <h3><a href="/en/algs/3x3/1lll/">1LLL</a></h3>
+    <p>Any last layer in a single algorithm.</p>
+    <p class="set-card-facts">3,915 cases · 39,571 algorithms</p>
+  </li>
+  <li class="set-card">
+    <h3><a href="/en/algs/3x3/wv/">Winter Variation</a></h3>
+    <p>Insert the last pair while orienting the corners.</p>
+    <p class="set-card-facts">54 cases · 492 algorithms</p>
+  </li>
+  <li class="set-card">
+    <h3><a href="/en/algs/3x3/sv/">Summer Variation</a></h3>
+    <p>Like the Winter Variation, for a pair inserted with R U R'.</p>
+    <p class="set-card-facts">54 cases · 407 algorithms</p>
+  </li>
+  <li class="set-card">
+    <h3><a href="/en/algs/3x3/vls/">VLS</a></h3>
+    <p>Insert the last pair and orient the whole last layer.</p>
+    <p class="set-card-facts">432 cases · 3,793 algorithms</p>
+  </li>
+  <li class="set-card">
+    <h3><a href="/en/algs/3x3/hls/">HLS</a></h3>
+    <p>Like VLS, for a pair inserted with R U R'.</p>
+    <p class="set-card-facts">432 cases · 3,258 algorithms</p>
+  </li>
+  <li class="set-card">
+    <h3><a href="/en/algs/3x3/cls/">CLS</a></h3>
+    <p>Insert the last corner while orienting the last layer.</p>
+    <p class="set-card-facts">104 cases · 10,110 algorithms</p>
+  </li>
+  <li class="set-card">
+    <h3><a href="/en/algs/3x3/ejls/">EJLS</a></h3>
+    <p>The pair's corner is twisted in its slot.</p>
+    <p class="set-card-facts">16 cases · 299 algorithms</p>
+  </li>
+  <li class="set-card">
+    <h3><a href="/en/algs/3x3/avls/">Autumn Variation</a></h3>
+    <p>The pair's corner is on top, its bottom colour facing up.</p>
+    <p class="set-card-facts">27 cases · 326 algorithms</p>
+  </li>
+  <li class="set-card">
+    <h3><a href="/en/algs/3x3/ble/">BLE</a></h3>
+    <p>Insert the last edge while orienting the corners.</p>
+    <p class="set-card-facts">27 cases · 204 algorithms</p>
+  </li>
+  <li class="set-card">
+    <h3><a href="/en/algs/3x3/ols-fe/">OLS-FE</a></h3>
+    <p>The pair's edge is flipped in its slot.</p>
+    <p class="set-card-facts">54 cases · 500 algorithms</p>
+  </li>
+  <li class="set-card">
+    <h3><a href="/en/algs/3x3/ols/">OLS</a></h3>
+    <p>The last pair and the last-layer orientation in one algorithm.</p>
+    <p class="set-card-facts">8,111 cases · 72,663 algorithms</p>
+  </li>
+  <li class="set-card">
+    <h3><a href="/en/algs/3x3/zbls/">ZBLS</a></h3>
+    <p>Insert the last pair while orienting the edges.</p>
+    <p class="set-card-facts">302 cases · 3,573 algorithms</p>
+  </li>
+  <li class="set-card">
+    <h3><a href="/en/algs/3x3/els/">ELS</a></h3>
+    <p>Place the pair's edge while orienting the edges.</p>
+    <p class="set-card-facts">21 cases · 549 algorithms</p>
+  </li>
+  <li class="set-card">
+    <h3><a href="/en/algs/3x3/3-style/">3-style</a></h3>
+    <p>The 3×3 blindfolded commutators: corners, edges, twists, flips and parity.</p>
+    <p class="set-card-facts">1,031 cases · 3,091 algorithms</p>
+  </li>
+</ul>
+      </section>
+      <section class="puzzle-block" aria-labelledby="p-cube-2">
+        <h2 id="p-cube-2"><a href="/en/algs/2x2/">2×2</a></h2>
+        <ul class="set-grid">
+  <li class="set-card">
+    <h3><a href="/en/algs/2x2/ortega-oll/">Ortega OLL</a></h3>
+    <p>Orient the top face after making the bottom face.</p>
+    <p class="set-card-facts">7 cases · 575 algorithms</p>
+  </li>
+  <li class="set-card">
+    <h3><a href="/en/algs/2x2/pbl/">PBL</a></h3>
+    <p>Permute both layers after orienting both faces.</p>
+    <p class="set-card-facts">8 cases · 167 algorithms</p>
+  </li>
+  <li class="set-card">
+    <h3><a href="/en/algs/2x2/cbl/">CBL (RoFL)</a></h3>
+    <p>Solve both layers once their corner colours are separated.</p>
+    <p class="set-card-facts">2,794 cases · 25,681 algorithms</p>
+  </li>
+  <li class="set-card">
+    <h3><a href="/en/algs/2x2/ls-1/">LS-1</a></h3>
+    <p>Solve the last slot and top layer with D toward U and U toward D.</p>
+    <p class="set-card-facts">54 cases · 593 algorithms</p>
+  </li>
+  <li class="set-card">
+    <h3><a href="/en/algs/2x2/ls-2/">LS-2</a></h3>
+    <p>Solve the last slot and top layer with D toward U and U toward F.</p>
+    <p class="set-card-facts">54 cases · 626 algorithms</p>
+  </li>
+  <li class="set-card">
+    <h3><a href="/en/algs/2x2/ls-3/">LS-3</a></h3>
+    <p>Solve the last slot and top layer with D toward U and U toward R.</p>
+    <p class="set-card-facts">54 cases · 596 algorithms</p>
+  </li>
+  <li class="set-card">
+    <h3><a href="/en/algs/2x2/ls-4/">LS-4</a></h3>
+    <p>Solve the last slot and top layer with D toward F and U toward D.</p>
+    <p class="set-card-facts">54 cases · 607 algorithms</p>
+  </li>
+  <li class="set-card">
+    <h3><a href="/en/algs/2x2/ls-5/">LS-5</a></h3>
+    <p>Solve the last slot and top layer with D toward F and U toward F.</p>
+    <p class="set-card-facts">54 cases · 562 algorithms</p>
+  </li>
+  <li class="set-card">
+    <h3><a href="/en/algs/2x2/ls-6/">LS-6</a></h3>
+    <p>Solve the last slot and top layer with D toward F and U toward R.</p>
+    <p class="set-card-facts">54 cases · 595 algorithms</p>
+  </li>
+  <li class="set-card">
+    <h3><a href="/en/algs/2x2/ls-7/">LS-7</a></h3>
+    <p>Solve the last slot and top layer with D toward R and U toward D.</p>
+    <p class="set-card-facts">54 cases · 601 algorithms</p>
+  </li>
+  <li class="set-card">
+    <h3><a href="/en/algs/2x2/ls-8/">LS-8</a></h3>
+    <p>Solve the last slot and top layer with D toward R and U toward F.</p>
+    <p class="set-card-facts">54 cases · 586 algorithms</p>
+  </li>
+  <li class="set-card">
+    <h3><a href="/en/algs/2x2/ls-9/">LS-9</a></h3>
+    <p>Solve the last slot and top layer with D toward R and U toward R.</p>
+    <p class="set-card-facts">54 cases · 557 algorithms</p>
+  </li>
+  <li class="set-card">
+    <h3><a href="/en/algs/2x2/beg1-ls-1/">BEG1-LS1</a></h3>
+    <p>Solve the last slot and top layer with D toward U and U toward D.</p>
+    <p class="set-card-facts">54 cases · 532 algorithms</p>
+  </li>
+  <li class="set-card">
+    <h3><a href="/en/algs/2x2/beg1-ls-2/">BEG1-LS2</a></h3>
+    <p>Solve the last slot and top layer with D toward U and U toward F.</p>
+    <p class="set-card-facts">54 cases · 515 algorithms</p>
+  </li>
+  <li class="set-card">
+    <h3><a href="/en/algs/2x2/beg1-ls-3/">BEG1-LS3</a></h3>
+    <p>Solve the last slot and top layer with D toward U and U toward R.</p>
+    <p class="set-card-facts">54 cases · 521 algorithms</p>
+  </li>
+  <li class="set-card">
+    <h3><a href="/en/algs/2x2/beg1-ls-4/">BEG1-LS4</a></h3>
+    <p>Solve the last slot and top layer with D toward F and U toward D.</p>
+    <p class="set-card-facts">54 cases · 537 algorithms</p>
+  </li>
+  <li class="set-card">
+    <h3><a href="/en/algs/2x2/beg1-ls-5/">BEG1-LS5</a></h3>
+    <p>Solve the last slot and top layer with D toward F and U toward F.</p>
+    <p class="set-card-facts">54 cases · 504 algorithms</p>
+  </li>
+  <li class="set-card">
+    <h3><a href="/en/algs/2x2/beg1-ls-6/">BEG1-LS6</a></h3>
+    <p>Solve the last slot and top layer with D toward F and U toward R.</p>
+    <p class="set-card-facts">54 cases · 538 algorithms</p>
+  </li>
+  <li class="set-card">
+    <h3><a href="/en/algs/2x2/beg1-ls-7/">BEG1-LS7</a></h3>
+    <p>Solve the last slot and top layer with D toward R and U toward D.</p>
+    <p class="set-card-facts">54 cases · 510 algorithms</p>
+  </li>
+  <li class="set-card">
+    <h3><a href="/en/algs/2x2/beg1-ls-8/">BEG1-LS8</a></h3>
+    <p>Solve the last slot and top layer with D toward R and U toward F.</p>
+    <p class="set-card-facts">54 cases · 544 algorithms</p>
+  </li>
+  <li class="set-card">
+    <h3><a href="/en/algs/2x2/beg1-ls-9/">BEG1-LS9</a></h3>
+    <p>Solve the last slot and top layer with D toward R and U toward R.</p>
+    <p class="set-card-facts">54 cases · 511 algorithms</p>
+  </li>
+  <li class="set-card">
+    <h3><a href="/en/algs/2x2/leg1-ls-1/">LEG1-LS1</a></h3>
+    <p>Solve the last slot and top layer with D toward U and U toward D.</p>
+    <p class="set-card-facts">54 cases · 517 algorithms</p>
+  </li>
+  <li class="set-card">
+    <h3><a href="/en/algs/2x2/leg1-ls-2/">LEG1-LS2</a></h3>
+    <p>Solve the last slot and top layer with D toward U and U toward F.</p>
+    <p class="set-card-facts">54 cases · 518 algorithms</p>
+  </li>
+  <li class="set-card">
+    <h3><a href="/en/algs/2x2/leg1-ls-3/">LEG1-LS3</a></h3>
+    <p>Solve the last slot and top layer with D toward U and U toward R.</p>
+    <p class="set-card-facts">54 cases · 489 algorithms</p>
+  </li>
+  <li class="set-card">
+    <h3><a href="/en/algs/2x2/leg1-ls-4/">LEG1-LS4</a></h3>
+    <p>Solve the last slot and top layer with D toward F and U toward D.</p>
+    <p class="set-card-facts">54 cases · 492 algorithms</p>
+  </li>
+  <li class="set-card">
+    <h3><a href="/en/algs/2x2/leg1-ls-5/">LEG1-LS5</a></h3>
+    <p>Solve the last slot and top layer with D toward F and U toward F.</p>
+    <p class="set-card-facts">54 cases · 512 algorithms</p>
+  </li>
+  <li class="set-card">
+    <h3><a href="/en/algs/2x2/leg1-ls-6/">LEG1-LS6</a></h3>
+    <p>Solve the last slot and top layer with D toward F and U toward R.</p>
+    <p class="set-card-facts">54 cases · 544 algorithms</p>
+  </li>
+  <li class="set-card">
+    <h3><a href="/en/algs/2x2/leg1-ls-7/">LEG1-LS7</a></h3>
+    <p>Solve the last slot and top layer with D toward R and U toward D.</p>
+    <p class="set-card-facts">54 cases · 522 algorithms</p>
+  </li>
+  <li class="set-card">
+    <h3><a href="/en/algs/2x2/leg1-ls-8/">LEG1-LS8</a></h3>
+    <p>Solve the last slot and top layer with D toward R and U toward F.</p>
+    <p class="set-card-facts">54 cases · 508 algorithms</p>
+  </li>
+  <li class="set-card">
+    <h3><a href="/en/algs/2x2/leg1-ls-9/">LEG1-LS9</a></h3>
+    <p>Solve the last slot and top layer with D toward R and U toward R.</p>
+    <p class="set-card-facts">54 cases · 482 algorithms</p>
+  </li>
+  <li class="set-card">
+    <h3><a href="/en/algs/2x2/teg-2-plus/">TEG-2+</a></h3>
+    <p>Solve a twisted EG layer with the DFR sticker facing F.</p>
+    <p class="set-card-facts">43 cases · 680 algorithms</p>
+  </li>
+  <li class="set-card">
+    <h3><a href="/en/algs/2x2/teg-2-minus/">TEG-2-</a></h3>
+    <p>Solve a twisted EG layer with the DFR sticker facing R.</p>
+    <p class="set-card-facts">43 cases · 707 algorithms</p>
+  </li>
+  <li class="set-card">
+    <h3><a href="/en/algs/2x2/teg-1-a-plus/">TEG-1 A+</a></h3>
+    <p>Solve a twisted EG layer with the DFR sticker facing F.</p>
+    <p class="set-card-facts">43 cases · 399 algorithms</p>
+  </li>
+  <li class="set-card">
+    <h3><a href="/en/algs/2x2/teg-1-a-minus/">TEG-1 A-</a></h3>
+    <p>Solve a twisted EG layer with the DFR sticker facing R.</p>
+    <p class="set-card-facts">43 cases · 387 algorithms</p>
+  </li>
+  <li class="set-card">
+    <h3><a href="/en/algs/2x2/teg-1-b-plus/">TEG-1 B+</a></h3>
+    <p>Solve a twisted EG layer with the DFR sticker facing F.</p>
+    <p class="set-card-facts">43 cases · 402 algorithms</p>
+  </li>
+  <li class="set-card">
+    <h3><a href="/en/algs/2x2/teg-1-b-minus/">TEG-1 B-</a></h3>
+    <p>Solve a twisted EG layer with the DFR sticker facing R.</p>
+    <p class="set-card-facts">43 cases · 382 algorithms</p>
+  </li>
+  <li class="set-card">
+    <h3><a href="/en/algs/2x2/teg-1-c-plus/">TEG-1 C+</a></h3>
+    <p>Solve a twisted EG layer with the DFR sticker facing F.</p>
+    <p class="set-card-facts">43 cases · 438 algorithms</p>
+  </li>
+  <li class="set-card">
+    <h3><a href="/en/algs/2x2/teg-1-c-minus/">TEG-1 C-</a></h3>
+    <p>Solve a twisted EG layer with the DFR sticker facing R.</p>
+    <p class="set-card-facts">43 cases · 433 algorithms</p>
+  </li>
+  <li class="set-card">
+    <h3><a href="/en/algs/2x2/teg-1-d-plus/">TEG-1 D+</a></h3>
+    <p>Solve a twisted EG layer with the DFR sticker facing F.</p>
+    <p class="set-card-facts">43 cases · 396 algorithms</p>
+  </li>
+  <li class="set-card">
+    <h3><a href="/en/algs/2x2/teg-1-d-minus/">TEG-1 D-</a></h3>
+    <p>Solve a twisted EG layer with the DFR sticker facing R.</p>
+    <p class="set-card-facts">43 cases · 389 algorithms</p>
+  </li>
+  <li class="set-card">
+    <h3><a href="/en/algs/2x2/fake-bar-cll/">Fake Bar CLL</a></h3>
+    <p>Solve from a fake bar that leads to CLL.</p>
+    <p class="set-card-facts">162 cases · 2,583 algorithms</p>
+  </li>
+  <li class="set-card">
+    <h3><a href="/en/algs/2x2/hd-lols/">HD LOLS</a></h3>
+    <p>Orient the corners from the HD three-corner V.</p>
+    <p class="set-card-facts">23 cases · 214 algorithms</p>
+  </li>
+  <li class="set-card">
+    <h3><a href="/en/algs/2x2/guimond-orientation/">Guimond orientation</a></h3>
+    <p>Orient the corners while treating U and D as one colour.</p>
+    <p class="set-card-facts">16 cases · 141 algorithms</p>
+  </li>
+  <li class="set-card">
+    <h3><a href="/en/algs/2x2/ss/">SS</a></h3>
+    <p>Complete both faces from three oriented D corners.</p>
+    <p class="set-card-facts">104 cases · 955 algorithms</p>
+  </li>
+  <li class="set-card">
+    <h3><a href="/en/algs/2x2/soap/">SOAP</a></h3>
+    <p>Orient both faces with their colours already separated.</p>
+    <p class="set-card-facts">53 cases · 556 algorithms</p>
+  </li>
+  <li class="set-card">
+    <h3><a href="/en/algs/2x2/hd-nll/">HD NLL</a></h3>
+    <p>Permute the oriented corners in the HD last-slot step.</p>
+    <p class="set-card-facts">36 cases · 340 algorithms</p>
+  </li>
+  <li class="set-card">
+    <h3><a href="/en/algs/2x2/vop-plfc/">VOP PLFC</a></h3>
+    <p>Permute the last five corners after orientation.</p>
+    <p class="set-card-facts">8 cases · 81 algorithms</p>
+  </li>
+  <li class="set-card">
+    <h3><a href="/en/algs/2x2/unmixing/">Unmixing</a></h3>
+    <p>Separate the U and D colours after orientation.</p>
+    <p class="set-card-facts">6 cases · 52 algorithms</p>
+  </li>
+  <li class="set-card">
+    <h3><a href="/en/algs/2x2/bop-6co/">BOP 6CO</a></h3>
+    <p>Orient six corners around a solved block.</p>
+    <p class="set-card-facts">71 cases · 620 algorithms</p>
+  </li>
+  <li class="set-card">
+    <h3><a href="/en/algs/2x2/bop-6cp/">BOP 6CP</a></h3>
+    <p>Permute six oriented corners around a solved block.</p>
+    <p class="set-card-facts">47 cases · 388 algorithms</p>
+  </li>
+  <li class="set-card">
+    <h3><a href="/en/algs/2x2/cll/">CLL</a></h3>
+    <p>The whole top layer when the bottom layer is done.</p>
+    <p class="set-card-facts">42 cases · 905 algorithms</p>
+  </li>
+  <li class="set-card">
+    <h3><a href="/en/algs/2x2/eg-1/">EG-1</a></h3>
+    <p>Bottom face done, two adjacent corners swapped.</p>
+    <p class="set-card-facts">40 cases · 932 algorithms</p>
+  </li>
+  <li class="set-card">
+    <h3><a href="/en/algs/2x2/eg-2/">EG-2</a></h3>
+    <p>Bottom face done, two opposite corners swapped.</p>
+    <p class="set-card-facts">40 cases · 702 algorithms</p>
+  </li>
+  <li class="set-card">
+    <h3><a href="/en/algs/2x2/tcll-plus/">TCLL+</a></h3>
+    <p>Bottom layer done but one corner twisted towards the front.</p>
+    <p class="set-card-facts">43 cases · 553 algorithms</p>
+  </li>
+  <li class="set-card">
+    <h3><a href="/en/algs/2x2/tcll-minus/">TCLL-</a></h3>
+    <p>Bottom layer done but one corner twisted to the right.</p>
+    <p class="set-card-facts">43 cases · 529 algorithms</p>
+  </li>
+</ul>
+      </section>
+      <section class="puzzle-block" aria-labelledby="p-cube-4">
+        <h2 id="p-cube-4"><a href="/en/algs/4x4/">4×4</a></h2>
+        <ul class="set-grid">
+  <li class="set-card">
+    <h3><a href="/en/algs/4x4/oll/">OLL</a></h3>
+    <p>Orient the reduced last layer without OLL parity.</p>
+    <p class="set-card-facts">57 cases · 103 algorithms</p>
+  </li>
+  <li class="set-card">
+    <h3><a href="/en/algs/4x4/oll-parity-1flip/">OLL parity, one paired edge flipped</a></h3>
+    <p>Orient the last layer with one paired edge flipped.</p>
+    <p class="set-card-facts">27 cases · 881 algorithms</p>
+  </li>
+  <li class="set-card">
+    <h3><a href="/en/algs/4x4/oll-parity-3flip/">OLL parity, three paired edges flipped</a></h3>
+    <p>Orient the last layer with three paired edges flipped.</p>
+    <p class="set-card-facts">27 cases · 79 algorithms</p>
+  </li>
+  <li class="set-card">
+    <h3><a href="/en/algs/4x4/epll-parity/">EPLL with parity (ZZ44)</a></h3>
+    <p>Permute paired edges, including PLL parity.</p>
+    <p class="set-card-facts">9 cases · 27 algorithms</p>
+  </li>
+  <li class="set-card">
+    <h3><a href="/en/algs/4x4/l2e/">L2E</a></h3>
+    <p>Pair the last two edges held opposite each other.</p>
+    <p class="set-card-facts">2 cases · 226 algorithms</p>
+  </li>
+  <li class="set-card">
+    <h3><a href="/en/algs/4x4/l2c/">L2C</a></h3>
+    <p>Finish the last two centres.</p>
+    <p class="set-card-facts">7 cases · 50 algorithms</p>
+  </li>
+  <li class="set-card">
+    <h3><a href="/en/algs/4x4/oll-parity/">OLL with parity</a></h3>
+    <p>Orient the last layer when OLL parity shows up.</p>
+    <p class="set-card-facts">54 cases · 892 algorithms</p>
+  </li>
+  <li class="set-card">
+    <h3><a href="/en/algs/4x4/pll-parity/">PLL with parity</a></h3>
+    <p>Permute the last layer when PLL parity shows up.</p>
+    <p class="set-card-facts">22 cases · 449 algorithms</p>
+  </li>
+  <li class="set-card">
+    <h3><a href="/en/algs/4x4/3-style/">3-style 4BLD</a></h3>
+    <p>The 4×4 blindfolded commutators: X-centres, corners and wings.</p>
+    <p class="set-card-facts">1,560 cases · 4,668 algorithms</p>
+  </li>
+</ul>
+      </section>
+      <section class="puzzle-block" aria-labelledby="p-cube-5">
+        <h2 id="p-cube-5"><a href="/en/algs/5x5/">5×5</a></h2>
+        <ul class="set-grid">
+  <li class="set-card">
+    <h3><a href="/en/algs/5x5/l2c/">L2C</a></h3>
+    <p>Finish the last two centres.</p>
+    <p class="set-card-facts">18 cases · 56 algorithms</p>
+  </li>
+  <li class="set-card">
+    <h3><a href="/en/algs/5x5/l2e/">L2E</a></h3>
+    <p>Pair the last two edges.</p>
+    <p class="set-card-facts">15 cases · 211 algorithms</p>
+  </li>
+  <li class="set-card">
+    <h3><a href="/en/algs/5x5/3-style/">3-style 5BLD</a></h3>
+    <p>The 5×5 blindfolded commutators: X and T centres, corners, midges and wings.</p>
+    <p class="set-card-facts">2,572 cases · 7,680 algorithms</p>
+  </li>
+</ul>
+      </section>
+      <section class="puzzle-block" aria-labelledby="p-megaminx">
+        <h2 id="p-megaminx"><a href="/en/algs/megaminx/">Megaminx</a></h2>
+        <ul class="set-grid">
+  <li class="set-card">
+    <h3><a href="/en/algs/megaminx/oc-two-three/">OC, two or three corners (Grant)</a></h3>
+    <p>Orient two or three last-layer corners.</p>
+    <p class="set-card-facts">8 cases · 67 algorithms</p>
+  </li>
+  <li class="set-card">
+    <h3><a href="/en/algs/megaminx/oll-three-edges/">OLL, at least three edges oriented</a></h3>
+    <p>Orient the last layer with at least three edges oriented.</p>
+    <p class="set-card-facts">178 cases · 776 algorithms</p>
+  </li>
+  <li class="set-card">
+    <h3><a href="/en/algs/megaminx/ell/">ELL</a></h3>
+    <p>Solve the last-layer edges without constraining corners.</p>
+    <p class="set-card-facts">39 cases · 51 algorithms</p>
+  </li>
+  <li class="set-card">
+    <h3><a href="/en/algs/megaminx/3ell/">3ELL</a></h3>
+    <p>Solve three remaining edges while preserving the corners.</p>
+    <p class="set-card-facts">18 cases · 18 algorithms</p>
+  </li>
+  <li class="set-card">
+    <h3><a href="/en/algs/megaminx/3cll/">3CLL</a></h3>
+    <p>Solve three remaining corners while preserving the edges.</p>
+    <p class="set-card-facts">44 cases · 44 algorithms</p>
+  </li>
+  <li class="set-card">
+    <h3><a href="/en/algs/megaminx/eo/">EO</a></h3>
+    <p>Orient the last-layer edges.</p>
+    <p class="set-card-facts">3 cases · 490 algorithms</p>
+  </li>
+  <li class="set-card">
+    <h3><a href="/en/algs/megaminx/co/">CO</a></h3>
+    <p>Orient the last-layer corners.</p>
+    <p class="set-card-facts">16 cases · 99 algorithms</p>
+  </li>
+  <li class="set-card">
+    <h3><a href="/en/algs/megaminx/cp/">CP</a></h3>
+    <p>Place the last-layer corners.</p>
+    <p class="set-card-facts">15 cases · 343 algorithms</p>
+  </li>
+  <li class="set-card">
+    <h3><a href="/en/algs/megaminx/ep/">EP</a></h3>
+    <p>Place the last-layer edges, corners in place.</p>
+    <p class="set-card-facts">15 cases · 315 algorithms</p>
+  </li>
+  <li class="set-card">
+    <h3><a href="/en/algs/megaminx/oll/">OLL</a></h3>
+    <p>Orient the Megaminx last layer in one algorithm.</p>
+    <p class="set-card-facts">259 cases · 514 algorithms</p>
+  </li>
+  <li class="set-card">
+    <h3><a href="/en/algs/megaminx/pll/">PLL</a></h3>
+    <p>Permute the Megaminx last layer once it is oriented.</p>
+    <p class="set-card-facts">151 cases · 3,439 algorithms</p>
+  </li>
+</ul>
+      </section>
+      <section class="puzzle-block" aria-labelledby="p-fto">
+        <h2 id="p-fto"><a href="/en/algs/fto/">FTO</a></h2>
+        <ul class="set-grid">
+  <li class="set-card">
+    <h3><a href="/en/algs/fto/1l3t/">1L3T</a></h3>
+    <p>Solve the last three triples in one algorithm.</p>
+    <p class="set-card-facts">179 cases · 14,493 algorithms</p>
+  </li>
+  <li class="set-card">
+    <h3><a href="/en/algs/fto/olp/">OLP</a></h3>
+    <p>Form the last pairs in one step.</p>
+    <p class="set-card-facts">11 cases · 2,993 algorithms</p>
+  </li>
+  <li class="set-card">
+    <h3><a href="/en/algs/fto/tcp/">TCP</a></h3>
+    <p>Solve the triangle and corner permutations after OLP.</p>
+    <p class="set-card-facts">18 cases · 1,509 algorithms</p>
+  </li>
+  <li class="set-card">
+    <h3><a href="/en/algs/fto/pf/">PF</a></h3>
+    <p>Form pairs for the three-step L3T finish.</p>
+    <p class="set-card-facts">10 cases · 8,787 algorithms</p>
+  </li>
+  <li class="set-card">
+    <h3><a href="/en/algs/fto/tl/">TL</a></h3>
+    <p>Solve the top of the triples after pair formation.</p>
+    <p class="set-card-facts">5 cases · 1,462 algorithms</p>
+  </li>
+  <li class="set-card">
+    <h3><a href="/en/algs/fto/lt/">LT (last triangles)</a></h3>
+    <p>Permute the last lower triangles.</p>
+    <p class="set-card-facts">3 cases · 189 algorithms</p>
+  </li>
+  <li class="set-card">
+    <h3><a href="/en/algs/fto/tcp-even/">TCP, even</a></h3>
+    <p>Finish the even TCP subset.</p>
+    <p class="set-card-facts">6 cases · 433 algorithms</p>
+  </li>
+  <li class="set-card">
+    <h3><a href="/en/algs/fto/tcp-odd/">TCP, odd</a></h3>
+    <p>Finish the odd TCP subset.</p>
+    <p class="set-card-facts">6 cases · 551 algorithms</p>
+  </li>
+  <li class="set-card">
+    <h3><a href="/en/algs/fto/tcp-2flip/">TCP, two flips</a></h3>
+    <p>Finish the two flips TCP subset.</p>
+    <p class="set-card-facts">6 cases · 525 algorithms</p>
+  </li>
+  <li class="set-card">
+    <h3><a href="/en/algs/fto/1lll/">1LLL</a></h3>
+    <p>Solve the Nautilus last layer in one algorithm.</p>
+    <p class="set-card-facts">377 cases · 709 algorithms</p>
+  </li>
+  <li class="set-card">
+    <h3><a href="/en/algs/fto/l6x/">L6X</a></h3>
+    <p>Align the six last-layer triangles, leaving corners free.</p>
+    <p class="set-card-facts">35 cases · 744 algorithms</p>
+  </li>
+  <li class="set-card">
+    <h3><a href="/en/algs/fto/l3c/">L3C</a></h3>
+    <p>Solve the last three corners after the triangles.</p>
+    <p class="set-card-facts">5 cases · 24 algorithms</p>
+  </li>
+  <li class="set-card">
+    <h3><a href="/en/algs/fto/l3c-co/">L3C, corner orientation</a></h3>
+    <p>Orient the last three corners.</p>
+    <p class="set-card-facts">1 cases · 22 algorithms</p>
+  </li>
+  <li class="set-card">
+    <h3><a href="/en/algs/fto/l3c-cp/">L3C, corner permutation</a></h3>
+    <p>Permute the oriented last three corners.</p>
+    <p class="set-card-facts">2 cases · 7 algorithms</p>
+  </li>
+  <li class="set-card">
+    <h3><a href="/en/algs/fto/pl6x/">PL6X</a></h3>
+    <p>Solve the last six triangles with the corners preserved.</p>
+    <p class="set-card-facts">35 cases · 118 algorithms</p>
+  </li>
+  <li class="set-card">
+    <h3><a href="/en/algs/fto/btlt/">BTLT</a></h3>
+    <p>Solve the corner and bottom triangle of the last triple.</p>
+    <p class="set-card-facts">23 cases · 156 algorithms</p>
+  </li>
+  <li class="set-card">
+    <h3><a href="/en/algs/fto/ftlt/">FTLT</a></h3>
+    <p>Solve the corner and front triangle of the last triple.</p>
+    <p class="set-card-facts">23 cases · 99 algorithms</p>
+  </li>
+  <li class="set-card">
+    <h3><a href="/en/algs/fto/nautilus-lt/">LT Nautilus</a></h3>
+    <p>Solve the Nautilus last triple in one algorithm.</p>
+    <p class="set-card-facts">151 cases · 1,143 algorithms</p>
+  </li>
+  <li class="set-card">
+    <h3><a href="/en/algs/fto/lbt/">LBT</a></h3>
+    <p>Solve the last bottom triple in the Bencisco method.</p>
+    <p class="set-card-facts">95 cases · 275 algorithms</p>
+  </li>
+</ul>
+      </section>
+      <section class="puzzle-block" aria-labelledby="p-skewb">
+        <h2 id="p-skewb"><a href="/en/algs/skewb/">Skewb</a></h2>
+        <ul class="set-grid">
+  <li class="set-card">
+    <h3><a href="/en/algs/skewb/l2l/">L2L (Sarah advanced)</a></h3>
+    <p>Finish the Skewb after the first layer.</p>
+    <p class="set-card-facts">134 cases · 1,969 algorithms</p>
+  </li>
+  <li class="set-card">
+    <h3><a href="/en/algs/skewb/l5c/">L5C</a></h3>
+    <p>Solve the last five centres with all corners solved.</p>
+    <p class="set-card-facts">14 cases · 251 algorithms</p>
+  </li>
+  <li class="set-card">
+    <h3><a href="/en/algs/skewb/top-layer/">Opposite layer</a></h3>
+    <p>Solve the opposite layer, leaving side centres free.</p>
+    <p class="set-card-facts">11 cases · 1,023 algorithms</p>
+  </li>
+  <li class="set-card">
+    <h3><a href="/en/algs/skewb/side-centres/">Side centres (Yutong Liang)</a></h3>
+    <p>Permute the four side centres.</p>
+    <p class="set-card-facts">4 cases · 63 algorithms</p>
+  </li>
+  <li class="set-card">
+    <h3><a href="/en/algs/skewb/l4c-ranzha/">L4C (Ranzha)</a></h3>
+    <p>Solve the centres without requiring U corner orientation.</p>
+    <p class="set-card-facts">6 cases · 377 algorithms</p>
+  </li>
+  <li class="set-card">
+    <h3><a href="/en/algs/skewb/l4c-cll-ranzha/">L4C+CLL (Ranzha)</a></h3>
+    <p>Solve the centres and U corners together.</p>
+    <p class="set-card-facts">74 cases · 1,322 algorithms</p>
+  </li>
+  <li class="set-card">
+    <h3><a href="/en/algs/skewb/cll/">CLL (Ranzha)</a></h3>
+    <p>Solve the U corners while preserving all centres.</p>
+    <p class="set-card-facts">2 cases · 34 algorithms</p>
+  </li>
+  <li class="set-card">
+    <h3><a href="/en/algs/skewb/cll-eg/">CLL/EG (Kirjava-Meep)</a></h3>
+    <p>Solve all corners from an oriented D face.</p>
+    <p class="set-card-facts">5 cases · 55 algorithms</p>
+  </li>
+  <li class="set-card">
+    <h3><a href="/en/algs/skewb/cls/">CLS (Kirjava-Meep)</a></h3>
+    <p>Solve the corners from a twisted last slot.</p>
+    <p class="set-card-facts">18 cases · 186 algorithms</p>
+  </li>
+</ul>
+      </section>
+    </main>
+    <footer class="app-footer">
+      <p class="footer-title">Cubemuch algorithms</p>
+      <p>No cookies, no audience measurement. Your selection stays in this browser.</p>
+      <p class="credit">3×3 solving based on Herbert Kociemba's two-phase algorithm.</p>
+      <p class="footer-links"><a href="/en/algs/about/">Sources and verification</a> · <a href="/en/legal-notice/">Legal notice</a></p>
+    </footer>
+  </body>
+</html>

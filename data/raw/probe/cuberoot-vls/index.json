@@ -1,0 +1,30 @@
+[
+  {
+    "file": "resp-0.json",
+    "url": "https://api.cuberoot.me/v1/nav/deskpet-catalog",
+    "status": 200,
+    "bytes": 1344,
+    "algHits": 0
+  },
+  {
+    "file": "resp-1.json",
+    "url": "https://api.cuberoot.me/v1/page-notices",
+    "status": 200,
+    "bytes": 2863,
+    "algHits": 0
+  },
+  {
+    "file": "resp-2.json",
+    "url": "https://cuberoot.me/api/alg/snapshot/3x3/vls",
+    "status": 200,
+    "bytes": 10006,
+    "algHits": 0
+  },
+  {
+    "file": "resp-3.json",
+    "url": "https://api.cuberoot.me/v1/alg/sets/3x3/vls",
+    "status": 200,
+    "bytes": 70992,
+    "algHits": 776
+  }
+]
