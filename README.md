@@ -110,6 +110,7 @@ docs/                      # 验收证据与决策记录
 | `docs/CUBING_CAPABILITY_MATRIX.md` | 10 种魔方逐项实测结论，含 Square-1 为何只能是二维 |
 | `docs/capability-raw.md` | 脚本直接写出的原始实测表（未经手工修改） |
 | `docs/TECH_DECISIONS.md` | 14 条技术决策：选择、放弃的方案、理由、代价 |
+| `docs/ACCEPTANCE_REPORT.md` | 阶段 A–H 验收报告：完成项、命令输出、测试、未完成项 |
 | `docs/screenshots/` | 桌面与手机界面截屏 + 每种魔方的真实画布截屏 |
 
 ---
