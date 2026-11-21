@@ -1,3 +1,5 @@
+> 语言 / Language: [简体中文](README.md) · [English](README.en.md) · [日本語](README.ja.md) · [Русский](README.ru.md) · [Español](README.es.md) · [Português (BR)](README.pt-BR.md)
+
 # Twisty Atlas 魔方公式图谱
 
 多类型魔方的公式库 + **真实三维**动作播放器 + **csTimer 风格计时器**。
@@ -60,6 +62,11 @@
 | 入口 | 工作台 `#/` | 自动落到 `#/sets`（工作台是桌面专属的三栏合体视图） |
 | 信息密度 | 全量字段 | 去掉重复标题、重复计数、长解释，保留核心操作 |
 
+### 六语界面
+- 界面支持 简体中文 / English / 日本語 / Русский / Español / Português (BR)，在「设置 → 语言」即时切换并持久化；「跟随系统」按浏览器首选语言解析。
+- 下层（`domain` / `application` / `infrastructure`）不含界面文案；翻译集中在表现层 `src/presentation/i18n/`。字典键由基准语言推导，缺键或多键都会类型报错，并有单测校验六语键集合与插值占位符一致。
+- README 本身也提供六种语言，顶部一行即可切换。
+
 ### 键盘快捷键（播放器）
 | 键 | 作用 |
 |---|---|
@@ -84,9 +91,9 @@ npm run dev          # http://localhost:5173
 npm run dev            # 开发服务器
 npm run build          # 类型检查 + 生产构建（vue-tsc --noEmit && vite build）
 npm run preview        # 预览构建产物
-npm run check          # typecheck + 架构检查 + 108 个单测
+npm run check          # typecheck + 架构检查 + 115 个单测
 npm run test           # 只跑 Vitest
-npm run test:e2e       # Playwright（42 次执行：桌面项目 36 + 移动项目 6）
+npm run test:e2e       # Playwright（44 次执行：桌面项目 38 + 移动项目 6）
 npm run data:build     # 重新生成内置公式集（抓取结果已在 data/raw/）
 npm run desktop:build  # 打包桌面端 → out/TwistyAtlas/TwistyAtlas.exe
 npm run android:apk    # 打包安卓 → out/TwistyAtlas-1.3.0-android-debug.apk
@@ -108,7 +115,7 @@ npm run android:apk    # 打包安卓 → out/TwistyAtlas-1.3.0-android-debug.ap
 ## 架构
 
 分层（`domain / application / infrastructure / presentation / data`），依赖方向由
-`scripts/check-arch.mjs` 静态守护（58 个文件），`cubing/*` 只允许出现在 `infrastructure/cubing`：
+`scripts/check-arch.mjs` 静态守护（67 个文件），`cubing/*` 只允许出现在 `infrastructure/cubing`：
 
 ```
 src/
@@ -121,7 +128,7 @@ src/
   infrastructure/
     cubing/                # 唯一与 cubing.js 打交道的地方（含 adapters/）
     persistence/           #   Dexie：公式、成绩、设置
-  presentation/            # Vue 组件 / 视图 / Pinia store / 路由 / composables
+  presentation/            # Vue 组件 / 视图 / Pinia store / 路由 / composables / i18n
   data/algsets.json        # 构建期生成的公式集（独立 chunk，首屏不加载）
 e2e/                       # Playwright（桌面 + 移动）
 scripts/                   # 数据流水线、架构检查、打包、验证与截图
@@ -135,9 +142,9 @@ docs/                      # 架构、数据、打包、验收证据
 ## 测试与证据
 
 ```
-单元测试   108 个（Vitest）  —— 计时器边界/统计/公式校验/导入导出/播放定位/导出格式化/底面共轭
-端到端     42 次执行（Playwright）—— 真实 WebGL、状态一致、持久化、移动端不整页滚动、页签可达
-架构检查   58 个文件，无越界依赖
+单元测试   115 个（Vitest）  —— 计时器边界/统计/公式校验/导入导出/播放定位/导出格式化/底面共轭/六语字典
+端到端     44 次执行（Playwright）—— 真实 WebGL、状态一致、持久化、移动端不整页滚动、页签可达、语言切换
+架构检查   67 个文件，无越界依赖
 数据校验   2433 案例 / 13667 条公式逐条过引擎（拒绝 399 条）
 ```
 
@@ -170,6 +177,7 @@ node scripts/shot-mobile.mjs
 | `docs/TECH_DECISIONS.md` | 技术决策：选择、放弃的方案、理由、代价 |
 | `docs/ACCEPTANCE_REPORT.md` | 阶段 A–H 验收报告 + v1.2 / v1.3 增补 |
 | `docs/screenshots/` | 桌面、手机（390×844 / 360×800）、每种魔方、计时器、公式集的真实截屏 |
+| `README.{en,ja,ru,es,pt-BR}.md` | 六种语言的 README，顶部一行互相切换 |
 
 ---
 

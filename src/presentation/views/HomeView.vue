@@ -15,7 +15,10 @@ import { usePlayerStore } from '@/presentation/stores/playerStore';
 import { useSettingsStore } from '@/presentation/stores/settingsStore';
 import type { FormulaRecord } from '@/domain/model/formula';
 import { getPuzzleDescriptor } from '@/infrastructure/cubing/puzzleRegistry';
+import { useI18n } from '@/presentation/i18n';
+import { puzzleName } from '@/presentation/i18n/labels';
 
+const { t } = useI18n();
 const router = useRouter();
 const store = useFormulaStore();
 const player = usePlayerStore();
@@ -148,7 +151,7 @@ async function onSaved(record: FormulaRecord) {
   puzzleId.value = record.puzzleId;
   store.selectedId = record.id;
   await loadFormulaIntoPlayer(record);
-  flashNotice(`已保存「${record.title}」`);
+  flashNotice(t('library.saved', { title: record.title }));
 }
 
 async function duplicateSelected() {
@@ -156,21 +159,21 @@ async function duplicateSelected() {
   try {
     const copy = await store.duplicate(selected.value.id);
     await loadFormulaIntoPlayer(copy);
-    flashNotice(`已创建副本「${copy.title}」`);
+    flashNotice(t('library.duplicated'));
   } catch (err) {
-    flashNotice(`复制失败：${(err as Error).message}`, 8000);
+    flashNotice(t('library.duplicateFailed', { message: (err as Error).message }), 8000);
   }
 }
 
 async function removeSelected() {
   const record = selected.value;
   if (!record) return;
-  const confirmed = window.confirm(`确定删除「${record.title}」吗？删除后可以在提示条中撤销。`);
+  const confirmed = window.confirm(t('library.confirmDelete', { title: record.title }));
   if (!confirmed) return;
   player.pause();
   await store.remove(record.id);
   await syncSelectionToPlayer();
-  flashNotice(`已删除「${record.title}」`, 10000);
+  flashNotice(t('library.deleted', { title: record.title }), 10000);
 }
 
 async function undoDelete() {
@@ -196,20 +199,20 @@ function openStandalonePage() {
       <header class="studio__bar">
         <PuzzlePicker :model-value="puzzleId" @update:model-value="changePuzzle" />
         <div class="studio__bar-actions">
-          <button type="button" class="btn btn--sm" @click="importOpen = true">导入 / 导出</button>
-          <button type="button" class="btn btn--sm btn--primary" @click="openCreate">新建公式</button>
+          <button type="button" class="btn btn--sm" @click="importOpen = true">{{ t('library.importExport') }}</button>
+          <button type="button" class="btn btn--sm btn--primary" @click="openCreate">{{ t('library.newFormula') }}</button>
         </div>
       </header>
 
       <p v-if="descriptor?.status === 'experimental'" class="alert alert--warning">
-        {{ descriptor.displayNameZh }}的公式解析与状态计算已可用，但三维形变渲染尚未通过逐状态验收，播放结果仅供参考。
+        {{ t('home.unsupported3d', { puzzle: puzzleName(descriptor.id) }) }}
       </p>
 
       <div class="studio__grid">
         <aside class="studio__sidebar panel" :class="{ 'studio__sidebar--active': mobileTab === 'library' }">
           <div class="panel__header">
-            <span class="panel__title">公式库</span>
-            <RouterLink to="/library" class="btn btn--sm btn--ghost">管理</RouterLink>
+            <span class="panel__title">{{ t('home.libraryPanel') }}</span>
+            <RouterLink to="/library" class="btn btn--sm btn--ghost">{{ t('home.manage') }}</RouterLink>
           </div>
           <FormulaList compact @select="selectFormula" @create="openCreate" />
         </aside>
@@ -227,11 +230,11 @@ function openStandalonePage() {
           <div v-if="player.loadError" class="alert alert--error" data-testid="player-error">{{ player.loadError }}</div>
           <div v-if="notice" class="alert alert--success" data-testid="notice">
             <span>{{ notice }}</span>
-            <button v-if="store.lastDeleted" type="button" class="btn btn--sm" @click="undoDelete">撤销删除</button>
+            <button v-if="store.lastDeleted" type="button" class="btn btn--sm" @click="undoDelete">{{ t('home.undoDelete') }}</button>
           </div>
           <p v-if="pageReady && store.formulas.length === 0" class="alert">
-            当前魔方类型还没有公式。点击「新建公式」添加一条，或到
-            <RouterLink to="/library">公式库</RouterLink> 导入 CSV / JSON。
+            {{ t('home.empty') }}
+            <RouterLink to="/library">{{ t('home.emptyLinkText') }} →</RouterLink>
           </p>
         </section>
 
@@ -247,7 +250,7 @@ function openStandalonePage() {
           />
         </aside>
 
-        <div class="studio__tabs" role="tablist" aria-label="移动端面板切换">
+        <div class="studio__tabs" role="tablist" :aria-label="t('home.tabsLabel')">
           <button
             type="button"
             class="studio__tab"
@@ -256,7 +259,7 @@ function openStandalonePage() {
             :aria-selected="mobileTab === 'library'"
             @click="mobileTab = 'library'"
           >
-            公式库
+            {{ t('home.tabLibrary') }}
           </button>
           <button
             type="button"
@@ -266,7 +269,7 @@ function openStandalonePage() {
             :aria-selected="mobileTab === 'detail'"
             @click="mobileTab = 'detail'"
           >
-            详情与说明
+            {{ t('home.tabDetail') }}
           </button>
         </div>
       </div>

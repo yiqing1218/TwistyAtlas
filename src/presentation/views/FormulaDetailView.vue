@@ -12,7 +12,9 @@ import { listCategories } from '@/infrastructure/persistence/formulaRepository';
 import { usePlayerStore } from '@/presentation/stores/playerStore';
 import { useFormulaStore } from '@/presentation/stores/formulaStore';
 import type { FormulaCategory, FormulaRecord } from '@/domain/model/formula';
+import { useI18n } from '@/presentation/i18n';
 
+const { t } = useI18n();
 const props = defineProps<{ id: string }>();
 const router = useRouter();
 const player = usePlayerStore();
@@ -59,7 +61,7 @@ async function loadRecord(id: string) {
     // 读取失败也要退出 loading，否则界面会永远停在"正在读取公式…"
     record.value = null;
     notFound.value = false;
-    loadError.value = `读取公式失败：${(err as Error).message}`;
+    loadError.value = t('detailView.loadFailed', { message: (err as Error).message });
   } finally {
     loading.value = false;
   }
@@ -88,7 +90,7 @@ async function onSaved(updated: FormulaRecord) {
 
 async function removeRecord() {
   if (!record.value) return;
-  if (!window.confirm(`确定删除「${record.value.title}」吗？`)) return;
+  if (!window.confirm(t('library.confirmDelete', { title: record.value.title }))) return;
   await deleteFormula(record.value.id);
   await store.refresh();
   void router.push('/library');
@@ -105,17 +107,17 @@ function goBack() {
   <ErrorBoundary>
     <div class="detail-view">
       <header class="detail-view__bar">
-        <button type="button" class="btn btn--sm btn--ghost" @click="goBack">← 返回</button>
-        <h1 class="detail-view__title truncate">{{ record?.title ?? '公式详情' }}</h1>
+        <button type="button" class="btn btn--sm btn--ghost" @click="goBack">{{ t('common.back') }}</button>
+        <h1 class="detail-view__title truncate">{{ record?.title ?? t('nav.formulaDetail') }}</h1>
       </header>
 
-      <p v-if="loading" class="empty-state">正在读取公式…</p>
+      <p v-if="loading" class="empty-state">{{ t('detailView.loading') }}</p>
 
       <p v-else-if="loadError" class="alert alert--error">{{ loadError }}</p>
 
       <div v-else-if="notFound" class="empty-state">
-        <strong>找不到这条公式</strong>
-        <p>它可能已被删除。返回 <RouterLink to="/library">公式库</RouterLink> 重新选择。</p>
+        <strong>{{ t('detailView.notFound') }}</strong>
+        <p>{{ t('detailView.notFoundHint') }} <RouterLink to="/library">{{ t('detailView.notFoundLink') }}</RouterLink></p>
       </div>
 
       <template v-else-if="record">

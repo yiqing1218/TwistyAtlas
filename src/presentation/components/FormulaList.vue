@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { computed, ref, watch } from 'vue';
 import { useFormulaStore } from '@/presentation/stores/formulaStore';
-import { SETUP_MODE_LABEL } from '@/domain/model/formula';
+import { useI18n } from '@/presentation/i18n';
+import { setupModeShort } from '@/presentation/i18n/labels';
 
 const props = defineProps<{
   /** 是否显示紧凑模式（工作台左栏） */
@@ -13,6 +14,7 @@ const emit = defineEmits<{
   (event: 'create'): void;
 }>();
 
+const { t } = useI18n();
 const store = useFormulaStore();
 const searchText = ref(store.filter.search);
 let debounceTimer: ReturnType<typeof setTimeout> | undefined;
@@ -51,9 +53,6 @@ function onSortChange(event: Event) {
 
 const totalCount = computed(() => store.formulas.length);
 
-function setupBadge(mode: keyof typeof SETUP_MODE_LABEL) {
-  return SETUP_MODE_LABEL[mode];
-}
 </script>
 
 <template>
@@ -64,8 +63,8 @@ function setupBadge(mode: keyof typeof SETUP_MODE_LABEL) {
           v-model="searchText"
           class="input"
           type="search"
-          placeholder="搜索名称、公式或标签"
-          aria-label="搜索公式"
+          :placeholder="t('list.searchPlaceholder')"
+          :aria-label="t('list.searchLabel')"
           data-testid="formula-search"
           @input="onSearchInput"
         />
@@ -76,7 +75,7 @@ function setupBadge(mode: keyof typeof SETUP_MODE_LABEL) {
         data-testid="btn-new-formula"
         @click="emit('create')"
       >
-        新建
+        {{ t('common.new') }}
       </button>
     </div>
 
@@ -87,7 +86,7 @@ function setupBadge(mode: keyof typeof SETUP_MODE_LABEL) {
         :class="{ 'chip--active': !store.filter.categoryId }"
         @click="selectCategory(null)"
       >
-        全部
+        {{ t('common.all') }}
       </button>
       <button
         type="button"
@@ -97,7 +96,7 @@ function setupBadge(mode: keyof typeof SETUP_MODE_LABEL) {
         data-testid="filter-favorite"
         @click="toggleFavoriteOnly"
       >
-        ★ 收藏
+        {{ t('list.favorites') }}
       </button>
       <button
         v-for="category in store.categories"
@@ -112,39 +111,39 @@ function setupBadge(mode: keyof typeof SETUP_MODE_LABEL) {
     </div>
 
     <div class="library__meta">
-      <span class="small muted">{{ totalCount }} 条</span>
+      <span class="small muted">{{ t('common.items', { n: totalCount }) }}</span>
       <div class="library__meta-actions">
         <select
           v-if="store.tags.length"
           class="select select--mini"
           :value="store.filter.tag ?? ''"
-          aria-label="按标签筛选"
+          :aria-label="t('list.filterLabel')"
           @change="onTagChange"
         >
-          <option value="">全部标签</option>
+          <option value="">{{ t('list.allTags') }}</option>
           <option v-for="tag in store.tags" :key="tag" :value="tag">#{{ tag }}</option>
         </select>
         <select
           class="select select--mini"
           :value="store.filter.sortBy"
-          aria-label="排序方式"
+          :aria-label="t('list.sortLabel')"
           @change="onSortChange"
         >
-          <option value="updatedAt">按更新时间</option>
-          <option value="title">按名称</option>
-          <option value="category">按分类</option>
+          <option value="updatedAt">{{ t('list.sortUpdated') }}</option>
+          <option value="title">{{ t('list.sortTitle') }}</option>
+          <option value="category">{{ t('list.sortCategory') }}</option>
         </select>
       </div>
     </div>
 
     <div class="library__list" role="list">
-      <p v-if="store.loading" class="empty-state">正在读取公式库…</p>
+      <p v-if="store.loading" class="empty-state">{{ t('list.loading') }}</p>
       <p v-else-if="store.error" class="alert alert--error">{{ store.error }}</p>
       <p v-else-if="totalCount === 0" class="empty-state">
         <template v-if="store.filter.search || store.filter.categoryId || store.filter.favoriteOnly">
-          没有符合筛选条件的公式
+          {{ t('list.noMatch') }}
         </template>
-        <template v-else>这个魔方类型还没有公式，点击「新建」添加一条。</template>
+        <template v-else>{{ t('list.empty') }}</template>
       </p>
       <template v-else>
         <article
@@ -165,8 +164,8 @@ function setupBadge(mode: keyof typeof SETUP_MODE_LABEL) {
               type="button"
               class="star"
               :class="{ 'star--on': record.favorite }"
-              :title="record.favorite ? '取消收藏' : '收藏'"
-              :aria-label="record.favorite ? '取消收藏' : '收藏'"
+              :title="record.favorite ? t('common.unfavorite') : t('common.favorite')"
+              :aria-label="record.favorite ? t('common.unfavorite') : t('common.favorite')"
               @click.stop="store.toggleFavorite(record.id)"
             >
               ★
@@ -177,8 +176,8 @@ function setupBadge(mode: keyof typeof SETUP_MODE_LABEL) {
             <span v-if="store.categoryName(record.categoryId)" class="badge">
               {{ store.categoryName(record.categoryId) }}
             </span>
-            <span class="badge" :title="setupBadge(record.setupMode)">
-              {{ record.setupMode === 'solved' ? '复原态' : record.setupMode === 'inverse' ? '逆序起点' : '自定义起点' }}
+            <span class="badge" :title="setupModeShort(record.setupMode)">
+              {{ setupModeShort(record.setupMode) }}
             </span>
             <span v-for="tag in record.tags.slice(0, 3)" :key="tag" class="badge badge--accent">#{{ tag }}</span>
           </div>

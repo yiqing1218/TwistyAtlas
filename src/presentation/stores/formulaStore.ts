@@ -16,6 +16,7 @@ import {
   setFavorite,
   updateFormula,
 } from '@/infrastructure/persistence/formulaRepository';
+import { t } from '@/presentation/i18n';
 
 export const useFormulaStore = defineStore('formula', {
   state: () => ({
@@ -64,7 +65,7 @@ export const useFormulaStore = defineStore('formula', {
           this.selectedId = formulas[0].id;
         }
       } catch (err) {
-        this.error = `读取公式库失败：${(err as Error).message}`;
+        this.error = t('store.loadLibraryFailed', { message: (err as Error).message });
       } finally {
         this.loading = false;
       }

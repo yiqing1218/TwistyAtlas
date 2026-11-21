@@ -11,6 +11,8 @@ import { getPuzzleDescriptor, isPuzzlePlayable } from '@/infrastructure/cubing/p
 import type { SetupMode } from '@/domain/model/formula';
 import { withBottom } from '@/domain/model/orientation';
 import { useSettingsStore } from '@/presentation/stores/settingsStore';
+import { t } from '@/presentation/i18n';
+import { puzzleName, statusLabel } from '@/presentation/i18n/labels';
 
 export interface LoadRequest {
   formulaId?: string;
@@ -77,8 +79,7 @@ export const usePlayerStore = defineStore('player', {
       if (this.attached) return;
       this.webglAvailable = isWebGLAvailable();
       if (!this.webglAvailable) {
-        this.loadError =
-          '当前浏览器无法创建 WebGL 上下文，三维魔方不可用。请更新浏览器或开启硬件加速后重试。';
+        this.loadError = t('store.webglFail');
         return;
       }
       const controller = new PlaybackController(container);
@@ -121,17 +122,20 @@ export const usePlayerStore = defineStore('player', {
       const parsed = parseFormulaLocal(resolved.playAlg);
       this.tokens = parsed.tokens;
       if (!parsed.ok) {
-        this.loadError = parsed.error ?? '公式无法解析';
+        this.loadError = parsed.error ?? t('store.parseFailed');
       }
       const descriptor = getPuzzleDescriptor(request.puzzleId);
       if (!isPuzzlePlayable(request.puzzleId)) {
         this.loadWarning = descriptor
-          ? `${descriptor.displayNameZh}当前标记为「${descriptor.status}」，暂不支持播放。`
-          : `未知魔方类型：${request.puzzleId}`;
+          ? t('store.unsupportedStatus', {
+              puzzle: puzzleName(descriptor.id),
+              status: statusLabel(descriptor.status),
+            })
+          : t('store.unknownPuzzle', { id: request.puzzleId });
       } else if (descriptor?.status === 'ready-2d') {
-        this.loadWarning = `${descriptor.displayNameZh}由引擎以二维方式渲染（没有真实形变三维模型），公式与步骤仍然真实执行。`;
+        this.loadWarning = t('store.twoDWarning', { puzzle: puzzleName(descriptor.id) });
       } else if (descriptor?.status === 'experimental') {
-        this.loadWarning = `${descriptor.displayNameZh}为实验性支持，三维效果仍在验证。`;
+        this.loadWarning = t('store.experimentalWarning', { puzzle: puzzleName(descriptor.id) });
       }
       if (!this.attached) return;
       await this.applyTarget(target);

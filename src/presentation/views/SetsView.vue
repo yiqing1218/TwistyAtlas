@@ -7,11 +7,14 @@
  */
 import { computed, onMounted, ref } from 'vue';
 import { groupSetsByCategory, loadDataset, type AlgCase, type AlgSet, type AlgSource } from '@/application/sets/formulaSets';
+import { useI18n } from '@/presentation/i18n';
+import { setCategoryLabel } from '@/presentation/i18n/labels';
 import { usePlayerStore } from '@/presentation/stores/playerStore';
 import PuzzleViewport from '@/presentation/components/PuzzleViewport.vue';
 import PlaybackToolbar from '@/presentation/components/PlaybackToolbar.vue';
 import AlgorithmTokens from '@/presentation/components/AlgorithmTokens.vue';
 
+const { t } = useI18n();
 const dataset = ref<Awaited<ReturnType<typeof loadDataset>> | null>(null);
 const activeSetId = ref<string>('');
 const activeCaseId = ref<string>('');
@@ -43,7 +46,7 @@ const activeCase = computed<AlgCase | undefined>(() =>
 const groupedCases = computed(() => {
   const groups = new Map<string, AlgCase[]>();
   for (const c of visibleCases.value) {
-    const key = c.group || '全部';
+    const key = c.group || t('sets.groupAll');
     if (!groups.has(key)) groups.set(key, []);
     groups.get(key)!.push(c);
   }
@@ -83,7 +86,7 @@ async function selectCase(c: AlgCase, algIndex = 0) {
 }
 
 function verificationLabel(level: string): string {
-  return level === 'structural' ? '引擎已校验' : '仅语法校验';
+  return level === 'structural' ? t('sets.badgeStructural') : t('sets.badgeParsed');
 }
 
 onMounted(async () => {
@@ -101,17 +104,17 @@ onMounted(async () => {
   <div class="sets-page" data-testid="sets-page">
     <header class="sets-header">
       <div class="sets-header__title">
-        <h1>公式集</h1>
+        <h1>{{ t('sets.title') }}</h1>
         <p v-if="dataset" class="sets-header__meta">
-          {{ totals.cases }} 个案例 · {{ totals.algs }} 条公式 · 数据生成于 {{ dataset.generatedAt.slice(0, 10) }}
+          {{ t('sets.meta', { cases: totals.cases, algs: totals.algs, date: dataset.generatedAt.slice(0, 10) }) }}
         </p>
       </div>
-      <input v-model="search" class="input sets-header__search" type="search" placeholder="搜索案例或分组" aria-label="搜索案例" />
+      <input v-model="search" class="input sets-header__search" type="search" :placeholder="t('sets.searchPlaceholder')" :aria-label="t('sets.searchLabel')" />
     </header>
 
-    <nav class="set-pills" aria-label="公式集">
+    <nav class="set-pills" :aria-label="t('sets.pillsLabel')">
       <div v-for="group in setGroups" :key="group.category" class="set-group">
-        <span class="set-group__label">{{ group.label }}</span>
+        <span class="set-group__label">{{ setCategoryLabel(group.category) }}</span>
         <div class="set-group__pills">
           <button
             v-for="set in group.sets"
@@ -144,12 +147,12 @@ onMounted(async () => {
               >
                 <span class="case-item__name">{{ c.name }}</span>
                 <span class="case-item__alg mono">{{ c.algs[0]?.alg }}</span>
-                <span class="case-item__count">{{ c.algs.length }} 条</span>
+                <span class="case-item__count">{{ t('sets.caseCount', { n: c.algs.length }) }}</span>
               </button>
             </li>
           </ul>
         </div>
-        <p v-if="visibleCases.length === 0" class="cases-empty">没有匹配的案例。</p>
+        <p v-if="visibleCases.length === 0" class="cases-empty">{{ t('sets.noMatch') }}</p>
       </section>
 
       <section class="cases-player">
@@ -175,12 +178,11 @@ onMounted(async () => {
               >
                 {{ entry.alg }}
               </button>
-              <span v-if="entry.preservesEdgePermutation === false" class="case-detail__tag">会改动棱块排列</span>
+              <span v-if="entry.preservesEdgePermutation === false" class="case-detail__tag">{{ t('sets.tagEdgePerm') }}</span>
             </li>
           </ol>
           <p v-if="source" class="case-detail__source">
-            来源：<a :href="source.pageUrl" target="_blank" rel="noreferrer noopener">{{ source.siteName }}</a>
-            · 采集于 {{ source.accessedAt }}
+            {{ t('sets.source', { name: source.siteName }) }} · {{ t('sets.collectedAt', { date: source.accessedAt }) }}
           </p>
         </div>
       </section>

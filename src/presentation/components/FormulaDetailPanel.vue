@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue';
 import type { FormulaRecord } from '@/domain/model/formula';
-import { SETUP_MODE_HINT, SETUP_MODE_LABEL } from '@/domain/model/formula';
-import { getPuzzleDescriptor, STATUS_LABEL } from '@/infrastructure/cubing/puzzleRegistry';
+import { getPuzzleDescriptor } from '@/infrastructure/cubing/puzzleRegistry';
 import { parseFormulaLocal } from '@/infrastructure/cubing/algService';
+import { LOCALE_TAG, useI18n } from '@/presentation/i18n';
+import { puzzleName, statusLabel, setupModeLabel, setupModeHint } from '@/presentation/i18n/labels';
 
 const props = defineProps<{
   record?: FormulaRecord | null;
@@ -19,6 +20,7 @@ const emit = defineEmits<{
   (event: 'open-page'): void;
 }>();
 
+const { t, locale } = useI18n();
 const copied = ref(false);
 
 const descriptor = computed(() =>
@@ -32,7 +34,7 @@ const tokenCount = computed(() => {
 const updatedText = computed(() => {
   if (!props.record) return '';
   const date = new Date(props.record.updatedAt);
-  return Number.isNaN(date.getTime()) ? props.record.updatedAt : date.toLocaleString('zh-CN');
+  return Number.isNaN(date.getTime()) ? props.record.updatedAt : date.toLocaleString(LOCALE_TAG[locale.value]);
 });
 
 async function copyAlg() {
@@ -57,56 +59,56 @@ async function copyAlg() {
             type="button"
             class="star"
             :class="{ 'star--on': record.favorite }"
-            :aria-label="record.favorite ? '取消收藏' : '收藏'"
-            :title="record.favorite ? '取消收藏' : '收藏'"
+            :aria-label="record.favorite ? t('common.unfavorite') : t('common.favorite')"
+            :title="record.favorite ? t('common.unfavorite') : t('common.favorite')"
             @click="emit('favorite')"
           >
             ★
           </button>
         </div>
         <div class="detail__badges">
-          <span v-if="descriptor" class="badge">{{ descriptor.displayNameZh }}</span>
+          <span v-if="descriptor" class="badge">{{ puzzleName(descriptor.id) }}</span>
           <span v-if="descriptor" class="badge" :class="descriptor.status === 'ready-3d' ? 'badge--success' : 'badge--warning'">
-            {{ STATUS_LABEL[descriptor.status] }}
+            {{ statusLabel(descriptor.status) }}
           </span>
           <span v-if="categoryName" class="badge">{{ categoryName }}</span>
-          <span class="badge">{{ tokenCount }} 步</span>
+          <span class="badge">{{ t('common.steps', { n: tokenCount }) }}</span>
         </div>
       </header>
 
       <div class="detail__formula">
         <div class="detail__formula-head">
-          <span class="field__label">公式</span>
+          <span class="field__label">{{ t('detailPanel.alg') }}</span>
           <button type="button" class="btn btn--sm btn--ghost" @click="copyAlg">
-            {{ copied ? '已复制' : '复制' }}
+            {{ copied ? t('common.copied') : t('common.copy') }}
           </button>
         </div>
         <code class="detail__alg mono" data-testid="detail-alg">{{ record.alg }}</code>
       </div>
 
       <section class="detail__section">
-        <h3 class="detail__label">初始状态</h3>
+        <h3 class="detail__label">{{ t('detailPanel.initialState') }}</h3>
         <p class="detail__value">
-          <span class="badge badge--accent">{{ SETUP_MODE_LABEL[record.setupMode] }}</span>
+          <span class="badge badge--accent">{{ setupModeLabel(record.setupMode) }}</span>
         </p>
-        <p class="small muted">{{ SETUP_MODE_HINT[record.setupMode] }}</p>
+        <p class="small muted">{{ setupModeHint(record.setupMode) }}</p>
         <code v-if="record.setupMode === 'explicit' && record.setupAlg" class="detail__alg mono">{{ record.setupAlg }}</code>
       </section>
 
       <section v-if="record.description" class="detail__section">
-        <h3 class="detail__label">说明</h3>
+        <h3 class="detail__label">{{ t('detailPanel.description') }}</h3>
         <p class="detail__value detail__description">{{ record.description }}</p>
       </section>
 
       <section v-if="record.tags.length" class="detail__section">
-        <h3 class="detail__label">标签</h3>
+        <h3 class="detail__label">{{ t('detailPanel.tags') }}</h3>
         <div class="detail__tags">
           <span v-for="tag in record.tags" :key="tag" class="badge badge--accent">#{{ tag }}</span>
         </div>
       </section>
 
       <section v-if="record.sourceName || record.sourceUrl" class="detail__section">
-        <h3 class="detail__label">来源</h3>
+        <h3 class="detail__label">{{ t('detailPanel.source') }}</h3>
         <p class="detail__value">
           <a v-if="record.sourceUrl" :href="record.sourceUrl" target="_blank" rel="noopener noreferrer">
             {{ record.sourceName || record.sourceUrl }}
@@ -115,17 +117,17 @@ async function copyAlg() {
         </p>
       </section>
 
-      <p class="small muted detail__meta">最后更新：{{ updatedText }}</p>
+      <p class="small muted detail__meta">{{ t('detailPanel.updatedAt', { date: updatedText }) }}</p>
 
       <div class="detail__actions">
-        <button type="button" class="btn btn--sm" data-testid="btn-edit" @click="emit('edit')">编辑</button>
-        <button type="button" class="btn btn--sm" @click="emit('duplicate')">复制</button>
-        <button type="button" class="btn btn--sm" @click="emit('open-page')">独立页面</button>
-        <button type="button" class="btn btn--sm btn--danger" data-testid="btn-delete" @click="emit('remove')">删除</button>
+        <button type="button" class="btn btn--sm" data-testid="btn-edit" @click="emit('edit')">{{ t('common.edit') }}</button>
+        <button type="button" class="btn btn--sm" @click="emit('duplicate')">{{ t('common.duplicate') }}</button>
+        <button type="button" class="btn btn--sm" @click="emit('open-page')">{{ t('detailPanel.openPage') }}</button>
+        <button type="button" class="btn btn--sm btn--danger" data-testid="btn-delete" @click="emit('remove')">{{ t('common.delete') }}</button>
       </div>
     </template>
     <div v-else class="empty-state">
-      还没有选中公式。左侧选择一条，或点击「新建」创建。
+      {{ t('detailPanel.empty') }}
     </div>
   </div>
 </template>

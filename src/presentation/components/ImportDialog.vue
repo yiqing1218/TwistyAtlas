@@ -10,7 +10,9 @@ import {
   type ImportStrategy,
 } from '@/infrastructure/persistence/importExport';
 import type { ImportPreview } from '@/domain/model/formula';
+import { useI18n } from '@/presentation/i18n';
 
+const { t } = useI18n();
 const props = defineProps<{ open: boolean }>();
 const emit = defineEmits<{ (event: 'close'): void }>();
 
@@ -58,9 +60,9 @@ async function doExport(kind: 'json' | 'csv', includeSettings = true) {
   try {
     if (kind === 'json') await exportJson(includeSettings);
     else await exportCsv();
-    successMessage.value = kind === 'json' ? '完整备份已开始下载。' : 'CSV 已开始下载（含 UTF-8 BOM）。';
+    successMessage.value = kind === 'json' ? t('import.exportedJson') : t('import.exportedCsv');
   } catch (err) {
-    errorMessage.value = `导出失败：${(err as Error).message}`;
+    errorMessage.value = t('import.exportFailed', { message: (err as Error).message });
   } finally {
     busy.value = false;
   }
@@ -80,7 +82,7 @@ async function readFile(file: File) {
   preview.value = null;
   fileName.value = file.name;
   if (file.size > MAX_IMPORT_BYTES) {
-    errorMessage.value = `文件大小 ${(file.size / 1024 / 1024).toFixed(2)}MB 超过上限 5MB`;
+    errorMessage.value = t('import.tooLarge', { size: (file.size / 1024 / 1024).toFixed(2) });
     return;
   }
   const lower = file.name.toLowerCase();
@@ -90,7 +92,7 @@ async function readFile(file: File) {
       ? 'csv'
       : null;
   if (!format) {
-    errorMessage.value = '只支持 .json 备份文件或 .csv 文件';
+    errorMessage.value = t('import.badType');
     return;
   }
   busy.value = true;
@@ -111,10 +113,15 @@ async function applyNow() {
   try {
     const result = await applyImport(preview.value, strategy.value);
     await store.refresh();
-    successMessage.value = `导入完成：新增 ${result.added} 条，覆盖 ${result.overwritten} 条，跳过 ${result.skipped} 条，失败 ${result.failed} 条。`;
+    successMessage.value = t('import.done', {
+      added: result.added,
+      overwritten: result.overwritten,
+      skipped: result.skipped,
+      failed: result.failed,
+    });
     preview.value = null;
   } catch (err) {
-    errorMessage.value = `导入失败，已回滚：${(err as Error).message}`;
+    errorMessage.value = t('import.failed', { message: (err as Error).message });
   } finally {
     busy.value = false;
   }
@@ -130,43 +137,43 @@ async function onDrop(event: DragEvent) {
 <template>
   <Teleport to="body">
     <div v-if="open" class="dialog-backdrop" @click.self="close">
-      <div class="dialog" role="dialog" aria-modal="true" aria-label="导入导出">
+      <div class="dialog" role="dialog" aria-modal="true" :aria-label="t('import.dialogLabel')">
         <header class="dialog__header">
-          <h2 class="dialog__title">导入 / 导出</h2>
-          <button type="button" class="btn btn--ghost btn--icon" aria-label="关闭" @click="close">✕</button>
+          <h2 class="dialog__title">{{ t('import.title') }}</h2>
+          <button type="button" class="btn btn--ghost btn--icon" :aria-label="t('common.close')" @click="close">✕</button>
         </header>
 
         <div class="tabs">
           <button type="button" class="tabs__item" :class="{ 'tabs__item--active': tab === 'export' }" @click="tab = 'export'">
-            导出备份
+            {{ t('import.tabExport') }}
           </button>
           <button type="button" class="tabs__item" :class="{ 'tabs__item--active': tab === 'import' }" @click="tab = 'import'">
-            导入数据
+            {{ t('import.tabImport') }}
           </button>
         </div>
 
         <div class="dialog__body">
           <template v-if="tab === 'export'">
             <p class="small muted">
-              数据保存在当前浏览器的 IndexedDB 中。<strong>清理浏览器数据会删除公式</strong>，建议定期导出备份。
+              {{ t('import.storageHint') }}
             </p>
             <div class="export-grid">
               <div class="export-card">
-                <h3>完整备份（JSON）</h3>
-                <p class="small muted">包含公式、分类与设置，可完整恢复。</p>
+                <h3>{{ t('import.jsonTitle') }}</h3>
+                <p class="small muted">{{ t('import.jsonDesc') }}</p>
                 <button type="button" class="btn btn--primary" :disabled="busy" data-testid="export-json" @click="doExport('json', true)">
-                  导出 JSON
+                  {{ t('import.exportJson') }}
                 </button>
               </div>
               <div class="export-card">
-                <h3>公式表格（CSV）</h3>
-                <p class="small muted">便于在 Excel 中查看；标签以 JSON 数组存放。</p>
+                <h3>{{ t('import.csvTitle') }}</h3>
+                <p class="small muted">{{ t('import.csvDesc') }}</p>
                 <button type="button" class="btn" :disabled="busy" data-testid="export-csv" @click="doExport('csv')">
-                  导出 CSV
+                  {{ t('import.exportCsv') }}
                 </button>
               </div>
             </div>
-            <p class="small muted">当前公式数量：{{ store.formulas.length }} 条（当前筛选）。</p>
+            <p class="small muted">{{ t('import.currentCount', { n: store.formulas.length }) }}</p>
           </template>
 
           <template v-else>
@@ -176,33 +183,33 @@ async function onDrop(event: DragEvent) {
               @drop="onDrop"
             >
               <input type="file" accept=".json,.csv,application/json,text/csv" class="visually-hidden" data-testid="import-file" @change="onFileChange" />
-              <strong>选择或拖入 .json / .csv 文件</strong>
-              <span class="small muted">最大 5MB；导入前会先做校验与预览，不会直接写入。</span>
+              <strong>{{ t('import.dropTitle') }}</strong>
+              <span class="small muted">{{ t('import.dropHint') }}</span>
             </label>
 
-            <p v-if="fileName" class="small muted">已选择：{{ fileName }}</p>
+            <p v-if="fileName" class="small muted">{{ t('import.selected', { name: fileName }) }}</p>
 
             <template v-if="preview">
               <div class="summary">
-                <span class="badge">共 {{ counts.total }} 条</span>
-                <span class="badge badge--success">新增 {{ counts.newCount }}</span>
-                <span class="badge badge--warning">重复 {{ counts.duplicate }}</span>
-                <span class="badge badge--danger">无效 {{ counts.invalid }}</span>
+                <span class="badge">{{ t('import.countTotal', { n: counts.total }) }}</span>
+                <span class="badge badge--success">{{ t('import.countNew', { n: counts.newCount }) }}</span>
+                <span class="badge badge--warning">{{ t('import.countDuplicate', { n: counts.duplicate }) }}</span>
+                <span class="badge badge--danger">{{ t('import.countInvalid', { n: counts.invalid }) }}</span>
               </div>
 
               <fieldset class="fieldset">
-                <legend class="field__label">重复记录处理方式</legend>
+                <legend class="field__label">{{ t('import.dupStrategy') }}</legend>
                 <label class="checkbox-row">
                   <input v-model="strategy" type="radio" value="skip" />
-                  跳过重复（保留现有数据）
+                  {{ t('import.skipDuplicate') }}
                 </label>
                 <label class="checkbox-row">
                   <input v-model="strategy" type="radio" value="overwrite" />
-                  覆盖现有记录
+                  {{ t('import.overwrite') }}
                 </label>
                 <label class="checkbox-row">
                   <input v-model="strategy" type="radio" value="new" />
-                  作为新记录全部导入
+                  {{ t('import.importAsNew') }}
                 </label>
               </fieldset>
 
@@ -210,11 +217,11 @@ async function onDrop(event: DragEvent) {
                 <table>
                   <thead>
                     <tr>
-                      <th>状态</th>
-                      <th>名称</th>
-                      <th>魔方</th>
-                      <th>公式</th>
-                      <th>说明</th>
+                      <th>{{ t('import.colStatus') }}</th>
+                      <th>{{ t('import.colName') }}</th>
+                      <th>{{ t('import.colPuzzle') }}</th>
+                      <th>{{ t('import.colAlg') }}</th>
+                      <th>{{ t('import.colNote') }}</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -228,7 +235,7 @@ async function onDrop(event: DragEvent) {
                             'badge--danger': item.kind === 'invalid',
                           }"
                         >
-                          {{ item.kind === 'new' ? '新增' : item.kind === 'duplicate' ? '重复' : '无效' }}
+                          {{ item.kind === 'new' ? t('import.kindNew') : item.kind === 'duplicate' ? t('import.kindDuplicate') : t('import.kindInvalid') }}
                         </span>
                       </td>
                       <td>{{ item.record.title }}</td>
@@ -238,7 +245,7 @@ async function onDrop(event: DragEvent) {
                     </tr>
                   </tbody>
                 </table>
-                <p v-if="preview.items.length > 50" class="small muted">仅显示前 50 条，共 {{ preview.items.length }} 条。</p>
+                <p v-if="preview.items.length > 50" class="small muted">{{ t('import.onlyFirst50', { n: preview.items.length }) }}</p>
               </div>
             </template>
 
@@ -249,7 +256,7 @@ async function onDrop(event: DragEvent) {
 
         <footer class="dialog__footer">
           <span class="spacer"></span>
-          <button type="button" class="btn" @click="close">关闭</button>
+          <button type="button" class="btn" @click="close">{{ t('common.close') }}</button>
           <button
             v-if="tab === 'import' && preview"
             type="button"
@@ -258,7 +265,7 @@ async function onDrop(event: DragEvent) {
             data-testid="confirm-import"
             @click="applyNow"
           >
-            {{ busy ? '导入中…' : `确认导入（${counts.newCount + counts.duplicate} 条可写入）` }}
+            {{ busy ? t('import.importing') : t('import.confirm', { n: counts.newCount + counts.duplicate }) }}
           </button>
         </footer>
       </div>

@@ -6,31 +6,41 @@ import PuzzlePicker from '@/presentation/components/PuzzlePicker.vue';
 import { useSettingsStore } from '@/presentation/stores/settingsStore';
 import { useFormulaStore } from '@/presentation/stores/formulaStore';
 import { SPEED_OPTIONS, type ThemeMode } from '@/domain/model/settings';
-import { PUZZLE_DESCRIPTORS, STATUS_LABEL } from '@/infrastructure/cubing/puzzleRegistry';
+import { PUZZLE_DESCRIPTORS } from '@/infrastructure/cubing/puzzleRegistry';
+import { useI18n, type LocalePreference, type MessageKey } from '@/presentation/i18n';
+import { puzzleName, puzzleNote, statusLabel } from '@/presentation/i18n/labels';
 import { db } from '@/infrastructure/persistence/database';
 import { clearFormulas } from '@/infrastructure/persistence/formulaRepository';
 import { seedDatabase } from '@/infrastructure/persistence/seed';
 
 const settings = useSettingsStore();
 const store = useFormulaStore();
+const { t, preference, setLocale, locales, nativeName } = useI18n();
 const importOpen = ref(false);
 const message = ref<string | null>(null);
 const counts = ref({ formulas: 0, categories: 0 });
 
-const themes: { value: ThemeMode; label: string }[] = [
-  { value: 'light', label: '浅色' },
-  { value: 'dark', label: '深色' },
-  { value: 'system', label: '跟随系统' },
-];
-
-const faceLegend = computed(() => [
-  { key: 'U', label: '上 U', color: settings.settings.faceColors.U },
-  { key: 'D', label: '下 D', color: settings.settings.faceColors.D },
-  { key: 'F', label: '前 F', color: settings.settings.faceColors.F },
-  { key: 'B', label: '后 B', color: settings.settings.faceColors.B },
-  { key: 'R', label: '右 R', color: settings.settings.faceColors.R },
-  { key: 'L', label: '左 L', color: settings.settings.faceColors.L },
+const themes = computed<{ value: ThemeMode; label: string }[]>(() => [
+  { value: 'light', label: t('settings.themeLight') },
+  { value: 'dark', label: t('settings.themeDark') },
+  { value: 'system', label: t('settings.themeSystem') },
 ]);
+
+const faceLegend = computed(() => {
+  const keys: Record<string, MessageKey> = {
+    U: 'settings.faceU', D: 'settings.faceD', F: 'settings.faceF',
+    B: 'settings.faceB', R: 'settings.faceR', L: 'settings.faceL',
+  };
+  return (['U', 'D', 'F', 'B', 'R', 'L'] as const).map((key) => ({
+    key,
+    label: t(keys[key]),
+    color: settings.settings.faceColors[key],
+  }));
+});
+
+function changeLanguage(event: Event) {
+  setLocale((event.target as HTMLSelectElement).value as LocalePreference);
+}
 
 async function refreshCounts() {
   counts.value = {
@@ -63,17 +73,17 @@ async function toggleLockCamera(event: Event) {
 }
 
 async function clearAll() {
-  const first = window.confirm('这会删除本地保存的全部公式（分类与设置保留）。建议先导出备份。继续？');
+  const first = window.confirm(t('settings.confirmClear1'));
   if (!first) return;
-  const second = window.confirm('再次确认：删除后无法恢复，除非你有备份。');
+  const second = window.confirm(t('settings.confirmClear2'));
   if (!second) return;
   try {
     await clearFormulas();
     await store.refresh();
     await refreshCounts();
-    message.value = '已清空公式库。';
+    message.value = t('settings.cleared');
   } catch (err) {
-    message.value = `清空失败：${(err as Error).message}`;
+    message.value = t('settings.clearFailed', { message: (err as Error).message });
   }
 }
 
@@ -82,9 +92,9 @@ async function reseed() {
     await seedDatabase(true);
     await store.refresh();
     await refreshCounts();
-    message.value = '已重新写入内置演示公式（不会删除你自己的公式）。';
+    message.value = t('settings.reseeded');
   } catch (err) {
-    message.value = `写入失败：${(err as Error).message}`;
+    message.value = t('settings.reseedFailed', { message: (err as Error).message });
   }
 }
 </script>
@@ -93,19 +103,19 @@ async function reseed() {
   <ErrorBoundary>
     <div class="settings">
       <header class="settings__header">
-        <h1 class="settings__title">设置</h1>
-        <p class="muted small">所有数据保存在本机浏览器中，不联网、不需要账号。</p>
+        <h1 class="settings__title">{{ t('settings.title') }}</h1>
+        <p class="muted small">{{ t('settings.subtitle') }}</p>
       </header>
 
       <p v-if="message" class="alert alert--success">{{ message }}</p>
       <p v-if="settings.saveError" class="alert alert--error">{{ settings.saveError }}</p>
 
       <section class="panel">
-        <div class="panel__header"><span class="panel__title">外观</span></div>
+        <div class="panel__header"><span class="panel__title">{{ t('settings.appearance') }}</span></div>
         <div class="panel__body stack">
           <div class="field">
-            <span class="field__label">主题</span>
-            <div class="segmented" role="group" aria-label="主题">
+            <span class="field__label">{{ t('settings.theme') }}</span>
+            <div class="segmented" role="group" :aria-label="t('settings.theme')">
               <button
                 v-for="theme in themes"
                 :key="theme.value"
@@ -119,96 +129,104 @@ async function reseed() {
             </div>
           </div>
           <div class="field">
-            <span class="field__label">标准配色对照</span>
+            <span class="field__label">{{ t('settings.language') }}</span>
+            <select
+              class="select"
+              data-testid="locale-select"
+              :aria-label="t('settings.language')"
+              :value="preference"
+              @change="changeLanguage"
+            >
+              <option value="auto">{{ t('settings.languageAuto') }}</option>
+              <option v-for="lang in locales" :key="lang" :value="lang">{{ nativeName[lang] }}</option>
+            </select>
+            <p class="field__hint">{{ t('settings.languageHint') }}</p>
+          </div>
+          <div class="field">
+            <span class="field__label">{{ t('settings.colorReference') }}</span>
             <div class="faces">
               <span v-for="face in faceLegend" :key="face.key" class="face">
                 <span class="face__swatch" :style="{ background: face.color }"></span>
                 {{ face.label }}
               </span>
             </div>
-            <p class="field__hint">
-              三维贴纸颜色由渲染引擎绘制。当前安装的引擎版本没有暴露逐面自定义颜色的 API，
-              因此这里只提供对照说明，不做假的"改色"开关。主题切换会影响整个界面。
-            </p>
+            <p class="field__hint">{{ t('settings.colorHint') }}</p>
           </div>
         </div>
       </section>
 
       <section class="panel">
-        <div class="panel__header"><span class="panel__title">播放</span></div>
+        <div class="panel__header"><span class="panel__title">{{ t('settings.playback') }}</span></div>
         <div class="panel__body stack">
           <div class="grid-2">
             <label class="field">
-              <span class="field__label">默认播放速度</span>
+              <span class="field__label">{{ t('settings.defaultSpeed') }}</span>
               <select class="select" :value="settings.settings.playbackSpeed" @change="setSpeed">
                 <option v-for="speed in SPEED_OPTIONS" :key="speed" :value="speed">{{ speed }}×</option>
               </select>
             </label>
             <div class="field">
-              <span class="field__label">默认魔方类型</span>
+              <span class="field__label">{{ t('settings.defaultPuzzle') }}</span>
               <PuzzlePicker :model-value="settings.settings.defaultPuzzleId" @update:model-value="setDefaultPuzzle" />
             </div>
           </div>
           <label class="checkbox-row">
             <input type="checkbox" :checked="settings.settings.showHintFacelets" @change="toggleHintFacelets" />
-            显示背面提示贴纸（hint facelets）
+            {{ t('settings.hintFacelets') }}
           </label>
           <label class="checkbox-row">
             <input type="checkbox" :checked="settings.settings.lockCamera" @change="toggleLockCamera" />
-            锁定观察视角（防止误拖动；公式播放不受影响）
+            {{ t('settings.lockCamera') }}
           </label>
         </div>
       </section>
 
       <section class="panel">
         <div class="panel__header">
-          <span class="panel__title">数据</span>
-          <span class="badge">{{ counts.formulas }} 条公式 · {{ counts.categories }} 个分类</span>
+          <span class="panel__title">{{ t('settings.data') }}</span>
+          <span class="badge">{{ t('settings.dataCount', { formulas: counts.formulas, categories: counts.categories }) }}</span>
         </div>
         <div class="panel__body stack">
           <div class="row">
-            <button type="button" class="btn" @click="importOpen = true">导入 / 导出备份</button>
-            <button type="button" class="btn" @click="reseed">重新写入演示公式</button>
-            <button type="button" class="btn btn--danger" @click="clearAll">清空公式库</button>
+            <button type="button" class="btn" @click="importOpen = true">{{ t('settings.importExport') }}</button>
+            <button type="button" class="btn" @click="reseed">{{ t('settings.reseed') }}</button>
+            <button type="button" class="btn btn--danger" @click="clearAll">{{ t('settings.clearAll') }}</button>
           </div>
-          <p class="field__hint">
-            清理浏览器数据（Cookie / 站点数据）会同时删除 IndexedDB 中的公式。建议定期导出 JSON 备份。
-            导入时会先预览，重复记录可跳过、覆盖或作为新记录导入；失败会整体回滚。
-          </p>
+          <p class="field__hint">{{ t('settings.dataHint1') }} {{ t('settings.dataHint2') }}</p>
         </div>
       </section>
 
       <section class="panel">
         <div class="panel__header">
-          <span class="panel__title">魔方能力矩阵</span>
-          <span class="small muted">仅在真实 3D 与层转验证通过后才标记为三维可播放</span>
+          <span class="panel__title">{{ t('settings.matrix') }}</span>
+          <span class="small muted">{{ t('settings.matrixHint') }}</span>
         </div>
         <div class="panel__body">
           <table class="matrix">
             <thead>
               <tr>
-                <th>魔方</th>
-                <th>能力状态</th>
-                <th>公式</th>
-                <th>步进定位</th>
-                <th>说明</th>
+                <th>{{ t('settings.colPuzzle') }}</th>
+                <th>{{ t('settings.colStatus') }}</th>
+                <th>{{ t('settings.colAlg') }}</th>
+                <th>{{ t('settings.colSeek') }}</th>
+                <th>{{ t('settings.colNote') }}</th>
               </tr>
             </thead>
             <tbody>
               <tr v-for="puzzle in PUZZLE_DESCRIPTORS" :key="puzzle.id">
                 <td>
-                  <strong>{{ puzzle.displayNameZh }}</strong>
+                  <strong>{{ puzzleName(puzzle.id) }}</strong>
                   <span class="mono small muted">{{ puzzle.id }}</span>
                 </td>
                 <td>
                   <span
                     class="badge"
                     :class="puzzle.status === 'ready-3d' ? 'badge--success' : 'badge--warning'"
-                  >{{ STATUS_LABEL[puzzle.status] }}</span>
+                  >{{ statusLabel(puzzle.status) }}</span>
                 </td>
-                <td>{{ puzzle.supportsAnimation ? '支持' : '不支持' }}</td>
-                <td>{{ puzzle.supportsStepSeek ? '支持' : '不支持' }}</td>
-                <td class="small muted">{{ puzzle.verificationNote }}</td>
+                <td>{{ puzzle.supportsAnimation ? t('common.supported') : t('common.unsupported') }}</td>
+                <td>{{ puzzle.supportsStepSeek ? t('common.supported') : t('common.unsupported') }}</td>
+                <td class="small muted">{{ puzzleNote(puzzle.id) }}</td>
               </tr>
             </tbody>
           </table>
@@ -216,14 +234,14 @@ async function reseed() {
       </section>
 
       <section class="panel">
-        <div class="panel__header"><span class="panel__title">关于与已知限制</span></div>
+        <div class="panel__header"><span class="panel__title">{{ t('settings.about') }}</span></div>
         <div class="panel__body stack small muted">
-          <p>Twisty Atlas 1.0 · 纯客户端应用，使用 cubing.js 渲染与计算真实魔方状态。</p>
+          <p>{{ t('settings.aboutLine') }}</p>
           <ul class="limits">
-            <li>Square-1 的公式语法与状态由 KPuzzle 计算，但三维形变渲染仍属实验性，界面上不会标成"已完成"。</li>
-            <li>逐面自定义贴纸颜色、手动拖动转层记录公式、云同步属于后续阶段，本版未实现。</li>
-            <li>首次载入高階魔方（6×6、7×7）需要下载额外的几何数据，离线缓存需要先联网访问一次。</li>
-            <li>iOS Safari 的"添加到主屏幕"与 Android 安装流程不同，均不是应用商店上架。</li>
+            <li>{{ t('settings.limitSquare1') }}</li>
+            <li>{{ t('settings.limitCustom') }}</li>
+            <li>{{ t('settings.limitBigCube') }}</li>
+            <li>{{ t('settings.limitInstall') }}</li>
           </ul>
         </div>
       </section>

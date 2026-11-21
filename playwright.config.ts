@@ -22,6 +22,8 @@ export default defineConfig({
         ...devices['Desktop Chrome'],
         // 使用完整 Chromium（新版无头模式）而不是 headless shell，WebGL 更可靠
         channel: 'chromium',
+        // 既有用例按中文界面断言；语言切换能力由 i18n.spec.ts 单独覆盖
+        locale: 'zh-CN',
         viewport: { width: 1366, height: 768 },
         launchOptions: {
           // 无头环境需要 SwiftShader 软件渲染 WebGL
@@ -36,6 +38,7 @@ export default defineConfig({
       use: {
         ...devices['Pixel 7'],
         channel: 'chromium',
+        locale: 'zh-CN',
         launchOptions: {
           args: ['--enable-unsafe-swiftshader', '--use-gl=angle', '--use-angle=swiftshader'],
         },

@@ -1,8 +1,10 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import { useRouter } from 'vue-router';
-import { PUZZLE_DESCRIPTORS, STATUS_LABEL, puzzleDisplayName } from '@/infrastructure/cubing/puzzleRegistry';
+import { PUZZLE_DESCRIPTORS } from '@/infrastructure/cubing/puzzleRegistry';
 import type { PuzzleDescriptor } from '@/domain/model/puzzle';
+import { useI18n } from '@/presentation/i18n';
+import { puzzleName, puzzleNote, statusLabel } from '@/presentation/i18n/labels';
 
 const props = defineProps<{
   modelValue: string;
@@ -14,6 +16,7 @@ const emit = defineEmits<{
 }>();
 
 const router = useRouter();
+const { t } = useI18n();
 
 interface Group {
   label: string;
@@ -21,8 +24,8 @@ interface Group {
 }
 
 const groups = computed<Group[]>(() => [
-  { label: '正阶魔方', items: PUZZLE_DESCRIPTORS.filter((p) => p.family === 'cube') },
-  { label: '多面体 / 异形', items: PUZZLE_DESCRIPTORS.filter((p) => p.family !== 'cube') },
+  { label: t('puzzle.family.cube'), items: PUZZLE_DESCRIPTORS.filter((p) => p.family === 'cube') },
+  { label: t('puzzle.family.other'), items: PUZZLE_DESCRIPTORS.filter((p) => p.family !== 'cube') },
 ]);
 
 const current = computed(
@@ -41,7 +44,7 @@ function onChange(event: Event) {
 
 <template>
   <div class="picker" :class="{ 'picker--compact': compact }">
-    <label class="picker__label" for="puzzle-select">魔方</label>
+    <label class="picker__label" for="puzzle-select">{{ t('puzzle.label') }}</label>
     <select
       id="puzzle-select"
       class="select picker__select"
@@ -51,7 +54,7 @@ function onChange(event: Event) {
     >
       <optgroup v-for="group in groups" :key="group.label" :label="group.label">
         <option v-for="item in group.items" :key="item.id" :value="item.id">
-          {{ item.displayNameZh }} · {{ STATUS_LABEL[item.status] }}
+          {{ puzzleName(item.id) }} · {{ statusLabel(item.status) }}
         </option>
       </optgroup>
     </select>
@@ -61,11 +64,11 @@ function onChange(event: Event) {
         'badge--success': current.status === 'ready-3d',
         'badge--warning': current.status === 'experimental' || current.status === 'ready-2d',
       }"
-      :title="current.verificationNote"
+      :title="puzzleNote(current.id)"
     >
-      {{ STATUS_LABEL[current.status] }}
+      {{ statusLabel(current.status) }}
     </span>
-    <span class="picker__name visually-hidden">{{ puzzleDisplayName(modelValue) }}</span>
+    <span class="picker__name visually-hidden">{{ puzzleName(modelValue) }}</span>
   </div>
 </template>
 

@@ -1,28 +1,51 @@
 <script setup lang="ts">
-import { computed } from 'vue';
+import { computed, watchEffect } from 'vue';
 import { RouterLink, RouterView, useRoute } from 'vue-router';
 import { useSettingsStore } from '@/presentation/stores/settingsStore';
+import { useI18n, type MessageKey } from '@/presentation/i18n';
 
 const route = useRoute();
 const settings = useSettingsStore();
+const { t, locale } = useI18n();
 
-const navItems = [
-  { name: 'home', label: '工作台', to: '/', icon: 'cube', desktopOnly: true },
-  { name: 'timer', label: '计时器', to: '/timer', icon: 'timer', desktopOnly: false },
-  { name: 'sets', label: '公式集', to: '/sets', icon: 'book', desktopOnly: false },
-  { name: 'library', label: '公式库', to: '/library', icon: 'list', desktopOnly: false },
-  { name: 'settings', label: '设置', to: '/settings', icon: 'gear', desktopOnly: false },
+interface NavItem {
+  name: string;
+  labelKey: MessageKey;
+  to: string;
+  icon: string;
+  desktopOnly: boolean;
+}
+
+const navItems: NavItem[] = [
+  { name: 'home', labelKey: 'nav.home', to: '/', icon: 'cube', desktopOnly: true },
+  { name: 'timer', labelKey: 'nav.timer', to: '/timer', icon: 'timer', desktopOnly: false },
+  { name: 'sets', labelKey: 'nav.sets', to: '/sets', icon: 'book', desktopOnly: false },
+  { name: 'library', labelKey: 'nav.library', to: '/library', icon: 'list', desktopOnly: false },
+  { name: 'settings', labelKey: 'nav.settings', to: '/settings', icon: 'gear', desktopOnly: false },
 ];
 
 /** 手机上只保留 4 个核心页签，工作台（桌面三栏视图）不占底部空间 */
 const mobileNavItems = navItems.filter((item) => !item.desktopOnly);
 
 const currentTitle = computed(() => {
-  if (route.name === 'formula') return '公式详情';
-  return navItems.find((item) => item.name === route.name)?.label ?? 'Twisty Atlas';
+  if (route.name === 'formula') return t('nav.formulaDetail');
+  const hit = navItems.find((item) => item.name === route.name);
+  return hit ? t(hit.labelKey) : 'Twisty Atlas';
 });
 
 const isDark = computed(() => settings.effectiveTheme === 'dark');
+
+const themeToggleLabel = computed(() =>
+  isDark.value ? t('app.themeToLight') : t('app.themeToDark'),
+);
+
+/** 标题随语言与路由变化（依赖 locale 以便切换语言后立即重算） */
+watchEffect(() => {
+  void locale.value;
+  document.title = route.name === 'home' || !currentTitle.value
+    ? 'Twisty Atlas'
+    : `${currentTitle.value} · Twisty Atlas`;
+});
 
 async function toggleTheme() {
   await settings.update({ theme: isDark.value ? 'light' : 'dark' });
@@ -32,7 +55,7 @@ async function toggleTheme() {
 <template>
   <div class="app-shell">
     <header class="app-header">
-      <RouterLink to="/" class="brand" aria-label="Twisty Atlas 首页">
+      <RouterLink to="/" class="brand" :aria-label="t('app.brandHome')">
         <span class="brand__mark" aria-hidden="true">
           <span class="brand__dot brand__dot--u"></span>
           <span class="brand__dot brand__dot--r"></span>
@@ -41,7 +64,7 @@ async function toggleTheme() {
         <span class="brand__text">Twisty Atlas</span>
       </RouterLink>
 
-      <nav class="app-nav" aria-label="主导航">
+      <nav class="app-nav" :aria-label="t('nav.main')">
         <RouterLink
           v-for="item in navItems"
           :key="item.name"
@@ -49,7 +72,7 @@ async function toggleTheme() {
           class="app-nav__link"
           :class="{ 'app-nav__link--active': route.name === item.name }"
         >
-          {{ item.label }}
+          {{ t(item.labelKey) }}
         </RouterLink>
       </nav>
 
@@ -58,8 +81,8 @@ async function toggleTheme() {
         <button
           type="button"
           class="btn btn--ghost btn--icon"
-          :title="isDark ? '切换到浅色模式' : '切换到深色模式'"
-          :aria-label="isDark ? '切换到浅色模式' : '切换到深色模式'"
+          :title="themeToggleLabel"
+          :aria-label="themeToggleLabel"
           @click="toggleTheme"
         >
           <svg v-if="!isDark" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
@@ -80,7 +103,7 @@ async function toggleTheme() {
     </main>
 
     <!-- 手机端：底部页签（拇指可达），顶部只留标题与主题切换 -->
-    <nav class="app-tabbar" aria-label="主导航">
+    <nav class="app-tabbar" :aria-label="t('nav.main')">
       <RouterLink
         v-for="item in mobileNavItems"
         :key="item.name"
@@ -105,7 +128,7 @@ async function toggleTheme() {
             <path d="M12 3v2.2M12 18.8V21M3 12h2.2M18.8 12H21M5.6 5.6l1.6 1.6M16.8 16.8l1.6 1.6M18.4 5.6l-1.6 1.6M7.2 16.8l-1.6 1.6" stroke-linecap="round" />
           </template>
         </svg>
-        <span>{{ item.label }}</span>
+        <span>{{ t(item.labelKey) }}</span>
       </RouterLink>
     </nav>
   </div>

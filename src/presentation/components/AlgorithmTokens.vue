@@ -1,8 +1,10 @@
 <script setup lang="ts">
 import { computed, nextTick, ref, watch } from 'vue';
 import { usePlayerStore } from '@/presentation/stores/playerStore';
+import { useI18n } from '@/presentation/i18n';
 
 const player = usePlayerStore();
+const { t } = useI18n();
 const containerRef = ref<HTMLElement | null>(null);
 const tokenRefs = ref<HTMLElement[]>([]);
 
@@ -43,7 +45,7 @@ watch(
 
 <template>
   <div class="tokens" data-testid="algorithm-tokens">
-    <div v-if="tokens.length === 0" class="empty-state">当前公式没有可执行动作</div>
+    <div v-if="tokens.length === 0" class="empty-state">{{ t('tokens.empty') }}</div>
     <div v-else ref="containerRef" class="tokens__list" role="list">
       <button
         v-for="token in tokens"
@@ -52,8 +54,8 @@ watch(
         type="button"
         class="token"
         :class="`token--${stateOf(token.index)}`"
-        :title="`第 ${token.index + 1} 步：${token.text}（${token.readable}）`"
-        :aria-label="`第 ${token.index + 1} 步 ${token.text}，${token.readable}`"
+        :title="t('tokens.stepTitle', { n: token.index + 1, move: token.text, readable: token.readable })"
+        :aria-label="t('tokens.stepAria', { n: token.index + 1, move: token.text, readable: token.readable })"
         role="listitem"
         @click="jumpTo(token.index)"
       >

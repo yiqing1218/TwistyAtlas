@@ -3,12 +3,15 @@ import { computed, nextTick, reactive, ref, watch } from 'vue';
 import { useFormulaStore } from '@/presentation/stores/formulaStore';
 import { usePlayerStore } from '@/presentation/stores/playerStore';
 import { useSettingsStore } from '@/presentation/stores/settingsStore';
-import { EMPTY_DRAFT, SETUP_MODE_HINT, SETUP_MODE_LABEL, type FormulaDraft, type FormulaRecord, type SetupMode } from '@/domain/model/formula';
+import { EMPTY_DRAFT, type FormulaDraft, type FormulaRecord, type SetupMode } from '@/domain/model/formula';
 import { parseFormulaLocal } from '@/infrastructure/cubing/algService';
 import { getPuzzleDescriptor, isPuzzlePlayable } from '@/infrastructure/cubing/puzzleRegistry';
 import { recordToDraft } from '@/infrastructure/persistence/formulaRepository';
 import PuzzlePicker from '@/presentation/components/PuzzlePicker.vue';
+import { useI18n } from '@/presentation/i18n';
+import { puzzleNotation, setupModeLabel, setupModeHint } from '@/presentation/i18n/labels';
 
+const { t } = useI18n();
 const props = defineProps<{
   open: boolean;
   record?: FormulaRecord | null;
@@ -96,21 +99,21 @@ function parseTags(text: string): string[] {
 async function preview() {
   const parsed = parseFormulaLocal(form.alg);
   if (!parsed.ok) {
-    errorMessage.value = parsed.error ?? '公式无法解析';
+    errorMessage.value = parsed.error ?? t('editor.parseFailed');
     return;
   }
   errorMessage.value = null;
   previewNote.value = null;
   await player.loadFormula({
     puzzleId: form.puzzleId,
-    title: form.title || '（未命名预览）',
+    title: form.title || t('editor.untitledPreview'),
     alg: form.alg,
     setupMode: form.setupMode,
     setupAlg: form.setupAlg,
   });
   previewNote.value = player.loadError
-    ? `预览失败：${player.loadError}`
-    : `已装载预览：${parsed.tokens.length} 个动作（尚未保存）`;
+    ? t('editor.previewFailed', { message: player.loadError })
+    : t('editor.previewLoaded', { n: parsed.tokens.length });
 }
 
 async function submit() {
@@ -134,7 +137,7 @@ async function submit() {
 }
 
 async function addCategory() {
-  const name = window.prompt('新分类名称');
+  const name = window.prompt(t('editor.newCategoryPrompt'));
   if (!name?.trim()) return;
   try {
     await store.addCategory(name.trim(), form.puzzleId);
@@ -149,53 +152,51 @@ async function addCategory() {
 <template>
   <Teleport to="body">
     <div v-if="open" class="dialog-backdrop" @click.self="close" @keydown.esc="close">
-      <div class="dialog dialog--wide" role="dialog" aria-modal="true" :aria-label="isEdit ? '编辑公式' : '新建公式'">
+      <div class="dialog dialog--wide" role="dialog" aria-modal="true" :aria-label="isEdit ? t('editor.titleEdit') : t('editor.titleNew')">
         <header class="dialog__header">
-          <h2 class="dialog__title">{{ isEdit ? '编辑公式' : '新建公式' }}</h2>
-          <button type="button" class="btn btn--ghost btn--icon" aria-label="关闭" @click="close">✕</button>
+          <h2 class="dialog__title">{{ isEdit ? t('editor.titleEdit') : t('editor.titleNew') }}</h2>
+          <button type="button" class="btn btn--ghost btn--icon" :aria-label="t('common.close')" @click="close">✕</button>
         </header>
 
         <div class="dialog__body">
           <div class="grid-2">
             <div class="field">
-              <label class="field__label" for="formula-title">公式名称 *</label>
-              <input id="formula-title" ref="titleInput" v-model="form.title" class="input" placeholder="例如：右手四步" data-testid="input-title" />
+              <label class="field__label" for="formula-title">{{ t('editor.name') }}</label>
+              <input id="formula-title" ref="titleInput" v-model="form.title" class="input" :placeholder="t('editor.namePlaceholder')" data-testid="input-title" />
             </div>
             <div class="field">
-              <label class="field__label" for="formula-puzzle">魔方类型 *</label>
+              <label class="field__label" for="formula-puzzle">{{ t('editor.puzzle') }}</label>
               <PuzzlePicker v-model="form.puzzleId" compact />
             </div>
           </div>
 
           <div class="field">
-            <label class="field__label" for="formula-alg">公式 *</label>
+            <label class="field__label" for="formula-alg">{{ t('editor.alg') }}</label>
             <textarea
               id="formula-alg"
               v-model="form.alg"
               class="textarea textarea--mono"
               rows="2"
               spellcheck="false"
-              placeholder="例如：R U R' U'"
+              :placeholder="t('editor.algPlaceholder')"
               data-testid="input-alg"
             ></textarea>
             <p v-if="form.alg.trim()" class="field__hint">
               <template v-if="algInfo.ok">
-                解析成功：{{ algInfo.tokens.length }} 个动作 · 规范化后
+                {{ t('editor.parsed', { n: algInfo.tokens.length }) }}
                 <code class="mono">{{ algInfo.canonical }}</code>
               </template>
               <template v-else>
                 <span class="field__error">{{ algInfo.error }}</span>
               </template>
             </p>
-            <p v-else class="field__hint">支持 R L U D F B、' 逆时针、2 半转、M E S、x y z、Rw 宽层与括号重复。</p>
-            <p v-if="puzzleDescriptor" class="field__hint">记号说明：{{ puzzleDescriptor.notationHelp }}</p>
-            <p v-if="!playable" class="alert alert--warning">
-              该魔方类型当前没有通过三维播放验收，公式可以保存为文本，但播放按钮会给出提示。
-            </p>
+            <p v-else class="field__hint">{{ t('editor.algHint') }}</p>
+            <p v-if="puzzleDescriptor" class="field__hint">{{ t('editor.notation', { help: puzzleNotation(form.puzzleId) }) }}</p>
+            <p v-if="!playable" class="alert alert--warning">{{ t('editor.unsupported') }}</p>
           </div>
 
           <fieldset class="fieldset">
-            <legend class="field__label">初始状态 *</legend>
+            <legend class="field__label">{{ t('editor.setupMode') }}</legend>
             <div class="setup-modes">
               <label
                 v-for="mode in setupModes"
@@ -211,24 +212,24 @@ async function addCategory() {
                   :disabled="mode === 'explicit' && !customSetupAvailable"
                 />
                 <span>
-                  <strong>{{ SETUP_MODE_LABEL[mode] }}</strong>
-                  <small class="muted">{{ SETUP_MODE_HINT[mode] }}</small>
+                  <strong>{{ setupModeLabel(mode) }}</strong>
+                  <small class="muted">{{ setupModeHint(mode) }}</small>
                 </span>
               </label>
             </div>
             <div v-if="form.setupMode === 'explicit'" class="field">
-              <label class="field__label" for="formula-setup">setup 公式 *</label>
+              <label class="field__label" for="formula-setup">{{ t('editor.setupAlg') }}</label>
               <textarea
                 id="formula-setup"
                 v-model="form.setupAlg"
                 class="textarea textarea--mono"
                 rows="2"
                 spellcheck="false"
-                placeholder="例如：R U2 D' B D'"
+                :placeholder="t('editor.setupPlaceholder')"
                 data-testid="input-setup"
               ></textarea>
               <p v-if="setupInfo" class="field__hint">
-                <template v-if="setupInfo.ok">{{ setupInfo.tokens.length }} 个动作</template>
+                <template v-if="setupInfo.ok">{{ t('common.moves', { n: setupInfo.tokens.length }) }}</template>
                 <template v-else><span class="field__error">{{ setupInfo.error }}</span></template>
               </p>
             </div>
@@ -236,50 +237,50 @@ async function addCategory() {
 
           <div class="grid-2">
             <div class="field">
-              <label class="field__label" for="formula-category">分类</label>
+              <label class="field__label" for="formula-category">{{ t('editor.category') }}</label>
               <div class="row">
                 <select id="formula-category" v-model="form.categoryId" class="select">
-                  <option value="">未分类</option>
+                  <option value="">{{ t('editor.uncategorized') }}</option>
                   <option v-for="category in store.categories" :key="category.id" :value="category.id">
                     {{ category.name }}
                   </option>
                 </select>
-                <button type="button" class="btn btn--sm" @click="addCategory">新建</button>
+                <button type="button" class="btn btn--sm" @click="addCategory">{{ t('common.new') }}</button>
               </div>
             </div>
             <div class="field">
-              <label class="field__label" for="formula-tags">标签</label>
-              <input id="formula-tags" v-model="tagsText" class="input" placeholder="用逗号分隔，例如：基础, 手法" data-testid="input-tags" />
+              <label class="field__label" for="formula-tags">{{ t('editor.tags') }}</label>
+              <input id="formula-tags" v-model="tagsText" class="input" :placeholder="t('editor.tagsPlaceholder')" data-testid="input-tags" />
             </div>
           </div>
 
           <div class="field">
-            <label class="field__label" for="formula-desc">说明</label>
-            <textarea id="formula-desc" v-model="form.description" class="textarea" rows="3" placeholder="这条公式的用途、注意事项…" data-testid="input-description"></textarea>
+            <label class="field__label" for="formula-desc">{{ t('editor.description') }}</label>
+            <textarea id="formula-desc" v-model="form.description" class="textarea" rows="3" :placeholder="t('editor.descriptionPlaceholder')" data-testid="input-description"></textarea>
           </div>
 
           <div class="grid-2">
             <div class="field">
-              <label class="field__label" for="formula-source-name">来源名称</label>
-              <input id="formula-source-name" v-model="form.sourceName" class="input" placeholder="可选" />
+              <label class="field__label" for="formula-source-name">{{ t('editor.sourceName') }}</label>
+              <input id="formula-source-name" v-model="form.sourceName" class="input" :placeholder="t('common.optional')" />
             </div>
             <div class="field">
-              <label class="field__label" for="formula-source-url">来源链接</label>
-              <input id="formula-source-url" v-model="form.sourceUrl" class="input" placeholder="https://…（可选）" />
+              <label class="field__label" for="formula-source-url">{{ t('editor.sourceUrl') }}</label>
+              <input id="formula-source-url" v-model="form.sourceUrl" class="input" placeholder="https://…" />
             </div>
           </div>
 
           <div class="row row--between">
             <label class="field" style="max-width: 160px">
-              <span class="field__label">难度</span>
+              <span class="field__label">{{ t('editor.level') }}</span>
               <select v-model="form.difficulty" class="select">
-                <option :value="undefined">未设置</option>
+                <option :value="undefined">{{ t('editor.levelUnset') }}</option>
                 <option v-for="n in 5" :key="n" :value="n">{{ '★'.repeat(n) }}</option>
               </select>
             </label>
             <label class="checkbox-row">
               <input v-model="form.favorite" type="checkbox" />
-              加入收藏
+              {{ t('editor.addFavorite') }}
             </label>
           </div>
 
@@ -288,11 +289,11 @@ async function addCategory() {
         </div>
 
         <footer class="dialog__footer">
-          <button type="button" class="btn" :disabled="!algInfo.ok" @click="preview">预览</button>
+          <button type="button" class="btn" :disabled="!algInfo.ok" @click="preview">{{ t('common.preview') }}</button>
           <span class="spacer"></span>
-          <button type="button" class="btn" @click="close">取消</button>
+          <button type="button" class="btn" @click="close">{{ t('common.cancel') }}</button>
           <button type="button" class="btn btn--primary" :disabled="saving" data-testid="btn-save-formula" @click="submit">
-            {{ saving ? '保存中…' : '保存' }}
+            {{ saving ? t('common.saving') : t('common.save') }}
           </button>
         </footer>
       </div>

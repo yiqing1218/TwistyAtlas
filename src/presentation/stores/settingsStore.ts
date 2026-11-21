@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia';
 import { DEFAULT_SETTINGS, STANDARD_COLORS, type AppSettings, type ThemeMode } from '@/domain/model/settings';
 import { readSettingsRow, writeSettingsRow } from '@/infrastructure/persistence/database';
+import { t } from '@/presentation/i18n';
 
 function mergeSettings(stored: Partial<AppSettings> | null): AppSettings {
   if (!stored) return { ...DEFAULT_SETTINGS, faceColors: { ...STANDARD_COLORS } };
@@ -40,7 +41,7 @@ export const useSettingsStore = defineStore('settings', {
         const stored = await readSettingsRow();
         this.settings = mergeSettings(stored);
       } catch (err) {
-        this.saveError = `读取设置失败：${(err as Error).message}`;
+        this.saveError = t('store.loadSettingsFailed', { message: (err as Error).message });
         this.settings = mergeSettings(null);
       }
       this.loaded = true;
@@ -58,7 +59,7 @@ export const useSettingsStore = defineStore('settings', {
         await writeSettingsRow(this.settings);
         this.saveError = null;
       } catch (err) {
-        this.saveError = `保存设置失败（可能是浏览器禁用了本地存储）：${(err as Error).message}`;
+        this.saveError = t('store.saveSettingsFailed', { message: (err as Error).message });
       }
     },
     async reset() {
@@ -68,7 +69,7 @@ export const useSettingsStore = defineStore('settings', {
         await writeSettingsRow(this.settings);
         this.saveError = null;
       } catch (err) {
-        this.saveError = `保存设置失败：${(err as Error).message}`;
+        this.saveError = t('store.saveSettingsFailedShort', { message: (err as Error).message });
       }
     },
   },

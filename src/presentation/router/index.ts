@@ -13,13 +13,13 @@ const router = createRouter({
       path: '/',
       name: 'home',
       component: HomeView,
-      meta: { title: '工作台' },
+      meta: { titleKey: 'nav.home' },
     },
     {
       path: '/library',
       name: 'library',
       component: () => import('@/presentation/views/LibraryView.vue'),
-      meta: { title: '公式库' },
+      meta: { titleKey: 'nav.library' },
     },
     {
       path: '/formula/:id',
@@ -27,25 +27,25 @@ const router = createRouter({
       component: () => import('@/presentation/views/FormulaDetailView.vue'),
       // 详情页用 props 接收 id（原先没开 props 时 id 恒为 undefined，页面会一直停在"正在读取"）
       props: true,
-      meta: { title: '公式详情' },
+      meta: { titleKey: 'nav.formulaDetail' },
     },
     {
       path: '/timer',
       name: 'timer',
       component: () => import('@/presentation/views/TimerView.vue'),
-      meta: { title: '计时器' },
+      meta: { titleKey: 'nav.timer' },
     },
     {
       path: '/sets',
       name: 'sets',
       component: () => import('@/presentation/views/SetsView.vue'),
-      meta: { title: '公式集' },
+      meta: { titleKey: 'nav.sets' },
     },
     {
       path: '/settings',
       name: 'settings',
       component: () => import('@/presentation/views/SettingsView.vue'),
-      meta: { title: '设置' },
+      meta: { titleKey: 'nav.settings' },
     },
     { path: '/:pathMatch(.*)*', redirect: '/' },
   ],
@@ -63,9 +63,10 @@ router.beforeEach((to) => {
   return true;
 });
 
-router.afterEach((to) => {
-  const title = (to.meta.title as string | undefined) ?? '魔方公式图谱';
-  document.title = `${title} · Twisty Atlas`;
-});
+/**
+ * 文档标题统一由 App.vue 维护：它同时依赖路由与当前语言，
+ * 切换语言时标题会立刻跟着变。路由这里只保留 meta.titleKey 作为页名来源，
+ * 不再单独设置 document.title，避免两处打架。
+ */
 
 export default router;

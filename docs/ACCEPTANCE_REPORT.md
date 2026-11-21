@@ -222,7 +222,7 @@ mobile360 overflow=0
 ### 未完成与风险
 
 - 对话框焦点陷阱是手写实现，未做完整的 focus 循环测试（Esc 与遮罩关闭有用例覆盖）。
-- 未做 i18n，界面为中文单语。
+- 未做 i18n，界面为中文单语（**阶段性历史状态**；已在文末「六语界面增补」中完成）。
 
 ### Git
 
@@ -898,3 +898,77 @@ docs/{README,ARCHITECTURE,PACKAGING,DATA_SOURCES}.md 文档同步
 4. **手机端横屏未专门优化**：播放器高度按 `vh` 计算，横屏下可视区域偏小。
 5. **手机端 `#/` 重定向依赖 `matchMedia` 同步判断**：桌面浏览器窗口被拖窄到 760px 以下时，
    当前页面不会自动跳转（重新导航才会）。这是刻意取舍：避免拖窗口时页面突然跳走。
+
+---
+
+# 六语界面增补验收：zh-CN / en / ja / ru / es / pt-BR
+
+本阶段对应需求原文：
+
+> 「增加六种语言的界面与 README，项目代码内容不变」
+
+## 1. 完成项
+
+- 界面六语：`zh-CN`、`en`、`ja`、`ru`、`es`、`pt-BR`，设置页「语言」下拉即时切换并写入
+  `localStorage('twisty-atlas:locale')`；`auto` 按 `navigator.languages` 解析。
+- 零运行时依赖：`src/presentation/i18n/index.ts` 只依赖 Vue 的 `ref/computed`，支持 `{name}` 插值、
+  回退链（当前语言 → 英文 → 键名）与 `html lang` 同步。
+- 架构边界：`messages/zh-CN.ts` 是基准字典，`MessageKey` 由它推导；其余五语声明为
+  `Record<MessageKey, string>`。下层（domain / application / infrastructure）没有界面文案，
+  只有枚举值，由 `presentation/i18n/labels.ts` 统一映射到字典键。
+- 真实响应式：`systemLanguages` 单独存成 `ref`，`languagechange` 事件会更新它；
+  `auto` 模式随系统语言真正重算，而不是只改 DOM 属性。
+- README 六语：`README.md`（简体中文）与 `README.en.md` / `README.ja.md` / `README.ru.md` /
+  `README.es.md` / `README.pt-BR.md`，顶部一行互相切换；正文、命令、数字与链接保持一致。
+
+## 2. 关键文件
+
+```
+src/presentation/i18n/index.ts                 语言状态、检测、切换、插值、html lang
+src/presentation/i18n/labels.ts                枚举 → 字典键集中映射
+src/presentation/i18n/messages/*.ts            六语字典（zh-CN 为基准）
+src/tests/i18n.test.ts                         键集合 / 占位符 / 检测 / 持久化单测
+e2e/i18n.spec.ts                               真实 DOM 切换、刷新保留、auto 模式
+playwright.config.ts                           既有用例固定 locale=zh-CN，避免中文断言失效
+README.{md,en.md,ja.md,ru.md,es.md,pt-BR.md}   六语 README
+```
+
+## 3. 回归结果
+
+```
+$ npm run typecheck                 通过
+$ npm run check:arch
+架构检查通过：67 个文件，未发现违规依赖。
+
+$ npm test -- --reporter=dot
+Test Files  8 passed (8)
+     Tests  115 passed (115)       # 新增 i18n.test.ts 7 例
+
+$ npm run test:e2e
+44 passed (1.9m)                    # 桌面项目 38 + 移动项目 6，新增 E10 / E10b
+
+$ npm run build
+✓ 392 modules transformed.
+✓ built in 5.94s
+PWA v1.3.0  mode generateSW  precache 46 entries (3854.71 KiB)
+
+$ node scripts/verify-dist.mjs
+DIST SMOKE: PASS           # canvas 684×493 / 4 张卡片 / SW 已注册 43 条缓存 / 0 failure
+```
+
+## 4. 修过的真实问题
+
+1. **单测暴露的 `auto` 假响应式**：原实现把 `navigator.languages` 直接读进 `computed`，
+   系统语言变化时 `languagechange` 只改了 `html lang`，界面不会重算。改为 `systemLanguages` ref 后修复。
+2. **e2e 既有用例依赖中文默认文案**：启用六语后浏览器默认 `en-US` 会让「已删除」「复位视角」
+   等中文定位失败。不是产品 bug：在 Playwright 项目层固定 `locale: 'zh-CN'`，语言切换由
+   `e2e/i18n.spec.ts` 单独验证。`E10b` 自建 `ja-JP` 上下文验证 `auto`。
+3. **字典漂移防护**：`Record<MessageKey, string>` 只能挡住缺键，挡不住多键或占位符被改。
+   `src/tests/i18n.test.ts` 补了键集合与 `\{n\}` 占位符一致性断言。
+
+## 5. 未完成与风险
+
+1. 本轮只改界面文案与文档；PWA manifest 的 `name` / `description` 仍是构建期中文静态值，
+   安装后的系统级应用名未做六语（不影响应用内界面）。
+2. README 六语为人工翻译的快照；后续功能变更需要六份同步更新（顶部切换栏已降低漏更成本）。
+3. 未引入 plural 规则：数量文案采用「标签 + 数值」结构，避免俄语等语言复数变形出错。

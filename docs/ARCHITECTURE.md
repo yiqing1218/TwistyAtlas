@@ -19,20 +19,20 @@ presentation ──▶ application ──▶ domain ◀── infrastructure
 | domain | `src/domain` | 纯业务模型与规则：公式、魔方描述、成绩、计时器状态机、统计、格式化、演示朝向 | **无**（不得出现 vue / pinia / dexie / cubing） |
 | application | `src/application` | 用例编排：内置公式集的加载与查询、成绩导出格式化 | `domain`、`data` |
 | infrastructure | `src/infrastructure` | 与外部世界打交道：cubing.js 引擎、IndexedDB 持久化 | `domain`、`data` |
-| presentation | `src/presentation` | Vue 组件、视图、Pinia store、路由 | 全部 |
+| presentation | `src/presentation` | Vue 组件、视图、Pinia store、路由、界面文案翻译 | 全部 |
 | data | `src/data` | 构建期生成的静态数据（内置公式集 JSON） | 无 |
 
 依赖方向由 `scripts/check-arch.mjs` 静态守护，违反即构建失败：
 
 ```bash
 npm run check:arch
-# 架构检查通过：58 个文件，未发现违规依赖。
+# 架构检查通过：67 个文件，未发现违规依赖。
 ```
 
 规则细节：
 
 1. `domain` 里出现 `import ... from 'vue'`、`pinia`、`dexie`、`cubing` 一律报错。
-   —— 保证计时器状态机、统计、格式化能以毫秒级跑完 108 个单测。
+   —— 保证计时器状态机、统计、格式化能以毫秒级跑完 115 个单测。
 2. `infrastructure` 不得依赖 `application` / `presentation`，避免"仓储反过来调 UI"。
 3. `cubing/*` **只允许**出现在 `src/infrastructure/cubing` 内。
    —— 引擎升级（例如 cubing.js 0.66 → 0.7）只需改一处，而不是全仓库搜替换。
@@ -156,6 +156,27 @@ const h = doc.scrollWidth  - doc.clientWidth;   // 必须 ≤ 1：不能横向�
 tabbar.getBoundingClientRect().bottom            // 必须落在视口内：页签点得到
 ```
 
+### 2.6 presentation/i18n（六语界面）
+
+| 文件 | 内容 |
+|---|---|
+| `messages/zh-CN.ts` | 基准字典，`MessageKey` 由它推导；其余五语用 `Record<MessageKey, string>` 声明，缺键/多键编译期报错 |
+| `index.ts` | 零运行时依赖的扁平键 i18n：`{name}` 插值、`auto` 跟随浏览器语言、localStorage 持久化、`html lang` 同步 |
+| `labels.ts` | 枚举 → 字典键的集中映射；`domain` / `application` / `infrastructure` 只有枚举值，不出现界面语言 |
+
+`systemLanguages` 单独存成 `ref`：`auto` 模式下 `languagechange` 会真正触发计算属性重算，
+而不是只改一下 `document.documentElement.lang`。切换链路：
+
+```
+SettingsView → setLocale(pref) → preference ref → currentLocale computed → t() → 组件重渲染
+                                      └→ localStorage + html lang
+```
+
+单测 `src/tests/i18n.test.ts` 校验六语键集合、插值占位符、语言检测优先级与切换持久化；
+e2e `e2e/i18n.spec.ts` 校验真实 DOM 的即时切换、刷新后保留与 `auto` 模式。
+新增语言只需加字典、`LOCALES` / `MESSAGES` / `LOCALE_TAG` / `LOCALE_NATIVE_NAME` 与 README 译文，
+下层代码不动。
+
 ---
 
 ## 3. 数据流
@@ -180,6 +201,11 @@ tabbar.getBoundingClientRect().bottom            // 必须落在视口内：页�
       → src/data/algsets.json（打包成独立 chunk，首屏不加载）
    运行期：application/sets/formulaSets.ts（loadDataset 动态 import）
       → SetsView
+
+④ 语言切换
+   SettingsView → setLocale(pref) → preference / systemLanguages（ref）
+      → currentLocale computed → t() → 组件重渲染
+      → localStorage('twisty-atlas:locale') + html lang
 ```
 
 ---
@@ -188,9 +214,9 @@ tabbar.getBoundingClientRect().bottom            // 必须落在视口内：页�
 
 | 层次 | 工具 | 规模 | 关注点 |
 |---|---|---|---|
-| 单元 | Vitest | 108 个 | 计时器边界、统计、公式校验、导入导出、播放定位 |
-| 端到端 | Playwright | 42 次执行（桌面项目 36 + 移动项目 6） | 真实 WebGL 渲染、状态一致、持久化、移动端页签可达与「整页不滚动」 |
-| 架构 | `check-arch.mjs` | 58 个文件 | 依赖方向、引擎单点收口 |
+| 单元 | Vitest | 115 个 | 计时器边界、统计、公式校验、导入导出、播放定位、六语字典与插值 |
+| 端到端 | Playwright | 44 次执行（桌面项目 38 + 移动项目 6） | 真实 WebGL 渲染、状态一致、持久化、移动端页签可达与「整页不滚动」、语言切换 |
+| 架构 | `check-arch.mjs` | 67 个文件 | 依赖方向、引擎单点收口 |
 | 数据 | `data:build` + `rejected.json` | 2433 案例 / 13667 条公式（拒绝 399） | 每条公式的引擎结构判定与被拒原因 |
 
 端到端测试**不用截图比对**判对错，而是直接向播放器要真实状态（`e2e/helpers.ts`）：
@@ -230,3 +256,4 @@ expect(pattern).toBe(await readSolvedPattern(page)); // 复原态对照
 | 新增一套公式集 | `scripts/data/build-dataset.mjs` 的 `SETS` + `RULES`，然后 `npm run data:build` | 界面（自动出现在公式集页） |
 | 换存储后端 | 新增 `infrastructure/persistence/*Repository` 实现 | domain / presentation |
 | 升级 cubing.js | `infrastructure/cubing/cubingBridge.ts` | 其余全部 |
+| 新增一种界面语言 | `presentation/i18n/messages/<locale>.ts` + `index.ts` 的四处语言表 + `README.<locale>.md` | `domain` / `application` / `infrastructure` / 数据管线 |

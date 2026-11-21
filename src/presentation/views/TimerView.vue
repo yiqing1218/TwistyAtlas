@@ -11,17 +11,31 @@ import { formatMs, formatInspection } from '@/domain/timer/format';
 import { listPuzzles } from '@/infrastructure/cubing/puzzleRegistry';
 import { formatSolve } from '@/domain/timer/format';
 import {
-  EXPORT_LABEL,
   EXPORT_MIME,
   buildExport,
   exportFileName,
+  type ExportColumns,
   type ExportFormat,
 } from '@/application/timer/exportSolves';
+import { useI18n } from '@/presentation/i18n';
+import { puzzleName as translatedPuzzleName, exportFormatLabel } from '@/presentation/i18n/labels';
 import SevenSegmentDisplay from '@/presentation/components/timer/SevenSegmentDisplay.vue';
 import MiniCubePreview from '@/presentation/components/timer/MiniCubePreview.vue';
 import type { SolveRecord } from '@/domain/model/solve';
 
 const timer = useTimerStore();
+const { t } = useI18n();
+
+const exportColumns = computed<ExportColumns>(() => ({
+  sequence: t('export.sequence'),
+  puzzle: t('export.puzzle'),
+  time: t('export.time'),
+  rawMs: t('export.rawMs'),
+  penalty: t('export.penalty'),
+  scramble: t('export.scramble'),
+  timestamp: t('export.timestamp'),
+  solvesUnit: t('export.solvesUnit'),
+}));
 
 const puzzleOptions = computed(() => listPuzzles().filter((p) => p.status !== 'experimental'));
 
@@ -125,26 +139,29 @@ function notify(message: string) {
   }, 2600);
 }
 
-const puzzleName = computed(
-  () => puzzleOptions.value.find((p) => p.id === timer.puzzleId)?.displayNameZh ?? timer.puzzleId,
-);
+const puzzleLabel = computed(() => translatedPuzzleName(timer.puzzleId));
 
 function download(format: ExportFormat) {
   if (timer.samples.length === 0) {
-    notify('还没有成绩可以导出');
+    notify(t('timer.noSolvesToExport'));
     return;
   }
-  const input = { puzzleName: puzzleName.value, sessionId: timer.sessionId, records: timer.samples };
+  const input = {
+    puzzleName: puzzleLabel.value,
+    sessionId: timer.sessionId,
+    records: timer.samples,
+    columns: exportColumns.value,
+  };
   const blob = new Blob([buildExport(format, input)], { type: EXPORT_MIME[format] });
   const url = URL.createObjectURL(blob);
   const anchor = document.createElement('a');
   anchor.href = url;
-  anchor.download = exportFileName(format, puzzleName.value);
+  anchor.download = exportFileName(format, puzzleLabel.value);
   document.body.append(anchor);
   anchor.click();
   anchor.remove();
   window.setTimeout(() => URL.revokeObjectURL(url), 4000);
-  notify(`已导出 ${timer.samples.length} 条成绩（${EXPORT_LABEL[format]}）`);
+  notify(t('timer.exported', { n: timer.samples.length, format: exportFormatLabel(format) }));
 }
 
 async function togglePlusTwo(record: SolveRecord) {
@@ -157,7 +174,7 @@ async function toggleDnf(record: SolveRecord) {
 
 async function deleteSolve(record: SolveRecord) {
   await timer.removeSolve(record);
-  notify('已删除一条成绩');
+  notify(t('timer.deletedOne'));
 }
 
 /** 删除最后一条（Delete 键） */
@@ -191,18 +208,18 @@ onBeforeUnmount(() => {
     <!-- 顶部打乱条 -->
     <header class="scramble-bar">
       <div class="scramble-bar__event">
-        <select class="scramble-bar__select" :value="timer.puzzleId" aria-label="计时项目" @change="onPuzzleChange">
-          <option v-for="p in puzzleOptions" :key="p.id" :value="p.id">{{ p.displayNameZh }}</option>
+        <select class="scramble-bar__select" :value="timer.puzzleId" :aria-label="t('timer.puzzleLabel')" @change="onPuzzleChange">
+          <option v-for="p in puzzleOptions" :key="p.id" :value="p.id">{{ translatedPuzzleName(p.id) }}</option>
         </select>
       </div>
 
       <p class="scramble-bar__text" data-testid="scramble-text" :data-pending="timer.scramblePending ? 'true' : 'false'">
-        <span v-if="timer.scramblePending" class="scramble-bar__pending">生成打乱…</span>
-        <span v-else>{{ timer.scramble || '按 N 生成新打乱' }}</span>
+        <span v-if="timer.scramblePending" class="scramble-bar__pending">{{ t('timer.generating') }}</span>
+        <span v-else>{{ timer.scramble || t('timer.scrambleHint') }}</span>
       </p>
 
       <div class="scramble-bar__actions">
-        <button type="button" class="bar-btn" title="换一条打乱（N）" @click="timer.newScramble()">换一条</button>
+        <button type="button" class="bar-btn" :title="t('timer.newScrambleTitle')" @click="timer.newScramble()">{{ t('timer.newScramble') }}</button>
         <button
           type="button"
           class="bar-btn"
@@ -210,7 +227,7 @@ onBeforeUnmount(() => {
           :aria-pressed="timer.inspectionEnabled"
           @click="timer.toggleInspection()"
         >
-          观察 {{ timer.inspectionEnabled ? '开' : '关' }}
+          {{ timer.inspectionEnabled ? t('timer.inspectionOn') : t('timer.inspectionOff') }}
         </button>
       </div>
     </header>
@@ -219,21 +236,21 @@ onBeforeUnmount(() => {
       <!-- 左栏：统计 + 历史 -->
       <aside class="stats-pane" data-testid="stats-pane">
         <div class="stats-pane__group">
-          <span class="stats-pane__label">分组</span>
-          <span class="stats-pane__name">{{ puzzleOptions.find((p) => p.id === timer.puzzleId)?.displayNameZh }}</span>
+          <span class="stats-pane__label">{{ t('timer.group') }}</span>
+          <span class="stats-pane__name">{{ puzzleLabel }}</span>
         </div>
 
         <table class="stats-table">
           <thead>
             <tr>
               <th scope="col"></th>
-              <th scope="col">当前</th>
-              <th scope="col">最快</th>
+              <th scope="col">{{ t('timer.colCurrent') }}</th>
+              <th scope="col">{{ t('timer.colBest') }}</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <th scope="row">时间</th>
+              <th scope="row">{{ t('timer.rowTime') }}</th>
               <td data-testid="stat-current">{{ formatMs(timer.samples.length ? lastEffective() : null) }}</td>
               <td>{{ formatMs(timer.stats.best) }}</td>
             </tr>
@@ -263,11 +280,11 @@ onBeforeUnmount(() => {
               <td>—</td>
             </tr>
             <tr>
-              <th scope="row">还原</th>
+              <th scope="row">{{ t('timer.rowSolve') }}</th>
               <td colspan="2" class="stats-table__count">{{ timer.stats.count }} / {{ timer.stats.count }}</td>
             </tr>
             <tr>
-              <th scope="row">平均</th>
+              <th scope="row">{{ t('timer.rowMean') }}</th>
               <td colspan="2">{{ formatMs(timer.stats.mean) }}</td>
             </tr>
           </tbody>
@@ -275,24 +292,24 @@ onBeforeUnmount(() => {
 
         <div class="history" data-testid="history">
           <div class="history__toolbar">
-            <span class="history__title">成绩（{{ timer.samples.length }}）</span>
+            <span class="history__title">{{ t('timer.history', { n: timer.samples.length }) }}</span>
             <div class="history__export">
-              <span class="history__export-label">导出</span>
+              <span class="history__export-label">{{ t('timer.export') }}</span>
               <button
                 v-for="format in exportFormats"
                 :key="format"
                 type="button"
                 class="bar-btn bar-btn--small"
                 :data-testid="`export-${format}`"
-                :title="`导出为 ${EXPORT_LABEL[format]}`"
+                :title="t('timer.exportAs', { format: exportFormatLabel(format) })"
                 @click="download(format)"
               >
-                {{ EXPORT_LABEL[format] }}
+                {{ exportFormatLabel(format) }}
               </button>
             </div>
           </div>
           <div class="history__head">
-            <span>#</span><span>时间</span><span>ao5</span><span>ao12</span><span class="history__ops-head">改判/删除</span>
+            <span>{{ t('timer.colIndex') }}</span><span>{{ t('timer.colTime') }}</span><span>ao5</span><span>ao12</span><span class="history__ops-head">{{ t('timer.colOps') }}</span>
           </div>
           <ol class="history__list">
             <li v-for="(record, index) in history" :key="record.id" class="history__row" :data-testid="`solve-row-${index}`">
@@ -308,7 +325,7 @@ onBeforeUnmount(() => {
                   type="button"
                   class="op-btn"
                   :class="{ 'op-btn--on': record.penalty === '+2' }"
-                  title="加 2 秒 / 取消加时"
+                  :title="t('timer.plus2Title')"
                   :data-testid="`plus2-${index}`"
                   @click="togglePlusTwo(record)"
                 >
@@ -318,7 +335,7 @@ onBeforeUnmount(() => {
                   type="button"
                   class="op-btn"
                   :class="{ 'op-btn--on': record.penalty === 'DNF' }"
-                  title="判为 DNF / 取消"
+                  :title="t('timer.dnfTitle')"
                   :data-testid="`dnf-${index}`"
                   @click="toggleDnf(record)"
                 >
@@ -327,7 +344,7 @@ onBeforeUnmount(() => {
                 <button
                   type="button"
                   class="op-btn op-btn--danger"
-                  title="删除这条成绩"
+                  :title="t('timer.deleteTitle')"
                   :data-testid="`delete-${index}`"
                   @click="deleteSolve(record)"
                 >
@@ -336,7 +353,7 @@ onBeforeUnmount(() => {
               </span>
             </li>
           </ol>
-          <p v-if="history.length === 0" class="history__empty">还没有成绩，按住空格开始计时。</p>
+          <p v-if="history.length === 0" class="history__empty">{{ t('timer.emptyHistory') }}</p>
         </div>
       </aside>
 
@@ -355,12 +372,12 @@ onBeforeUnmount(() => {
           <span>ao12: <b>{{ formatMs(average12) }}</b></span>
         </div>
         <p class="timer-stage__hint">
-          <template v-if="timer.phase === 'inspecting'">观察中 —— 按住空格准备，松开开始</template>
+          <template v-if="timer.phase === 'inspecting'">{{ t('timer.inspecting') }}</template>
           <template v-else-if="timer.phase === 'holding'">
-            {{ timer.timerState.holdReady ? '松开开始' : '继续按住…' }}
+            {{ timer.timerState.holdReady ? t('timer.releaseToStart') : t('timer.keepHolding') }}
           </template>
-          <template v-else-if="timer.phase === 'running'">按空格停表</template>
-          <template v-else>按住空格（或按住此处）{{ timer.inspectionEnabled ? '开始观察' : '开始计时' }}</template>
+          <template v-else-if="timer.phase === 'running'">{{ t('timer.stopHint') }}</template>
+          <template v-else>{{ t('timer.holdToStart', { mode: timer.inspectionEnabled ? t('timer.startInspection') : t('timer.startTimer') }) }}</template>
         </p>
       </section>
 

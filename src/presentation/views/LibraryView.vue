@@ -11,7 +11,9 @@ import { useFormulaStore } from '@/presentation/stores/formulaStore';
 import { useSettingsStore } from '@/presentation/stores/settingsStore';
 import { useIsMobile } from '@/presentation/composables/useViewport';
 import type { FormulaRecord } from '@/domain/model/formula';
+import { useI18n } from '@/presentation/i18n';
 
+const { t } = useI18n();
 const router = useRouter();
 const store = useFormulaStore();
 const settings = useSettingsStore();
@@ -54,25 +56,25 @@ function openEdit() {
 async function onSaved(record: FormulaRecord) {
   puzzleId.value = record.puzzleId;
   store.selectedId = record.id;
-  message.value = `已保存「${record.title}」`;
+  message.value = t('library.saved', { title: record.title });
 }
 
 async function duplicateSelected() {
   if (!selected.value) return;
   try {
     await store.duplicate(selected.value.id);
-    message.value = '已创建副本';
+    message.value = t('library.duplicated');
   } catch (err) {
-    message.value = `复制失败：${(err as Error).message}`;
+    message.value = t('library.duplicateFailed', { message: (err as Error).message });
   }
 }
 
 async function removeSelected() {
   const record = selected.value;
   if (!record) return;
-  if (!window.confirm(`确定删除「${record.title}」吗？`)) return;
+  if (!window.confirm(t('library.confirmDelete', { title: record.title }))) return;
   await store.remove(record.id);
-  message.value = `已删除「${record.title}」`;
+  message.value = t('library.deleted', { title: record.title });
 }
 
 async function toggleFavoriteSelected() {
@@ -99,15 +101,15 @@ function selectFormula(id: string) {
     <div class="library-view">
       <header class="library-view__bar">
         <div class="row">
-          <h1 class="library-view__title">公式库</h1>
-          <span class="badge">{{ stats.total }} 条</span>
-          <span class="badge badge--accent">收藏 {{ stats.favorites }}</span>
-          <span class="badge">分类 {{ stats.categories }}</span>
+          <h1 class="library-view__title">{{ t('library.title') }}</h1>
+          <span class="badge">{{ t('common.items', { n: stats.total }) }}</span>
+          <span class="badge badge--accent">{{ t('common.favorite') }} {{ stats.favorites }}</span>
+          <span class="badge">{{ t('editor.category') }} {{ stats.categories }}</span>
         </div>
         <div class="row">
           <PuzzlePicker v-model="puzzleId" />
-          <button type="button" class="btn btn--sm" @click="importOpen = true">导入 / 导出</button>
-          <button type="button" class="btn btn--sm btn--primary" @click="openCreate">新建公式</button>
+          <button type="button" class="btn btn--sm" @click="importOpen = true">{{ t('library.importExport') }}</button>
+          <button type="button" class="btn btn--sm btn--primary" @click="openCreate">{{ t('library.newFormula') }}</button>
         </div>
       </header>
 

@@ -43,15 +43,46 @@ function secondsValue(record: SolveRecord): string {
   return (ms / 1000).toFixed(3);
 }
 
+/**
+ * 导出文件的表头文案。应用层不认识界面语言，由表现层把 t() 的结果传进来；
+ * 不传时用中文默认值（保证纯函数与既有单测不受语言状态影响）。
+ */
+export interface ExportColumns {
+  sequence: string;
+  puzzle: string;
+  time: string;
+  rawMs: string;
+  penalty: string;
+  scramble: string;
+  timestamp: string;
+  /** 文本导出首行的量词，如「次」/ "solves" */
+  solvesUnit: string;
+}
+
+export const DEFAULT_EXPORT_COLUMNS: ExportColumns = {
+  sequence: '序号',
+  puzzle: '项目',
+  time: '时间',
+  rawMs: '原始用时(ms)',
+  penalty: '判罚',
+  scramble: '打乱',
+  timestamp: '时间戳',
+  solvesUnit: '次',
+};
+
 export interface ExportInput {
   puzzleName: string;
   sessionId: string;
   records: SolveRecord[];
+  columns?: ExportColumns;
 }
 
-export function solvesToCsv({ puzzleName, records }: ExportInput): string {
-  const header = ['序号', '项目', '时间', '原始用时(ms)', '判罚', '打乱', '时间戳'];
-  const lines = [header.join(',')];
+export function solvesToCsv({ puzzleName, records, columns = DEFAULT_EXPORT_COLUMNS }: ExportInput): string {
+  const header = [
+    columns.sequence, columns.puzzle, columns.time, columns.rawMs,
+    columns.penalty, columns.scramble, columns.timestamp,
+  ].map(csvCell).join(',');
+  const lines = [header];
   records.forEach((r, i) => {
     lines.push(
       [
@@ -91,8 +122,8 @@ export function solvesToJson({ puzzleName, sessionId, records }: ExportInput): s
   )}\n`;
 }
 
-export function solvesToText({ puzzleName, records }: ExportInput): string {
-  const head = [`Twisty Atlas · ${puzzleName} · ${records.length} 次`];
+export function solvesToText({ puzzleName, records, columns = DEFAULT_EXPORT_COLUMNS }: ExportInput): string {
+  const head = [`Twisty Atlas · ${puzzleName} · ${records.length} ${columns.solvesUnit}`];
   const body = records.map((r, i) => `${String(i + 1).padStart(3, ' ')}. ${formatSolve(r.elapsedMs, r.penalty)}`);
   return `${[...head, ...body].join('\n')}\n`;
 }

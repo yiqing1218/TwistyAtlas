@@ -3,14 +3,13 @@ import { computed } from 'vue';
 import { usePlayerStore } from '@/presentation/stores/playerStore';
 import { useSettingsStore } from '@/presentation/stores/settingsStore';
 import { SPEED_OPTIONS } from '@/domain/model/settings';
-import {
-  BOTTOM_COLOR_LABEL,
-  BOTTOM_COLOR_ORDER,
-  type BottomColor,
-} from '@/domain/model/orientation';
+import { BOTTOM_COLOR_ORDER, type BottomColor } from '@/domain/model/orientation';
+import { useI18n } from '@/presentation/i18n';
+import { bottomColorLabel } from '@/presentation/i18n/labels';
 
 const player = usePlayerStore();
 const settings = useSettingsStore();
+const { t } = useI18n();
 
 const bottomColor = computed(() => settings.settings.bottomColor);
 
@@ -37,10 +36,10 @@ function onSlider(event: Event) {
 }
 
 const activeLabel = computed(() => {
-  const token = player.snapshot.activeMoveIndex;
-  if (token === null) return '';
-  const t = player.tokens[token];
-  return t ? `正在执行 ${t.text}` : '';
+  const index = player.snapshot.activeMoveIndex;
+  if (index === null) return '';
+  const token = player.tokens[index];
+  return token ? t('player.executing', { move: token.text }) : '';
 });
 </script>
 
@@ -50,8 +49,8 @@ const activeLabel = computed(() => {
       <button
         type="button"
         class="btn btn--icon"
-        title="回到第一步（快捷键 Home）"
-        aria-label="回到第一步"
+        :title="t('player.firstTitle')"
+        :aria-label="t('player.first')"
         data-testid="btn-start"
         :disabled="!ready || atStart"
         @click="player.seekToStart()"
@@ -64,8 +63,8 @@ const activeLabel = computed(() => {
       <button
         type="button"
         class="btn btn--icon"
-        title="上一步（快捷键 ←）"
-        aria-label="上一步"
+        :title="t('player.prevTitle')"
+        :aria-label="t('player.prev')"
         data-testid="btn-prev"
         :disabled="!ready || atStart"
         @click="player.previousStep()"
@@ -77,8 +76,8 @@ const activeLabel = computed(() => {
       <button
         type="button"
         class="btn btn--primary btn--play"
-        :title="player.snapshot.playing ? '暂停（空格）' : '播放（空格）'"
-        :aria-label="player.snapshot.playing ? '暂停' : '播放'"
+        :title="player.snapshot.playing ? t('player.pauseTitle') : t('player.playTitle')"
+        :aria-label="player.snapshot.playing ? t('player.pause') : t('player.play')"
         data-testid="btn-play"
         :disabled="!ready"
         @click="player.togglePlay()"
@@ -90,13 +89,13 @@ const activeLabel = computed(() => {
         <svg v-else width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
           <path d="M7 5.5v13l11-6.5-11-6.5Z" />
         </svg>
-        <span class="btn__label">{{ player.snapshot.playing ? '暂停' : '播放' }}</span>
+        <span class="btn__label">{{ player.snapshot.playing ? t('player.pause') : t('player.play') }}</span>
       </button>
       <button
         type="button"
         class="btn btn--icon"
-        title="下一步（快捷键 →）"
-        aria-label="下一步"
+        :title="t('player.nextTitle')"
+        :aria-label="t('player.next')"
         data-testid="btn-next"
         :disabled="!ready || atEnd"
         @click="player.nextStep()"
@@ -108,8 +107,8 @@ const activeLabel = computed(() => {
       <button
         type="button"
         class="btn btn--icon"
-        title="跳到最后一步（快捷键 End）"
-        aria-label="跳到最后一步"
+        :title="t('player.lastTitle')"
+        :aria-label="t('player.last')"
         data-testid="btn-end"
         :disabled="!ready || atEnd"
         @click="player.seekToEnd()"
@@ -130,7 +129,7 @@ const activeLabel = computed(() => {
         step="1"
         :value="player.snapshot.currentStep"
         :disabled="!ready"
-        aria-label="播放进度（按动作步）"
+        :aria-label="t('player.progress')"
         data-testid="progress-slider"
         @input="onSlider"
       />
@@ -141,22 +140,22 @@ const activeLabel = computed(() => {
         <span v-if="activeLabel" class="toolbar__active">{{ activeLabel }}</span>
         <span class="toolbar__spacer"></span>
         <label class="toolbar__speed">
-          <span class="small muted">速度</span>
-          <select v-model.number="speed" class="select select--compact" aria-label="播放速度" data-testid="speed-select">
+          <span class="small muted">{{ t('player.speed') }}</span>
+          <select v-model.number="speed" class="select select--compact" :aria-label="t('player.speedLabel')" data-testid="speed-select">
             <option v-for="option in SPEED_OPTIONS" :key="option" :value="option">{{ option }}×</option>
           </select>
         </label>
         <label class="toolbar__speed">
-          <span class="small muted">底面</span>
+          <span class="small muted">{{ t('player.bottom') }}</span>
           <select
             :value="bottomColor"
             class="select select--compact"
-            aria-label="演示底面"
+            :aria-label="t('player.bottomLabel')"
             data-testid="bottom-select"
             @change="onBottomChange"
           >
             <option v-for="color in BOTTOM_COLOR_ORDER" :key="color" :value="color">
-              {{ BOTTOM_COLOR_LABEL[color] }}
+              {{ bottomColorLabel(color) }}
             </option>
           </select>
         </label>

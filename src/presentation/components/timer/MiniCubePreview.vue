@@ -6,6 +6,9 @@
 import { onBeforeUnmount, onMounted, ref, watch } from 'vue';
 import { createTwistyPlayer, type TwistyPlayerInstance } from '@/infrastructure/cubing/cubingBridge';
 import { getPuzzleDescriptor } from '@/infrastructure/cubing/puzzleRegistry';
+import { useI18n } from '@/presentation/i18n';
+
+const { t } = useI18n();
 
 const props = defineProps<{ puzzleId: string; scramble: string }>();
 
@@ -73,7 +76,7 @@ onBeforeUnmount(() => {
 <template>
   <div class="mini-cube">
     <div ref="host" class="mini-cube__host" data-testid="mini-cube" />
-    <p v-if="failed" class="mini-cube__error">预览不可用</p>
+    <p v-if="failed" class="mini-cube__error">{{ t('viewport.previewUnavailable') }}</p>
   </div>
 </template>
 

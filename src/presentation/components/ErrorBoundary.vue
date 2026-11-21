@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { onErrorCaptured, ref } from 'vue';
+import { t } from '@/presentation/i18n';
 
 const error = ref<Error | null>(null);
 
@@ -20,13 +21,13 @@ function reload() {
 
 <template>
   <div v-if="error" class="error-boundary" role="alert">
-    <h2>这块内容渲染失败</h2>
+    <h2>{{ t('error.title') }}</h2>
     <p class="small muted">{{ error.message }}</p>
     <div class="row">
-      <button type="button" class="btn" @click="retry">重试</button>
-      <button type="button" class="btn btn--ghost" @click="reload">刷新页面</button>
+      <button type="button" class="btn" @click="retry">{{ t('common.retry') }}</button>
+      <button type="button" class="btn btn--ghost" @click="reload">{{ t('common.reload') }}</button>
     </div>
-    <p class="small muted">你的公式数据保存在本地数据库，不受影响。</p>
+    <p class="small muted">{{ t('error.safe') }}</p>
   </div>
   <slot v-else />
 </template>
