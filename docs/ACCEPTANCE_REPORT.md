@@ -39,7 +39,7 @@ $ npm run build
 ✓ 341 modules transformed.
 dist/assets/index-COBflTTx.js                                  381.16 kB │ gzip: 128.25 kB
 dist/assets/twisty-dynamic-3d-HSYJR5CM-BPqUVKMZ.js             511.34 kB │ gzip: 133.66 kB
-✓ built in 3.41s
+✓ built in 3.15s
 
 PWA v1.3.0  mode generateSW
 precache  27 entries (1333.15 KiB)
@@ -446,7 +446,7 @@ npx vite preview --port 4173 --strictPort
 | 项目 | 命令 | 结果 |
 |---|---|---|
 | 类型检查 | `npx vue-tsc --noEmit` | 无输出（0 错误） |
-| 生产构建 | `npm run build` | `✓ built in 3.41s`，`precache 27 entries (1333.15 KiB)`，生成 `dist/sw.js` |
+| 生产构建 | `npm run build` | `✓ built in 3.15s`，`precache 27 entries (1333.15 KiB)`，生成 `dist/sw.js` |
 | 单元测试 | `npx vitest run` | `Test Files 4 passed (4)` / `Tests 74 passed (74)` |
 | 端到端 | `npm run test:e2e` | `23 passed (1.2m)`（20 个用例 × 2 个项目） |
 | 产物冒烟 | `node scripts/verify-dist.mjs` | `DIST SMOKE: PASS`（canvas 684×493、SW 已注册、24 条缓存、0 报错） |
