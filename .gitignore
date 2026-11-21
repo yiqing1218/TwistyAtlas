@@ -1,0 +1,23 @@
+node_modules/
+dist/
+dist-ssr/
+playwright-report/
+test-results/
+coverage/
+*.local
+.env.local
+.env.*.local
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+.DS_Store
+Thumbs.db
+.vscode/*
+!.vscode/extensions.json
+.idea/
+*.tsbuildinfo
+
+# 调试与本地证据产物
+/e2e-debug.png
+docs/screenshots/*.tmp.png
