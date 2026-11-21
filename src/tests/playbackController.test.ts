@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
-import { locateStepFromTimeline } from '../engine/playbackController';
-import { resolveSetup } from '../engine/setupResolver';
+import { locateStepFromTimeline } from '@/infrastructure/cubing/playbackController';
+import { resolveSetup } from '@/infrastructure/cubing/setupResolver';
 
 describe('resolveSetup：三种初始状态', () => {
   it('solved：不使用 setup，直接播放公式', () => {

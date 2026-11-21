@@ -1,8 +1,10 @@
 {
   "name": "twisty-atlas",
   "private": true,
-  "version": "1.0.0",
+  "version": "1.2.0",
   "type": "module",
+  "description": "Twisty Atlas — 魔方公式库、真实三维动作图谱与 csTimer 风格计时器",
+  "main": "electron/main.cjs",
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc --noEmit && vite build",
@@ -10,9 +12,22 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "test:e2e": "playwright test",
-    "typecheck": "vue-tsc --noEmit"
+    "typecheck": "vue-tsc --noEmit",
+    "check:arch": "node scripts/check-arch.mjs",
+    "check": "npm run typecheck && npm run check:arch && npm run test",
+    "data:build": "node scripts/data/build-dataset.mjs",
+    "desktop:dev": "npm run build && electron .",
+    "desktop:pack": "npm run build && node scripts/pack-desktop.mjs",
+    "desktop:build": "npm run build && node scripts/pack-desktop.mjs",
+    "desktop:installer": "npm run build && electron-builder --win",
+    "android:sync": "node scripts/build-android.mjs --sync-only",
+    "android:open": "cap open android",
+    "android:apk": "npm run build && node scripts/build-android.mjs",
+    "android:apk:release": "npm run build && node scripts/build-android.mjs --release"
   },
   "dependencies": {
+    "@capacitor/android": "^8.6.2",
+    "@capacitor/core": "^8.6.2",
     "cubing": "^0.66.1",
     "dexie": "^4.2.0",
     "papaparse": "^5.5.3",
@@ -21,10 +36,13 @@
     "vue-router": "^4.5.1"
   },
   "devDependencies": {
+    "@capacitor/cli": "^8.6.2",
     "@playwright/test": "^1.56.0",
     "@types/papaparse": "^5.3.16",
     "@vitejs/plugin-vue": "^6.0.1",
     "@vue/test-utils": "^2.4.6",
+    "electron": "^45.4.1",
+    "electron-builder": "^26.18.0",
     "fake-indexeddb": "^6.2.2",
     "jsdom": "^26.1.0",
     "typescript": "~5.9.2",
@@ -32,5 +50,35 @@
     "vite-plugin-pwa": "^1.0.3",
     "vitest": "^3.2.4",
     "vue-tsc": "^3.0.6"
+  },
+  "build": {
+    "appId": "com.twistyatlas.desktop",
+    "productName": "Twisty Atlas",
+    "directories": {
+      "output": "release",
+      "buildResources": "build"
+    },
+    "files": [
+      "dist/**/*",
+      "electron/**/*"
+    ],
+    "win": {
+      "target": [
+        { "target": "nsis", "arch": ["x64"] },
+        { "target": "portable", "arch": ["x64"] }
+      ],
+      "icon": "build/icon.png",
+      "artifactName": "TwistyAtlas-${version}-${arch}.${ext}"
+    },
+    "portable": {
+      "artifactName": "TwistyAtlas-${version}-portable.exe"
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": true,
+      "shortcutName": "Twisty Atlas",
+      "artifactName": "TwistyAtlas-${version}-setup.exe"
+    }
   }
 }

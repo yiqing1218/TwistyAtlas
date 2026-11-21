@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Twisty Atlas</string>
+    <string name="title_activity_main">Twisty Atlas</string>
+    <string name="package_name">com.twistyatlas.app</string>
+    <string name="custom_url_scheme">com.twistyatlas.app</string>
+</resources>

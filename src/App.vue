@@ -1,13 +1,15 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import { RouterLink, RouterView, useRoute } from 'vue-router';
-import { useSettingsStore } from './stores/settingsStore';
+import { useSettingsStore } from '@/presentation/stores/settingsStore';
 
 const route = useRoute();
 const settings = useSettingsStore();
 
 const navItems = [
   { name: 'home', label: '工作台', to: '/' },
+  { name: 'timer', label: '计时器', to: '/timer' },
+  { name: 'sets', label: '公式集', to: '/sets' },
   { name: 'library', label: '公式库', to: '/library' },
   { name: 'settings', label: '设置', to: '/settings' },
 ];

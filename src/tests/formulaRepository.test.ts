@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it } from 'vitest';
-import { db } from '../db/database';
+import { db } from '@/infrastructure/persistence/database';
 import {
   createCategory,
   createFormula,
@@ -16,9 +16,9 @@ import {
   setFavorite,
   updateFormula,
   validateDraft,
-} from '../db/formulaRepository';
-import type { FormulaDraft } from '../types/formula';
-import { EMPTY_DRAFT } from '../types/formula';
+} from '@/infrastructure/persistence/formulaRepository';
+import type { FormulaDraft } from '@/domain/model/formula';
+import { EMPTY_DRAFT } from '@/domain/model/formula';
 
 function draft(patch: Partial<FormulaDraft> = {}): FormulaDraft {
   return {

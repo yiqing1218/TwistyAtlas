@@ -1,0 +1,117 @@
+{
+  "totalCases": 807,
+  "totalAlgs": 7468,
+  "verified": 7348,
+  "parsedOnly": 120,
+  "rejected": 68,
+  "bySet": {
+    "cfop-oll": {
+      "cases": 57,
+      "algs": 98,
+      "rejected": 0,
+      "levels": {
+        "structural": 98,
+        "parsed": 0
+      }
+    },
+    "cfop-pll": {
+      "cases": 21,
+      "algs": 55,
+      "rejected": 0,
+      "levels": {
+        "structural": 55,
+        "parsed": 0
+      }
+    },
+    "coll": {
+      "cases": 40,
+      "algs": 50,
+      "rejected": 0,
+      "levels": {
+        "structural": 50,
+        "parsed": 0
+      }
+    },
+    "wv": {
+      "cases": 26,
+      "algs": 28,
+      "rejected": 1,
+      "levels": {
+        "structural": 0,
+        "parsed": 28
+      }
+    },
+    "cll-2x2": {
+      "cases": 42,
+      "algs": 51,
+      "rejected": 0,
+      "levels": {
+        "structural": 51,
+        "parsed": 0
+      }
+    },
+    "cfop-2look-oll": {
+      "cases": 10,
+      "algs": 17,
+      "rejected": 0,
+      "levels": {
+        "structural": 17,
+        "parsed": 0
+      }
+    },
+    "cfop-2look-pll": {
+      "cases": 6,
+      "algs": 11,
+      "rejected": 0,
+      "levels": {
+        "structural": 11,
+        "parsed": 0
+      }
+    },
+    "f2l": {
+      "cases": 41,
+      "algs": 585,
+      "rejected": 37,
+      "levels": {
+        "structural": 585,
+        "parsed": 0
+      }
+    },
+    "parity-4x4-oll": {
+      "cases": 9,
+      "algs": 9,
+      "rejected": 3,
+      "levels": {
+        "structural": 0,
+        "parsed": 9
+      }
+    },
+    "parity-4x4-pll": {
+      "cases": 52,
+      "algs": 52,
+      "rejected": 27,
+      "levels": {
+        "structural": 0,
+        "parsed": 52
+      }
+    },
+    "l2e-5x5": {
+      "cases": 31,
+      "algs": 31,
+      "rejected": 0,
+      "levels": {
+        "structural": 0,
+        "parsed": 31
+      }
+    },
+    "zbll": {
+      "cases": 472,
+      "algs": 6481,
+      "rejected": 0,
+      "levels": {
+        "structural": 6481,
+        "parsed": 0
+      }
+    }
+  }
+}

@@ -21,3 +21,15 @@ Thumbs.db
 # 调试与本地证据产物
 /e2e-debug.png
 docs/screenshots/*.tmp.png
+
+# 打包产物（两种打包方案）
+/out/
+/release/
+
+# 安卓构建中间产物（android/.gitignore 已覆盖大部分，这里补充跨目录的）
+android/.gradle/
+android/app/build/
+
+# 早期打包尝试留下的中间目录（不属于产物）
+/out-desktop/
+/release-desktop/

@@ -1,0 +1,13 @@
+import { chromium } from '@playwright/test';
+const browser = await chromium.launch({ channel: 'chromium', args: ['--enable-unsafe-swiftshader','--use-gl=angle','--use-angle=swiftshader'] });
+const page = await browser.newPage({ viewport: { width: 1366, height: 768 } });
+const errors = [];
+page.on('pageerror', e => errors.push(e.message));
+page.on('console', m => { if (m.type() === 'error') errors.push(m.text()); });
+await page.goto('http://localhost:5178/#/timer', { waitUntil: 'load' });
+await page.waitForTimeout(5000);
+await page.screenshot({ path: 'docs/screenshots/timer-1366x768.png' });
+console.log('scramble:', (await page.getByTestId('scramble-text').textContent())?.trim().slice(0, 80));
+console.log('display:', (await page.getByTestId('timer-display').getAttribute('aria-label')));
+console.log('errors:', errors.slice(0, 5));
+await browser.close();

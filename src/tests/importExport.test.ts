@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it } from 'vitest';
-import { db } from '../db/database';
-import { createFormula, listFormulas } from '../db/formulaRepository';
+import { db } from '@/infrastructure/persistence/database';
+import { createFormula, listFormulas } from '@/infrastructure/persistence/formulaRepository';
 import {
   applyImport,
   buildBackup,
@@ -8,8 +8,8 @@ import {
   formulasToCsv,
   parseImportText,
   parseTagsField,
-} from '../db/importExport';
-import { EMPTY_DRAFT, type FormulaDraft } from '../types/formula';
+} from '@/infrastructure/persistence/importExport';
+import { EMPTY_DRAFT, type FormulaDraft } from '@/domain/model/formula';
 
 function draft(patch: Partial<FormulaDraft> = {}): FormulaDraft {
   return { ...EMPTY_DRAFT, title: '右手四步', alg: "R U R' U'", ...patch };

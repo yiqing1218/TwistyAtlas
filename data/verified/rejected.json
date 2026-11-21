@@ -1,0 +1,410 @@
+[
+ {
+  "setId": "wv",
+  "caseId": "wv-22",
+  "alg": "R U' R' (R' U2 R U R' U R",
+  "reason": "解析失败：expected stopping"
+ },
+ {
+  "setId": "f2l",
+  "caseId": "f2l-1",
+  "alg": "d R U' R'",
+  "reason": "setup + 公式后前两层未还原（四个朝向均未命中）"
+ },
+ {
+  "setId": "f2l",
+  "caseId": "f2l-1",
+  "alg": "d L U' L'",
+  "reason": "setup + 公式后前两层未还原（四个朝向均未命中）"
+ },
+ {
+  "setId": "f2l",
+  "caseId": "f2l-2",
+  "alg": "d' R' U R",
+  "reason": "setup + 公式后前两层未还原（四个朝向均未命中）"
+ },
+ {
+  "setId": "f2l",
+  "caseId": "f2l-3",
+  "alg": "f' r' U z",
+  "reason": "setup + 公式后前两层未还原（四个朝向均未命中）"
+ },
+ {
+  "setId": "f2l",
+  "caseId": "f2l-4",
+  "alg": "U f R U R' U2 f' r x'",
+  "reason": "setup + 公式后前两层未还原（四个朝向均未命中）"
+ },
+ {
+  "setId": "f2l",
+  "caseId": "f2l-5",
+  "alg": "d' R U R' U2 R U' R'",
+  "reason": "setup + 公式后前两层未还原（四个朝向均未命中）"
+ },
+ {
+  "setId": "f2l",
+  "caseId": "f2l-6",
+  "alg": "d R' U' R U2 R' U R",
+  "reason": "setup + 公式后前两层未还原（四个朝向均未命中）"
+ },
+ {
+  "setId": "f2l",
+  "caseId": "f2l-7",
+  "alg": "d' L U2 L' U2 L U' L'",
+  "reason": "setup + 公式后前两层未还原（四个朝向均未命中）"
+ },
+ {
+  "setId": "f2l",
+  "caseId": "f2l-8",
+  "alg": "d R' U2 R U R' U2 R",
+  "reason": "setup + 公式后前两层未还原（四个朝向均未命中）"
+ },
+ {
+  "setId": "f2l",
+  "caseId": "f2l-8",
+  "alg": "d L' U2 L U2 L' U L",
+  "reason": "setup + 公式后前两层未还原（四个朝向均未命中）"
+ },
+ {
+  "setId": "f2l",
+  "caseId": "f2l-9",
+  "alg": "U' R U' R' d R' U' R",
+  "reason": "setup + 公式后前两层未还原（四个朝向均未命中）"
+ },
+ {
+  "setId": "f2l",
+  "caseId": "f2l-9",
+  "alg": "d R' U' R U' R' U' R",
+  "reason": "setup + 公式后前两层未还原（四个朝向均未命中）"
+ },
+ {
+  "setId": "f2l",
+  "caseId": "f2l-9",
+  "alg": "d L' U' L U' L' U' L",
+  "reason": "setup + 公式后前两层未还原（四个朝向均未命中）"
+ },
+ {
+  "setId": "f2l",
+  "caseId": "f2l-10",
+  "alg": "d' L U L' U L U L'",
+  "reason": "setup + 公式后前两层未还原（四个朝向均未命中）"
+ },
+ {
+  "setId": "f2l",
+  "caseId": "f2l-10",
+  "alg": "d' R U R' U R U R'",
+  "reason": "setup + 公式后前两层未还原（四个朝向均未命中）"
+ },
+ {
+  "setId": "f2l",
+  "caseId": "f2l-11",
+  "alg": "U' R U2 R' d R' U' R",
+  "reason": "setup + 公式后前两层未还原（四个朝向均未命中）"
+ },
+ {
+  "setId": "f2l",
+  "caseId": "f2l-11",
+  "alg": "U' L U2 L' d L' U' L",
+  "reason": "setup + 公式后前两层未还原（四个朝向均未命中）"
+ },
+ {
+  "setId": "f2l",
+  "caseId": "f2l-11",
+  "alg": "d' R U2 R' U F' U' F",
+  "reason": "setup + 公式后前两层未还原（四个朝向均未命中）"
+ },
+ {
+  "setId": "f2l",
+  "caseId": "f2l-12",
+  "alg": "U L' U2 L d' L U L'",
+  "reason": "setup + 公式后前两层未还原（四个朝向均未命中）"
+ },
+ {
+  "setId": "f2l",
+  "caseId": "f2l-12",
+  "alg": "d L' U2 L U' F U F'",
+  "reason": "setup + 公式后前两层未还原（四个朝向均未命中）"
+ },
+ {
+  "setId": "f2l",
+  "caseId": "f2l-12",
+  "alg": "U R' U2 R d' R U R'",
+  "reason": "setup + 公式后前两层未还原（四个朝向均未命中）"
+ },
+ {
+  "setId": "f2l",
+  "caseId": "f2l-13",
+  "alg": "d R' U R U' R' U' R",
+  "reason": "setup + 公式后前两层未还原（四个朝向均未命中）"
+ },
+ {
+  "setId": "f2l",
+  "caseId": "f2l-13",
+  "alg": "d L' U L U' L' U' L",
+  "reason": "setup + 公式后前两层未还原（四个朝向均未命中）"
+ },
+ {
+  "setId": "f2l",
+  "caseId": "f2l-14",
+  "alg": "d' L U' L' U L U L'",
+  "reason": "setup + 公式后前两层未还原（四个朝向均未命中）"
+ },
+ {
+  "setId": "f2l",
+  "caseId": "f2l-14",
+  "alg": "d' R U' R' U R U R'",
+  "reason": "setup + 公式后前两层未还原（四个朝向均未命中）"
+ },
+ {
+  "setId": "f2l",
+  "caseId": "f2l-15",
+  "alg": "R' U R U' d' R U R'",
+  "reason": "setup + 公式后前两层未还原（四个朝向均未命中）"
+ },
+ {
+  "setId": "f2l",
+  "caseId": "f2l-16",
+  "alg": "R U' R' U d R' U' R",
+  "reason": "setup + 公式后前两层未还原（四个朝向均未命中）"
+ },
+ {
+  "setId": "f2l",
+  "caseId": "f2l-16",
+  "alg": "L U' L' U' d' R' U' R",
+  "reason": "setup + 公式后前两层未还原（四个朝向均未命中）"
+ },
+ {
+  "setId": "f2l",
+  "caseId": "f2l-19",
+  "alg": "d f R2 f' U f R' f'",
+  "reason": "setup + 公式后前两层未还原（四个朝向均未命中）"
+ },
+ {
+  "setId": "f2l",
+  "caseId": "f2l-19",
+  "alg": "d R U2 R' U R U' R'",
+  "reason": "setup + 公式后前两层未还原（四个朝向均未命中）"
+ },
+ {
+  "setId": "f2l",
+  "caseId": "f2l-19",
+  "alg": "d L U2 L' U L U' L'",
+  "reason": "setup + 公式后前两层未还原（四个朝向均未命中）"
+ },
+ {
+  "setId": "f2l",
+  "caseId": "f2l-20",
+  "alg": "d' R' U2 R U' R' U R",
+  "reason": "setup + 公式后前两层未还原（四个朝向均未命中）"
+ },
+ {
+  "setId": "f2l",
+  "caseId": "f2l-25",
+  "alg": "U' L' U L d R U' R'",
+  "reason": "setup + 公式后前两层未还原（四个朝向均未命中）"
+ },
+ {
+  "setId": "f2l",
+  "caseId": "f2l-25",
+  "alg": "d' R' F R F' R U R'",
+  "reason": "setup + 公式后前两层未还原（四个朝向均未命中）"
+ },
+ {
+  "setId": "f2l",
+  "caseId": "f2l-35",
+  "alg": "U' R U R' d R' U' R",
+  "reason": "setup + 公式后前两层未还原（四个朝向均未命中）"
+ },
+ {
+  "setId": "f2l",
+  "caseId": "f2l-36",
+  "alg": "U L' U' L d' L U L'",
+  "reason": "setup + 公式后前两层未还原（四个朝向均未命中）"
+ },
+ {
+  "setId": "f2l",
+  "caseId": "f2l-41",
+  "alg": "L U' L' d' U' R' U' R U' R' U R",
+  "reason": "setup + 公式后前两层未还原（四个朝向均未命中）"
+ },
+ {
+  "setId": "parity-4x4-oll",
+  "caseId": "parity-4x4-oll-9",
+  "alg": "M Rw U2 x Rw U2 Rw U2 Rw' U2 Lw U2 Rw' U2 Rw U2 Rw' U2 Rw' M'",
+  "reason": "解析失败：Bad grip in move M"
+ },
+ {
+  "setId": "parity-4x4-oll",
+  "caseId": "parity-4x4-oll-11",
+  "alg": "M Rw2 B2 U2 Lw U2 Rw' U2 Rw U2 F2 Rw F2 Lw' B2 Rw2 M'",
+  "reason": "解析失败：Bad grip in move M"
+ },
+ {
+  "setId": "parity-4x4-oll",
+  "caseId": "parity-4x4-oll-12",
+  "alg": "M Rw' U2' Rw U2 Rw U2' Rw2' F2 Rw' U2 Rw' U2' F2 Rw2 F2 M'",
+  "reason": "解析失败：Bad grip in move M"
+ },
+ {
+  "setId": "parity-4x4-pll",
+  "caseId": "parity-4x4-pll-6",
+  "alg": "R' U R U' Parity Alg (2R2) U' R' U' R R' U R U' 2R2 U2 2R2 Uw2 2R2 Uw2 U' R' U' R",
+  "reason": "解析失败：Bad grip in move Parity"
+ },
+ {
+  "setId": "parity-4x4-pll",
+  "caseId": "parity-4x4-pll-7",
+  "alg": "R U R' U' Parity Alg (2R2) U' R U' R' R U R' U' 2R2 U2 2R2 Uw2 2R2 Uw2 U' R U' R'",
+  "reason": "解析失败：Bad grip in move Parity"
+ },
+ {
+  "setId": "parity-4x4-pll",
+  "caseId": "parity-4x4-pll-9",
+  "alg": "M2 U' M2 U' M' U2 M2 U2 M' Parity Alg (2R2) M2 U' M2 U' M' U2 M2 U2 M' 2R2 U2 2R2 Uw2 2R2 Uw2",
+  "reason": "解析失败：Bad grip in move M"
+ },
+ {
+  "setId": "parity-4x4-pll",
+  "caseId": "parity-4x4-pll-11",
+  "alg": "M2 U M2 U M' U2 M2 U2 M' U 2L2 U2 2L2 Uw2 2L2 Uw2",
+  "reason": "解析失败：Bad grip in move M"
+ },
+ {
+  "setId": "parity-4x4-pll",
+  "caseId": "parity-4x4-pll-12",
+  "alg": "M2 U' M2 U' M' U2 M2 U2 M' Uw2' Rw2 U2 Lw2 3Lw2' U2 Rw2 Uw2'",
+  "reason": "解析失败：Bad grip in move M"
+ },
+ {
+  "setId": "parity-4x4-pll",
+  "caseId": "parity-4x4-pll-13",
+  "alg": "Uw2 2L2 Uw2 2L2 U2 3Rw' Rw2 R' U2 M2 U2 M' U M2 U M2",
+  "reason": "解析失败：Bad grip in move M"
+ },
+ {
+  "setId": "parity-4x4-pll",
+  "caseId": "parity-4x4-pll-15",
+  "alg": "M2' U2 M' U M2' U M2' U M' 2R2 U2 2R2 u2 2R2 u2",
+  "reason": "解析失败：Bad grip in move M"
+ },
+ {
+  "setId": "parity-4x4-pll",
+  "caseId": "parity-4x4-pll-16",
+  "alg": "M2 U' M2 U' M' U2 M2 U2 M' U' Parity Alg (2R2) M2 U' M2 U' M' U2 M2 U2 M' U' 2R2 U2 2R2 Uw2 2R2 Uw2",
+  "reason": "解析失败：Bad grip in move M"
+ },
+ {
+  "setId": "parity-4x4-pll",
+  "caseId": "parity-4x4-pll-18",
+  "alg": "U' R U' R U R U R U' R' U' R2 Parity Alg (2R2) U' R U' R U R U R U' R' U' R2 2R2 U2 2R2 Uw2 2R2 Uw2",
+  "reason": "解析失败：Bad grip in move Parity"
+ },
+ {
+  "setId": "parity-4x4-pll",
+  "caseId": "parity-4x4-pll-22",
+  "alg": "R U R' U' R' F R2 U' R' U' R U R' F' U' Parity Alg (2R2) R U R' U' R' F R2 U' R' U' R U R' F' U' 2R2 U2 2R2 Uw2 2R2 Uw2",
+  "reason": "解析失败：Bad grip in move Parity"
+ },
+ {
+  "setId": "parity-4x4-pll",
+  "caseId": "parity-4x4-pll-27",
+  "alg": "Alg (2R2) U R U R' F' R U R' U' R' F R2 U' R' 2R2 U2 2R2 Uw2 2R2 Uw2 U R U R' F' R U R' U' R' F R2 U' R'",
+  "reason": "解析失败：Bad grip in move Alg"
+ },
+ {
+  "setId": "parity-4x4-pll",
+  "caseId": "parity-4x4-pll-31",
+  "alg": "R U R' U' R' F R2 U' R' Parity Alg (2R2) U R U R' F' R U R' U' R' F R2 U' R' 2R2 U2 2R2 Uw2 2R2 Uw2 U R U R' F'",
+  "reason": "解析失败：Bad grip in move Parity"
+ },
+ {
+  "setId": "parity-4x4-pll",
+  "caseId": "parity-4x4-pll-34",
+  "alg": "Alg (2R2) U R' U2 R U2 R' F R U R' U' R' F' R2 2R2 U2 2R2 Uw2 2R2 Uw2 U R' U2 R U2 R' F R U R' U' R' F' R2",
+  "reason": "解析失败：Bad grip in move Alg"
+ },
+ {
+  "setId": "parity-4x4-pll",
+  "caseId": "parity-4x4-pll-37",
+  "alg": "Alg (2R2) R U R' F' R U2 R' U2 R' F R U R U2 R' 2R2 U2 2R2 Uw2 2R2 Uw2 R U R' F' R U2 R' U2 R' F R U R U2 R'",
+  "reason": "解析失败：Bad grip in move Alg"
+ },
+ {
+  "setId": "parity-4x4-pll",
+  "caseId": "parity-4x4-pll-43",
+  "alg": "R' U L' U2 R U' R' U2 R L U' Parity Alg (2R2) R' U L' U2 R U' R' U2 R L U' 2R2 U2 2R2 Uw2 2R2 Uw2",
+  "reason": "解析失败：Bad grip in move Parity"
+ },
+ {
+  "setId": "parity-4x4-pll",
+  "caseId": "parity-4x4-pll-45",
+  "alg": "R U R' F' R U R' U' R' F R2 U' R' Parity Alg (2R2) R U R' F' R U R' U' R' F R2 U' R' 2R2 U2 2R2 Uw2 2R2 Uw2",
+  "reason": "解析失败：Bad grip in move Parity"
+ },
+ {
+  "setId": "parity-4x4-pll",
+  "caseId": "parity-4x4-pll-49",
+  "alg": "Alg (2R2) x R2 D2 R U R' D2 R U' R x' 2R2 U2 2R2 Uw2 2R2 Uw2 x R2 D2 R U R' D2 R U' R x'",
+  "reason": "解析失败：Bad grip in move Alg"
+ },
+ {
+  "setId": "parity-4x4-pll",
+  "caseId": "parity-4x4-pll-53",
+  "alg": "Alg (2R2) U x R' U R' D2 R U' R' D2 R2 x' 2R2 U2 2R2 Uw2 2R2 Uw2 U x R' U R' D2 R U' R' D2 R2 x'",
+  "reason": "解析失败：Bad grip in move Alg"
+ },
+ {
+  "setId": "parity-4x4-pll",
+  "caseId": "parity-4x4-pll-56",
+  "alg": "R U R' U' R' F R2 U' R' U' R U R' F' Parity Alg (2R2) R U R' U' R' F R2 U' R' U' R U R' F' 2R2 U2 2R2 Uw2 2R2 Uw2",
+  "reason": "解析失败：Bad grip in move Parity"
+ },
+ {
+  "setId": "parity-4x4-pll",
+  "caseId": "parity-4x4-pll-58",
+  "alg": "R U R' F' R U R' U' R' F R2 U' R' U' Parity Alg (2R2) R U R' F' R U R' U' R' F R2 U' R' U' 2R2 U2 2R2 Uw2 2R2 Uw2",
+  "reason": "解析失败：Bad grip in move Parity"
+ },
+ {
+  "setId": "parity-4x4-pll",
+  "caseId": "parity-4x4-pll-60",
+  "alg": "y2 U2 R U R' F' R U R' U' R' F R2 U' R' U' Parity Alg (2R2) y2 U2 R U R' F' R U R' U' R' F R2 U' R' U' 2R2 U2 2R2 Uw2 2R2 Uw2",
+  "reason": "解析失败：Bad grip in move Parity"
+ },
+ {
+  "setId": "parity-4x4-pll",
+  "caseId": "parity-4x4-pll-62",
+  "alg": "Alg (2R2) R U R' F' R U R' U' R' F R2 U' R' 2R2 U2 2R2 Uw2 2R2 Uw2 R U R' F' R U R' U' R' F R2 U' R'",
+  "reason": "解析失败：Bad grip in move Alg"
+ },
+ {
+  "setId": "parity-4x4-pll",
+  "caseId": "parity-4x4-pll-66",
+  "alg": "F R U' R' U' R U R' F' U' Parity Alg (2R2) U' R U R' U' R' F R F' F R U' R' U' R U R' F' U' 2R2 U2 2R2 Uw2 2R2 Uw2 U' R U R' U' R' F R F'",
+  "reason": "解析失败：Bad grip in move Parity"
+ },
+ {
+  "setId": "parity-4x4-pll",
+  "caseId": "parity-4x4-pll-70",
+  "alg": "x' R U' R' D R U R' D' R U R' D R U' R' D' x U Parity Alg (2R2) x' R U' R' D R U R' D' R U R' D R U' R' D' x U 2R2 U2 2R2 Uw2 2R2 Uw2",
+  "reason": "解析失败：Bad grip in move Parity"
+ },
+ {
+  "setId": "parity-4x4-pll",
+  "caseId": "parity-4x4-pll-73",
+  "alg": "F R U' R' U' R U R' F' R U R' U' R' F R F' U' Parity Alg (2R2) F R U' R' U' R U R' F' R U R' U' R' F R F' U' 2R2 U2 2R2 Uw2 2R2 Uw2",
+  "reason": "解析失败：Bad grip in move Parity"
+ },
+ {
+  "setId": "parity-4x4-pll",
+  "caseId": "parity-4x4-pll-75",
+  "alg": "F R U' R' U' R U R' F' R U R' U' R' F R F' Parity Alg (2R2) F R U' R' U' R U R' F' R U R' U' R' F R F' 2R2 U2 2R2 Uw2 2R2 Uw2",
+  "reason": "解析失败：Bad grip in move Parity"
+ },
+ {
+  "setId": "parity-4x4-pll",
+  "caseId": "parity-4x4-pll-79",
+  "alg": "x' R U' R' D R U R' D' R U R' D R U' R' D' x Parity Alg (2R2) x' R U' R' D R U R' D' R U R' D R U' R' D' x 2R2 U2 2R2 Uw2 2R2 Uw2",
+  "reason": "解析失败：Bad grip in move Parity"
+ }
+]

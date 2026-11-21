@@ -1,10 +1,10 @@
 import { createApp } from 'vue';
 import { createPinia } from 'pinia';
-import App from './App.vue';
-import router from './router';
-import './styles/global.css';
-import { seedDatabase } from './db/seed';
-import { useSettingsStore } from './stores/settingsStore';
+import App from '@/App.vue';
+import router from '@/presentation/router';
+import '@/styles/global.css';
+import { seedDatabase } from '@/infrastructure/persistence/seed';
+import { useSettingsStore } from '@/presentation/stores/settingsStore';
 
 async function bootstrap() {
   const app = createApp(App);

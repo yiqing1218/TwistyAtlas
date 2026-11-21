@@ -1,0 +1,10 @@
+import { _electron as electron } from '@playwright/test';
+const app = await electron.launch({ args: ['.'], env: { ...process.env, NODE_ENV: 'production' } });
+const page = await app.firstWindow();
+await page.waitForLoadState('domcontentloaded');
+const title = await page.title();
+const hasCanvas = await page.evaluate(() => !!document.querySelector('twisty-player'));
+console.log(JSON.stringify({ title, hasCanvas, url: page.url() }, null, 2));
+await page.getByTestId('puzzle-canvas').waitFor({ timeout: 20000 }).catch(() => {});
+console.log('timer nav exists:', await page.locator('a[href="#/timer"]').count());
+await app.close();

@@ -7,8 +7,8 @@ import {
   parseFormulaLocal,
   prefixAlg,
   tokensFromText,
-} from '../engine/algService';
-import { isAlgIdentity, patternAtStep, patternSignature } from '../engine/cubingBridge';
+} from '@/infrastructure/cubing/algService';
+import { isAlgIdentity, patternAtStep, patternSignature } from '@/infrastructure/cubing/cubingBridge';
 
 describe('normalizeAlgText', () => {
   it('把常见 Unicode 弯撇规范化为英文直撇', () => {

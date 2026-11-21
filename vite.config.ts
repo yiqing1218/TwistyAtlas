@@ -1,4 +1,5 @@
 /// <reference types="vitest/config" />
+import { fileURLToPath, URL } from 'node:url';
 import { defineConfig } from 'vitest/config';
 import vue from '@vitejs/plugin-vue';
 import { VitePWA } from 'vite-plugin-pwa';
@@ -7,6 +8,12 @@ import { VitePWA } from 'vite-plugin-pwa';
 // 路由采用 hash 模式，因此不需要服务端 rewrite 兜底。
 export default defineConfig({
   base: './',
+  resolve: {
+    // 分层架构后统一用 @/ 引用，保证依赖方向一目了然
+    alias: {
+      '@': fileURLToPath(new URL('./src', import.meta.url)),
+    },
+  },
   plugins: [
     vue(),
     VitePWA({

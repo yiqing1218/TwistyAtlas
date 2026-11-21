@@ -1,0 +1,15 @@
+import { chromium } from '@playwright/test';
+const browser = await chromium.launch({ channel: 'chromium', args: ['--enable-unsafe-swiftshader','--use-gl=angle','--use-angle=swiftshader'] });
+const page = await browser.newPage({ viewport: { width: 1366, height: 900 } });
+const errors = [];
+page.on('pageerror', e => errors.push(e.message));
+page.on('console', m => { if (m.type() === 'error') errors.push(m.text()); });
+await page.goto('http://localhost:5178/#/sets', { waitUntil: 'load' });
+await page.waitForSelector('.case-item', { timeout: 30000 });
+await page.waitForTimeout(3500);
+await page.screenshot({ path: 'docs/screenshots/sets-1366x900.png' });
+console.log('pills:', await page.locator('.set-pill').count());
+console.log('first set cases:', await page.locator('.case-item').count());
+console.log('meta:', (await page.locator('.sets-header__meta').textContent())?.trim());
+console.log('errors:', errors.slice(0,3));
+await browser.close();
